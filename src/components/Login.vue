@@ -2,7 +2,7 @@
     <div class="container">
         <div class="auth-container">
             <h2>Login</h2>
-            <form class="auth-form-container" @submit.prevent="handleLogin">
+            <form class="auth-form-container" @submit.prevent="onSubmit">
                 <div>
                     <label for="username">Username:</label>
                     <input type="text" v-model="username" id="username" required />
@@ -34,24 +34,33 @@ export default {
     };
   },
   methods: {
-    async handleLogin() {
-      try {
-        const response = await axios.post(process.env.VUE_APP_ROOT_URL + "/login", {
-          username: this.username,
-          password: this.password
-        });
+    handleLogin(payload) {
+        const path = process.env.VUE_APP_ROOT_URL + "/user/login";
+        axios.post(path, payload)
+            .then((response) => {
+                console.log(response);
+                this.$router.push("/accounts");
+            })
+            .catch((error) => {
+                console.log(error);
+                this.errorMessage =  "Login failed. Check your credentials.";
+            });
 
         // Handle successful login
         if (response.data.success) {
-
           this.$router.push("/accounts");
         } else {
           // Display error message
           this.errorMessage = response.data.message || "Login failed.";
         }
-      } catch (error) {
-        this.errorMessage = "An error occurred. Please try again.";
-      }
+    },
+    onSubmit() {
+        const payload = {
+            username: this.username,
+            password: this.password
+        }
+
+        this.handleLogin(payload);
     }
   }
 };

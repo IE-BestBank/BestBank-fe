@@ -2,7 +2,8 @@
     <div class="container">
         <div class="auth-container">
             <h2>Register</h2>
-            <form class="auth-form-container" @submit.prevent="handleLogin">
+            <form class="auth-form-container" @submit="onSubmit">
+
                 <div>
                     <label for="username">Username:</label>
                     <input type="text" v-model="username" id="username" required />
@@ -16,7 +17,7 @@
                     <input type="password" v-model="password2" id="password2" required />
                 </div>
                 <div class="button-container">
-                    <button class="primary-btn" type="submit">Login</button>
+                    <button class="primary-btn" type="submit">Register</button>
                 </div>
             </form>
             <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
@@ -28,6 +29,7 @@
 
 
 <script>
+import axios from "axios";
 export default {
     data() {
         return {
@@ -38,24 +40,27 @@ export default {
         };
     },
     methods: {
-        async handleLogin() {
-        try {
-            const response = await axios.post(process.env.VUE_APP_ROOT_URL + "/register", {
+        createAccount(payload) {
+            console.log(process.env.VUE_APP_ROOT_URL);
+            const path = process.env.VUE_APP_ROOT_URL + "/user/register";
+            axios.post(path, payload)
+                .then((response) => {
+                    console.log(response);
+                    this.$router.push("/accounts");
+                })
+                .catch((error) => {
+                    console.log(error);
+                    this.errorMessage = response.error || "Registration failed.";
+                });
+        },
+        onSubmit(e) {
+            e.preventDefault();
+            const payload = {
                 username: this.username,
                 password: this.password,
                 password2: this.password2
-            });
-
-            // Handle successful login
-            if (response.data.success) {
-                this.$router.push("/accounts");
-            } else {
-                // Display error message
-                this.errorMessage = response.data.message || "Login failed.";
-            }
-        } catch (error) {
-            this.errorMessage = "An error occurred. Please try again.";
-        }
+            };
+            this.createAccount(payload);
         }
     }
 };
