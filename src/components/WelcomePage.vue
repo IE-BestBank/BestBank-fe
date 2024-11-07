@@ -6,6 +6,7 @@
             <router-link to="/accounts" class="link-button">Accounts</router-link>
             <router-link to="/skull" class="link-button">Skull</router-link>
             <router-link to="/login" class="link-button">Login</router-link>
+            <router-link to="/register" class="link-button">Register</router-link>
         </div>
     </div>
 </template>
@@ -26,13 +27,10 @@ export default {
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: 100vh;
+    height: 70vh;
 }
 h1 {
     font-size: 3rem;
-}
-p {
-    color: #7c7c7c;
 }
 
 .links {

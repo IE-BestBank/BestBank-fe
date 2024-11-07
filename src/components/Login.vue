@@ -1,8 +1,8 @@
 <template>
     <div class="container">
-        <div class="content">
+        <div class="auth-container">
             <h2>Login</h2>
-            <form class="form-container" @submit.prevent="handleLogin">
+            <form class="auth-form-container" @submit.prevent="handleLogin">
                 <div>
                     <label for="username">Username:</label>
                     <input type="text" v-model="username" id="username" required />
@@ -11,11 +11,12 @@
                     <label for="password">Password:</label>
                     <input type="password" v-model="password" id="password" required />
                 </div>
-                <div class="button-container">
-                    <button type="submit">Login</button>
+                <div class="">
+                    <button class="primary-btn" type="submit">Login</button>
                 </div>
             </form>
-        <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
+            <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
+            <router-link to="/register" class="link-button">If you do not have an account, register here.</router-link>
         </div>
   </div>
 </template>
@@ -62,7 +63,6 @@ export default {
 
 
 .container {
-    color: white;
     font-family: sans-serif;
     max-width: 100%;
     min-height: 70vh;
@@ -72,14 +72,6 @@ export default {
     justify-content: center;
 }
 
-.content {
-    width: 30rem;
-    padding: 2rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    background-color: #0097dc;
-}
 
 .container h1 {
     margin-bottom: 1rem;
@@ -87,37 +79,15 @@ export default {
     font-style: italic;
 }
 
-.form-container div {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0.5rem 0;
-}
-.form-container label {
-    margin-right: 1rem;
-}
-
 .button-container {
     width: 100%;
 }
 
-
-button {
-    margin-left: auto;
-    margin-top: 1rem;
-    padding: 0.5rem 1rem;
-    background-color: #00338d;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+.link-button {
+    margin-top: 2rem;
+    color: gray;
 }
 
-input {
-    padding: 0.5rem;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
+
 
 </style>

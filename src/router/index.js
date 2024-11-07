@@ -4,7 +4,7 @@ import Skull from '../components/Skull.vue'
 import AppAccounts from '../components/AppAccounts.vue'
 import WelcomePage from '../components/WelcomePage.vue'
 import Login from '../components/Login.vue'
-import Signup from '@/components/Signup.vue'
+import Register from '@/components/Register.vue'
 
 Vue.use(VueRouter)
 
@@ -30,9 +30,9 @@ const routes = [
     component: Login
   },
   {
-    path: '/signup',
-    name: 'Signup',
-    component: Signup
+    path: '/register',
+    name: 'Register',
+    component: Register
   }
 ]
 

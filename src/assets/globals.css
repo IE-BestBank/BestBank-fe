@@ -1,0 +1,95 @@
+
+
+
+
+:root {
+    --primary-color: #00338d;
+    --secondary-color: #6082B6;
+
+    --title-color: white;
+    --secondary-title-color: #001e51;
+    --text-color: #e6e6e6;
+    --secondary-text-color: #001a4843;
+}
+
+html, body {
+    background-color: var(--secondary-color);
+}
+
+h1, h2, h3, h4, p, input, button {
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+h1 {
+    color:var(--title-color);
+}
+h2 {
+    color: var(--text-color);
+}
+
+p {
+    color: var(--text-color);
+}
+
+
+a {
+    text-decoration: none;
+    color: var(--secondary-title-color);
+}
+a:hover {
+    color: var(--primary-color);
+}
+
+input {
+    padding: 0.5rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+
+.auth-container {
+    width: 30rem;
+    padding: 2rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: white;
+}
+
+.auth-container h1, h2, h3 {
+    color: var(--secondary-title-color);
+}
+
+
+.auth-form-container div {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0.5rem 0;
+}
+
+.auth-form-container label, p {
+    color: var(--secondary-title-color);
+    margin-right: 1rem;
+}
+
+
+.primary-btn {
+    margin-left: auto;
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    background-color: #00338d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+.error-message {
+    color: red;
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+}
