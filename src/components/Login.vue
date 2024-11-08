@@ -35,24 +35,15 @@ export default {
   },
   methods: {
     handleLogin(payload) {
-        const path = process.env.VUE_APP_ROOT_URL + "/user/login";
+        const path = process.env.VUE_APP_ROOT_URL + "/users/login";
         axios.post(path, payload)
             .then((response) => {
-                console.log(response);
-                this.$router.push("/accounts");
+                this.$router.push("/users/" + response.data.id);
             })
             .catch((error) => {
                 console.log(error);
                 this.errorMessage =  "Login failed. Check your credentials.";
             });
-
-        // Handle successful login
-        if (response.data.success) {
-          this.$router.push("/accounts");
-        } else {
-          // Display error message
-          this.errorMessage = response.data.message || "Login failed.";
-        }
     },
     onSubmit() {
         const payload = {

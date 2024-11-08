@@ -5,6 +5,9 @@ import AppAccounts from '../components/AppAccounts.vue'
 import WelcomePage from '../components/WelcomePage.vue'
 import Login from '../components/Login.vue'
 import Register from '@/components/Register.vue'
+import UserAccounts from '@/components/UserAccounts.vue'
+
+import { createWebHistory } from 'vue-router'
 
 Vue.use(VueRouter)
 
@@ -33,6 +36,11 @@ const routes = [
     path: '/register',
     name: 'Register',
     component: Register
+  },
+  {
+    path: '/users/:userId',
+    name: 'UserAccounts',
+    component: UserAccounts
   }
 ]
 

@@ -42,15 +42,15 @@ export default {
     methods: {
         createAccount(payload) {
             console.log(process.env.VUE_APP_ROOT_URL);
-            const path = process.env.VUE_APP_ROOT_URL + "/user/register";
+            const path = process.env.VUE_APP_ROOT_URL + "/users/register";
             axios.post(path, payload)
                 .then((response) => {
                     console.log(response);
-                    this.$router.push("/accounts");
+                    this.$router.push("/users/" + response.data.id);
                 })
                 .catch((error) => {
                     console.log(error);
-                    this.errorMessage = response.error || "Registration failed.";
+                    this.errorMessage = "Registration failed.";
                 });
         },
         onSubmit(e) {
