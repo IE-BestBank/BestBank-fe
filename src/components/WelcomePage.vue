@@ -1,6 +1,6 @@
 <template>
     <div class="welcome-container">
-        <h1>Welcome to IE Bank Corp!</h1>
+        <h1>Welcome to BestBank!</h1>
         <p>Your favorite bank account management system.</p>
         <div class="links">
             <router-link to="/accounts" class="link-button">Accounts</router-link>

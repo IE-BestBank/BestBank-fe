@@ -19,9 +19,14 @@
                 <div class="button-container">
                     <button class="primary-btn" type="submit">Register</button>
                 </div>
+                //Add a checkbox to indicate if the account is an admin account
+                <div>
+                    <label for="IsAdmin">Is this an Admin Account:</label>
+                    <input type="checkbox" id="IsAdmin" name="IsAdmin" value="yes">
+                </div>
             </form>
             <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
-            <router-link to="/login" class="link-button">If you already have an account, login here.</router-link>
+            
         </div>
   </div>
 </template>
@@ -30,12 +35,14 @@
 
 <script>
 import axios from "axios";
+import { is } from "core-js/core/object";
 export default {
     data() {
         return {
             username: "",
             password: "",
             password2: "",
+            isAdmin: false,
             errorMessage: ""
         };
     },
@@ -58,7 +65,9 @@ export default {
             const payload = {
                 username: this.username,
                 password: this.password,
-                password2: this.password2
+                password2: this.password2,
+    
+                isAdmin: this.isAdmin
             };
             this.createAccount(payload);
         }

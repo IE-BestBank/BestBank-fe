@@ -1,3 +1,4 @@
+
 <template>
     <div class="container">
         <div class="auth-container">
@@ -16,7 +17,7 @@
                 </div>
             </form>
             <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
-            <router-link to="/register" class="link-button">If you do not have an account, register here.</router-link>
+            
         </div>
   </div>
 </template>
@@ -33,12 +34,21 @@ export default {
       errorMessage: ""
     };
   },
+  
+  //Handle the login request
   methods: {
     handleLogin(payload) {
         const path = process.env.VUE_APP_ROOT_URL + "/users/login";
         axios.post(path, payload)
             .then((response) => {
-                this.$router.push("/users/" + response.data.id);
+                //If the user is an admin, redirect to the admin page
+                if (response.data.Admin) {
+                    this.$router.push("/admins/" + response.data.id);
+                }
+                else {
+                    this.$router.push("/users/" + response.data.id);
+                }
+                
             })
             .catch((error) => {
                 console.log(error);
