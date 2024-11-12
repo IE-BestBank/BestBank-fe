@@ -8,8 +8,6 @@ import Register from '@/components/Register.vue'
 import UserAccounts from '@/components/UserAccounts.vue'
 import AdminAccounts from '@/components/AdminAccounts.vue'
 
-import { createWebHistory } from 'vue-router'
-
 Vue.use(VueRouter)
 
 const routes = [
@@ -43,9 +41,10 @@ const routes = [
     name: 'UserAccounts',
     component: UserAccounts
   },
-  {path: '/admin/:adminId',
-  name: 'AdminAccounts',
-  component: UserAccounts
+  {
+    path: '/admin/:adminId',
+    name: 'AdminAccounts',
+    component: AdminAccounts
   }
 ]
 
