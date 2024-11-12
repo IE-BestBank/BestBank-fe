@@ -10,8 +10,8 @@ on:
   workflow_dispatch:
 
 env:
-  FRONTEND_WEBAPP_DEV: akhreiche-be-dev
-  FRONTEND_WEBAPP_UAT: akhreiche-be-uat
+  FRONTEND_WEBAPP_DEV: bestbank-fe-dev
+  FRONTEND_WEBAPP_UAT: bestbank-fe-uat
 
 jobs:
   build:
