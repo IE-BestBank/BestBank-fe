@@ -10,8 +10,8 @@ on:
   workflow_dispatch:
 
 env:
-  FRONTEND_WEBAPP_DEV: akhreiche-be-dev.azurewebsites.net
-  FRONTEND_WEBAPP_UAT: akhreiche-be-uat.azurewebsites.net
+  FRONTEND_WEBAPP_DEV: akhreiche-be-dev
+  FRONTEND_WEBAPP_UAT: akhreiche-be-uat
 
 jobs:
   build:
