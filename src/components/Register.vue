@@ -35,7 +35,7 @@
 
 <script>
 import axios from "axios";
-import { is } from "core-js/core/object";
+import { is } from "core-js/features/object";
 export default {
     data() {
         return {
@@ -66,7 +66,6 @@ export default {
                 username: this.username,
                 password: this.password,
                 password2: this.password2,
-    
                 isAdmin: this.isAdmin
             };
             this.createAccount(payload);

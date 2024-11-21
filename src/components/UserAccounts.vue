@@ -12,13 +12,37 @@
             }}</b-alert>
             <!-- b-alert v-if="error" variant="danger" show>{{ error }}</b-alert-->
 
-            <button
-              type="button"
-              class="btn btn-success btn-sm"
-              v-b-modal.account-modal
-            >
-              Create Account
-            </button>
+            <div class="button-container">
+              <div class="row">
+                <div class="col-md-4">
+                  <button
+                    type="button"
+                    class="btn btn-success btn-sm custom-button"
+                    v-b-modal.create-account-modal
+                  >
+                    Create Account
+                  </button>
+                </div>
+                <div class="col-md-4">
+                  <button
+                    type="button"
+                    class="btn btn-success btn-sm custom-button"
+                    v-b-modal.deposit-modal
+                  >
+                    Deposit
+                  </button>
+                </div>
+                <div class="col-md-4">
+                  <button
+                    type="button"
+                    class="btn btn-success btn-sm custom-button"
+                    v-b-modal.transfer-modal
+                  >
+                    Transfer
+                  </button>
+                </div>
+              </div>
+            </div>
             <br /><br />
             <table class="table table-hover">
               <thead>
@@ -49,6 +73,7 @@
                       account.status
                     }}</span>
                   </td>
+                  
                   <td>
                     <div class="btn-group" role="group">
                       <button
@@ -66,11 +91,17 @@
                       >
                         Delete
                       </button>
+                      <!-- Transfer button -->
+                    
+                      </button>
                     </div>
+                    
                   </td>
                 </tr>
               </tbody>
             </table>
+
+            
             <footer class="text-center">
               Copyright &copy; All Rights Reserved.
             </footer>
@@ -131,6 +162,7 @@
           </b-form>
         </b-modal>
         <!-- End of Modal for Create Account-->
+
         <!-- Start of Modal for Edit Account-->
         <b-modal
           ref="editAccountModal"
@@ -157,6 +189,38 @@
             <b-button type="submit" variant="outline-info">Update</b-button>
           </b-form>
         </b-modal>
+        <!-- Deposit Modal -->
+        <b-modal id="deposit-modal" ref="deposit-modal" title="Deposit" hide-footer>
+      <form @submit.prevent="make_deposit">
+        <div class="form-group">
+          <label for="account_number">Account Number</label>
+          <input type="text" class="form-control" id="account_number" v-model="account_number" required>
+        </div>
+        <div class="form-group">
+          <label for="deposit-amount">Amount</label>
+          <input type="number" class="form-control" id="deposit-amount" v-model="amount" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Deposit</button>
+      </form>
+    </b-modal>
+    <!-- End of deposit modal-->
+    <!-- Transfer Modal -->
+     
+    
+    <b-modal id="transfer-modal" title="Transfer Amount" hide-footer>
+      <form @submit.prevent="transfer">
+        <div class="form-group">
+          <label for="toAccount">To Account Number</label>
+          <input type="text" class="form-control" id="toAccount" v-model="toAccount" required>
+        </div>
+        <div class="form-group">
+          <label for="transfer-amount">Amount</label>
+          <input type="number" class="form-control" id="transfer-amount" v-model="amount" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Transfer</button>
+      </form>
+    </b-modal>
+     <!-- End of Transfer modal-->
       </div>
     </div>
   </template>
@@ -178,9 +242,17 @@
           id: "",
           name: "",
         },
+        depositForm: {
+          account_number: "",
+          amount: 0,
+        },
         showMessage: false,
         message: "",
+        toAccount: '',
+        transferAmount: '',
+        error: ''
       };
+
     },
     methods: {
       /***************************************************
@@ -317,6 +389,44 @@
       deleteAccount(account) {
         this.RESTdeleteAccount(account.id);
       },
+
+      // Deposit
+      make_deposit() {
+        const path = `${process.env.VUE_APP_ROOT_URL}/deposit`;
+      const payload = {
+    account_number: this.depositForm.account_number,
+    amount: this.depositForm.amount,
+  };
+  axios.post(path, payload)
+    .then((response) => {
+      console.log("Deposit success, now closing modal and updating view");
+      this.RESTgetAccounts(); // Refresh the account list to reflect new balance
+      this.message = "Deposit made successfully!";
+      this.showMessage = true;
+
+      // Close the modal after deposit is made
+      this.$refs['deposit-modal'].hide(); // Close the modal using $refs or $bvModal.hide()
+
+      // Reset form values
+      this.depositForm.account_number = '';
+      this.depositForm.amount = 0;
+
+      setTimeout(() => {
+        this.showMessage = false;
+      }, 3000);
+    })
+    .catch((error) => {
+      console.error("Deposit failed: ", error);
+      this.message = "An error occurred during deposit!";
+      this.showMessage = true;
+
+      setTimeout(() => {
+        this.showMessage = false;
+      }, 3000);
+    });
+},
+
+
     },
 
     /***************************************************
@@ -327,3 +437,18 @@
     },
   };
   </script>
+<style scoped>
+#deposit-transfer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200px;
+  height: 50px;
+  background-color: lightblue;
+}
+.custom-button {
+  margin-right: 10px; /* Adjust the spacing as needed */
+  margin-bottom: 10px; /* Add bottom margin if buttons are stacked vertically */
+}
+</style>
