@@ -93,7 +93,6 @@
                       </button>
                       <!-- Transfer button -->
                     
-                      </button>
                     </div>
                     
                   </td>
@@ -191,17 +190,32 @@
         </b-modal>
         <!-- Deposit Modal -->
         <b-modal id="deposit-modal" ref="deposit-modal" title="Deposit" hide-footer>
-      <form @submit.prevent="make_deposit">
+      <b-form @submit.prevent="make_deposit">
         <div class="form-group">
           <label for="account_number">Account Number</label>
-          <input type="text" class="form-control" id="account_number" v-model="account_number" required>
+          <input type="text" class="form-control" id="account_number" v-model="depositForm.account_number" required>
+          <b-form-input
+                id="form-edit-name-input"
+                type="text"
+                v-model="depositForm.account_number"
+                placeholder="Account Number"
+                required
+              >
+        </b-form-input>
         </div>
         <div class="form-group">
           <label for="deposit-amount">Amount</label>
-          <input type="number" class="form-control" id="deposit-amount" v-model="amount" required>
+          <input type="number" class="form-control" id="deposit-amount" v-model="depositForm.amount" required>
+          <b-form-input
+                id="deposit-amount"
+                type="number"
+                v-model="depositForm.amount"
+                placeholder="Amount"
+                required  
+                ></b-form-input>
         </div>
         <button type="submit" class="btn btn-primary">Deposit</button>
-      </form>
+      </b-form>
     </b-modal>
     <!-- End of deposit modal-->
     <!-- Transfer Modal -->
@@ -394,9 +408,10 @@
       make_deposit() {
         const path = `${process.env.VUE_APP_ROOT_URL}/deposit`;
       const payload = {
-    account_number: this.depositForm.account_number,
-    amount: this.depositForm.amount,
+        account_number: this.depositForm.account_number,
+        amount: this.depositForm.amount,
   };
+    console.log('payload', payload);
   axios.post(path, payload)
     .then((response) => {
       console.log("Deposit success, now closing modal and updating view");
