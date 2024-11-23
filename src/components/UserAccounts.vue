@@ -19,6 +19,20 @@
             >
               Create Account
             </button>
+            <button
+            type="button"
+            class="btn btn-info btn-sm"
+            v-b-modal.deposit-modal
+            >
+                Deposit
+            </button>
+            <button
+            type="button"
+            class="btn btn-info btn-sm"
+            v-b-modal.transfer-modal
+            >
+                Transfer Money
+            </button>
             <br /><br />
             <table class="table table-hover">
               <thead>
@@ -70,6 +84,26 @@
                   </td>
                 </tr>
               </tbody>
+            </table>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Transaction ID</th>
+                        <th scope="col">Sender Account</th>
+                        <th scope="col">Receiver Account</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="transaction in transactions" :key="transaction.id">
+                        <td>{{ transaction.id }}</td>
+                        <td>{{ transaction.sender_account_number }}</td>
+                        <td>{{ transaction.receiver_account_number }}</td>
+                        <td>{{ transaction.amount }}</td>
+                        <td>{{ transaction.date }}</td>
+                    </tr>
+                </tbody>
             </table>
             <footer class="text-center">
               Copyright &copy; All Rights Reserved.
@@ -157,6 +191,103 @@
             <b-button type="submit" variant="outline-info">Update</b-button>
           </b-form>
         </b-modal>
+        <!-- End of Modal for Edit Account-->
+         <!-- Start of Modal for Deposit-->
+        <b-modal
+        ref="depositModal"
+        id="deposit-modal"
+        title="Deposit to the account"
+        hide-backdrop
+        hide-footer
+        >
+        <b-form @submit="onSubmitDeposit" class="w-100">
+            <b-form-group
+              id="form-deposit-account-number"
+              label="Account Number:"
+              label-for="form-deposit-account-number-input"
+            >
+              <b-form-input
+                id="form-deposit-account-number-input"
+                type="text"
+                v-model="depositForm.account_number"
+                placeholder="Account Number"
+                required
+              >
+              </b-form-input>
+            </b-form-group>
+            <b-form-group
+              id="form-deposit-amount"
+              label="Amount:"
+              label-for="form-deposit-amount-input"
+            >
+              <b-form-input
+                id="form-deposit-amount-input"
+                type="number"
+                v-model="depositForm.amount"
+                placeholder="Amount"
+                required
+              >
+              </b-form-input>
+            </b-form-group>
+            <b-button type="submit" variant="outline-info">Make deposit</b-button>
+          </b-form>
+        </b-modal>
+        <!-- End of Modal for Deposit-->
+        <!-- Start of Modal for Transfer-->
+        <b-modal
+        ref="transferModal"
+        id="transfer-modal"
+        title="Transfer money"
+        hide-backdrop
+        hide-footer
+        >
+        <b-form @submit="onSubmitTransfer" class="w-100">
+            <b-form-group
+              id="form-transfer-sender-account-number"
+              label="Account Number (sender):"
+              label-for="form-transfer-sender-account-number-input"
+            >
+              <b-form-input
+                id="form-transfer-sender-account-number-input"
+                type="text"
+                v-model="transferForm.sender_account_number"
+                placeholder="Account Number"
+                required
+              >
+              </b-form-input>
+            </b-form-group>
+            <b-form-group
+              id="form-transfer-receiver-account-number"
+              label="Account Number (receiver):"
+              label-for="form-transfer-receiver-account-number-input"
+            >
+              <b-form-input
+                id="form-transfer-receiver-account-number-input"
+                type="text"
+                v-model="transferForm.receiver_account_number"
+                placeholder="Account Number"
+                required
+              >
+              </b-form-input>
+            </b-form-group>
+            <b-form-group
+              id="form-transfer-amount"
+              label="Amount:"
+              label-for="form-transfer-amount-input"
+            >
+              <b-form-input
+                id="form-transfer-amount-input"
+                type="number"
+                v-model="transferForm.amount"
+                placeholder="Amount"
+                required
+              >
+              </b-form-input>
+            </b-form-group>
+            <b-button type="submit" variant="outline-info">Transfer money</b-button>
+          </b-form>
+        </b-modal>
+        <!-- End of Modal for Transfer-->
       </div>
     </div>
   </template>
@@ -169,14 +300,24 @@
       return {
         user_id: this.$route.params.userId,
         accounts: [],
+        transactions: [],
         createAccountForm: {
           name: "",
           country: "",
           currency: "",
         },
         editAccountForm: {
-          id: "",
+          account_number: "",
           name: "",
+        },
+        depositForm: {
+          account_number: "",
+          amount: 0,
+        },
+        transferForm: {
+          sender_account_number: "",
+          receiver_account_number: "",
+          amount: 0,
         },
         showMessage: false,
         message: "",
@@ -202,6 +343,31 @@
                 });
       },
 
+      RESTgetTransactions() {
+        const path = `${process.env.VUE_APP_ROOT_URL}/transactions/${this.user_id}`;
+        axios
+          .get(path)
+          .then((response) => {
+            console.log('response', response.data);
+
+            const transactions = response.data.transactions.map((transaction) => {
+              return {
+                id: transaction.id,
+                sender_account_number: transaction.sender_account.account_number,
+                receiver_account_number: transaction.receiver_account.account_number,
+                amount: transaction.amount,
+                date: transaction.timestamp,
+              };
+            });
+
+            console.log('transactions', transactions);
+            this.transactions = transactions;
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      },
+
       // POST function
       RESTcreateAccount(payload) {
         const path = `${process.env.VUE_APP_ROOT_URL}/accounts`;
@@ -209,6 +375,7 @@
           .post(path, payload)
           .then((response) => {
             this.RESTgetAccounts();
+            this.RESTgetTransactions();
             // For message alert
             this.message = "Account Created succesfully!";
             // To actually show the message
@@ -221,6 +388,7 @@
           .catch((error) => {
             console.error(error);
             this.RESTgetAccounts();
+            this.RESTgetTransactions();
           });
       },
 
@@ -231,6 +399,7 @@
           .put(path, payload)
           .then((response) => {
             this.RESTgetAccounts();
+            this.RESTgetTransactions();
             // For message alert
             this.message = "Account Updated succesfully!";
             // To actually show the message
@@ -243,6 +412,7 @@
           .catch((error) => {
             console.error(error);
             this.RESTgetAccounts();
+            this.RESTgetTransactions();
           });
       },
 
@@ -265,8 +435,57 @@
           .catch((error) => {
             console.error(error);
             this.RESTgetAccounts();
+            this.RESTgetTransactions();
           });
       },
+
+        // Deposit function
+        RESTdeposit(payload) {
+            const path = `${process.env.VUE_APP_ROOT_URL}/deposit`;
+            axios
+            .post(path, payload)
+            .then(response => {
+                this.RESTgetAccounts();
+                this.RESTgetTransactions();
+                // For message alert
+                this.message = "Deposit made succesfully!";
+                // To actually show the message
+                this.showMessage = true;
+                // To hide the message after 3 seconds
+                setTimeout(() => {
+                this.showMessage = false;
+                }, 3000);
+            })
+            .catch(error => {
+                console.error(error);
+                this.RESTgetAccounts();
+                this.RESTgetTransactions();
+            });
+        },
+
+        // Transfer function
+        RESTtransfer(payload) {
+            const path = `${process.env.VUE_APP_ROOT_URL}/transactions`;
+            axios
+            .post(path, payload)
+            .then(response => {
+                this.RESTgetAccounts();
+                this.RESTgetTransactions();
+                // For message alert
+                this.message = "Transfer made succesfully!";
+                // To actually show the message
+                this.showMessage = true;
+                // To hide the message after 3 seconds
+                setTimeout(() => {
+                this.showMessage = false;
+                }, 3000);
+            })
+            .catch(error => {
+                console.error(error);
+                this.RESTgetAccounts();
+                this.RESTgetTransactions();
+            });
+        },
 
       /***************************************************
        * FORM MANAGEMENT
@@ -280,6 +499,13 @@
 
         this.editAccountForm.id = "";
         this.editAccountForm.name = "";
+
+        this.depositForm.account_number = "";
+        this.depositForm.amount = 0;
+
+        this.transferForm.sender_account_number = "";
+        this.transferForm.receiver_account_number = "";
+        this.transferForm.amount = 0;
       },
 
       // Handle submit event for create account
@@ -308,6 +534,32 @@
         this.initForm();
       },
 
+        // Handle submit event for deposit
+        onSubmitDeposit(e) {
+            e.preventDefault(); //prevent default form submit form the browser
+            this.$refs.depositModal.hide(); //hide the modal when submitted
+            const payload = {
+                account_number: this.depositForm.account_number,
+                amount: Number(this.depositForm.amount),
+            };
+            this.RESTdeposit(payload);
+            this.initForm();
+        },
+
+        // Handle submit event for transfer
+        onSubmitTransfer(e) {
+            e.preventDefault(); //prevent default form submit form the browser
+            this.$refs.transferModal.hide(); //hide the modal when submitted
+            const payload = {
+                sender_account_number: this.transferForm.sender_account_number,
+                receiver_account_number: this.transferForm.receiver_account_number,
+                amount: Number(this.transferForm.amount),
+            };
+            console.log('submit payload', payload);
+            this.RESTtransfer(payload);
+            this.initForm();
+        },
+
       // Handle edit button
       editAccount(account) {
         this.editAccountForm = account;
@@ -324,6 +576,7 @@
      ***************************************************/
     created() {
       this.RESTgetAccounts();
+      this.RESTgetTransactions();
     },
   };
   </script>
