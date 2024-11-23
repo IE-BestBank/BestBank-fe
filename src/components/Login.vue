@@ -39,6 +39,7 @@ export default {
   methods: {
     handleLogin(payload) {
         const path = process.env.VUE_APP_ROOT_URL + "/users/login";
+
         axios.post(path, payload)
             .then((response) => {
                 //If the user is an admin, redirect to the admin page
