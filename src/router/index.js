@@ -21,11 +21,11 @@ const routes = [
     name: 'Skull',
     component: Skull
   },
-  {
-    path: '/accounts',
-    name: 'AppAccounts',
-    component: AppAccounts
-  },
+//   {
+//     path: '/accounts',
+//     name: 'AppAccounts',
+//     component: AppAccounts
+//   },
   {
     path: '/login',
     name: 'Login',

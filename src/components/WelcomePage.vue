@@ -3,7 +3,7 @@
         <h1>Welcome to BestBank!</h1>
         <p>Your favorite bank account management system.</p>
         <div class="links">
-            <router-link to="/accounts" class="link-button">Accounts</router-link>
+            <!-- <router-link to="/accounts" class="link-button">Accounts</router-link> -->
             <router-link to="/skull" class="link-button">Skull</router-link>
             <router-link to="/login" class="link-button">Login</router-link>
             <router-link to="/register" class="link-button">Register</router-link>
