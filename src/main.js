@@ -1,10 +1,9 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
-//install bootstrap first
 import 'bootstrap/dist/css/bootstrap.css'
 import BootstrapVue from "bootstrap-vue";
-
+import './assets/globals.css' // global styles
 
 Vue.config.productionTip = false
 

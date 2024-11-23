@@ -6,6 +6,10 @@ on:
     branches: [ "main" ]
   workflow_dispatch:
 
+env:
+  FRONTEND_WEBAPP_DEV: bestbank-fe-dev
+  FRONTEND_WEBAPP_UAT: bestbank-fe-uat
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -27,6 +31,7 @@ jobs:
       - name: npm install, build, and test (UAT)
         run: |
           npm install
+
           npm run build -- --mode uat --dest dist-uat
 
       - name: Upload artifact for Development
@@ -56,6 +61,7 @@ jobs:
       - uses: azure/login@v2
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
+
 
       - name: Fetch SWA token from Key Vault (Development)
         id: fetch-swaDev-token
@@ -91,6 +97,7 @@ jobs:
       - uses: azure/login@v2
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
+
 
       - name: Fetch SWA token from Key Vault (UAT)
         id: fetch-swaUat-token

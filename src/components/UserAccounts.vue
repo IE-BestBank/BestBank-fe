@@ -27,9 +27,9 @@
                   <th scope="col">Account Number</th>
                   <th scope="col">Account Balance</th>
                   <th scope="col">Account Currency</th>
+                  <th scope="col">Country</th>
                   <th scope="col">Account Status</th>
                   <th scope="col">Actions</th>
-                  <th scope="col">Country</th>
                 </tr>
               </thead>
               <tbody>
@@ -157,7 +157,6 @@
             <b-button type="submit" variant="outline-info">Update</b-button>
           </b-form>
         </b-modal>
-        <!-- End of Modal for Edit Account-->
       </div>
     </div>
   </template>
@@ -165,9 +164,10 @@
   <script>
   import axios from "axios";
   export default {
-    name: "AppAccounts",
+    name: "UserAccounts",
     data() {
       return {
+        user_id: this.$route.params.userId,
         accounts: [],
         createAccountForm: {
           name: "",
@@ -188,17 +188,18 @@
        ***************************************************/
 
       //GET function
-      RESTgetAccounts() {
-          console.log(process.env.VUE_APP_ROOT_URL);
-        const path = `${process.env.VUE_APP_ROOT_URL}/accounts`;
-        axios
-          .get(path)
-          .then((response) => {
-            this.accounts = response.data.accounts;
-          })
-          .catch((error) => {
-            console.error(error);
-          });
+        RESTgetAccounts() {
+            console.log(process.env.VUE_APP_ROOT_URL);
+            console.log('user id', this.user_id);
+            const path = `${process.env.VUE_APP_ROOT_URL}/users/${this.user_id}`;
+            axios.get(path)
+                .then((response) => {
+                    console.log(response.data)
+                    this.accounts = response.data.accounts;
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
       },
 
       // POST function
@@ -276,6 +277,7 @@
         this.createAccountForm.name = "";
         this.createAccountForm.country = "";
         this.createAccountForm.currency = "";
+
         this.editAccountForm.id = "";
         this.editAccountForm.name = "";
       },
@@ -288,7 +290,9 @@
           name: this.createAccountForm.name,
           country: this.createAccountForm.country,
           currency: this.createAccountForm.currency,
+          user_id: this.user_id,
         };
+        console.log('submit payload', payload);
         this.RESTcreateAccount(payload);
         this.initForm();
       },
