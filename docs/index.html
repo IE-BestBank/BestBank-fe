@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mermaid Diagram</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+    <h1>Mermaid Diagram Example</h1>
+    <div class="mermaid">
+graph TD
+    A[Start] --> B[Step 1]
+    B --> C{Decision}
+    C -->|Yes| D[Step 2A]
+    C -->|No| E[Step 2B]
+    D --> F[End]
+    E --> F[End]
+    </div>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+</body>
+</html>
