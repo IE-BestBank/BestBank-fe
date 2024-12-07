@@ -6,11 +6,10 @@ on:
     branches: [ "main" ]
   workflow_dispatch:
 
-# env:
-#   FRONTEND_WEBAPP_DEV: bestbank-fe-dev
-#   FRONTEND_WEBAPP_UAT: bestbank-fe-uat
-#   FRONTEND_WEBAPP_PROD: bestbank-fe-prod
-
+env:
+    BESTBANK_KV_DEV: BestBank-KV-dev
+    BESTBANK_KV_UAT: BestBank-KV-uat
+    BESTBANK_KV_PROD: BestBank-KV-prod
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -50,8 +49,8 @@ jobs:
       - name: Upload artifact for Production
         uses: actions/upload-artifact@v4
         with:
-          name: node-app-prod
-          path: dist-prod/
+            name: node-app-prod
+            path: dist-prod/
 
   deploy-dev:
     runs-on: ubuntu-latest
@@ -73,7 +72,7 @@ jobs:
       - name: Fetch SWA token from Key Vault (Development)
         id: fetch-swaDev-token
         run: |
-          DEV_SWA_TOKEN=$(az keyvault secret show --vault-name BestBank-KV-dev --name SWAtoken --query value -o tsv) \
+          DEV_SWA_TOKEN=$(az keyvault secret show --vault-name ${{ env.BESTBANK_KV_DEV }} --name SWAtoken --query value -o tsv) \
           && echo "DEV_SWA_TOKEN=${DEV_SWA_TOKEN}" >> $GITHUB_ENV
 
       - name: List files in the workspace (Development)
@@ -142,8 +141,8 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
 
-      - name: Fetch SWA token from Key Vault (Production)
-        id: fetch-swaProd-token
+      - name: Fetch SWA token from Key Vault (Prod)
+        id: fetch-swaUat-token
         run: |
           PROD_SWA_TOKEN=$(az keyvault secret show --vault-name BestBank-KV-prod --name SWAtoken --query value -o tsv) \
           && echo "PROD_SWA_TOKEN=${PROD_SWA_TOKEN}" >> $GITHUB_ENV
