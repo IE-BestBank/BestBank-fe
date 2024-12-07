@@ -128,7 +128,7 @@ jobs:
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
-          name: node-app-prod
+          name: node-app-production
 
       - uses: azure/login@v2
         with:
