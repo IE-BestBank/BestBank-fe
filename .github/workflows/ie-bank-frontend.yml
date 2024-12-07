@@ -34,6 +34,11 @@ jobs:
 
           npm run build -- --mode uat --dest dist-uat
 
+      - name: npm install, build, and test (Production)
+        run: |
+            npm install
+            npm run build -- --mode production --dest dist-prod
+
       - name: Upload artifact for Development
         uses: actions/upload-artifact@v4
         with:
@@ -142,7 +147,7 @@ jobs:
 
 
       - name: Fetch SWA token from Key Vault (Prod)
-        id: fetch-swaUat-token
+        id: fetch-swaProd-token
         run: |
           PROD_SWA_TOKEN=$(az keyvault secret show --vault-name BestBank-KV-prod --name SWAtoken --query value -o tsv) \
           && echo "PROD_SWA_TOKEN=${PROD_SWA_TOKEN}" >> $GITHUB_ENV
