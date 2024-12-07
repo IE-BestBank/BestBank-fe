@@ -45,8 +45,8 @@ jobs:
       - name: Upload artifact for Development
         uses: actions/upload-artifact@v4
         with:
-          name: node-app-prod
-          path: dist-prod/
+          name: node-app-dev
+          path: dist-dev/
 
       - name: Upload artifact for UAT
         uses: actions/upload-artifact@v4
