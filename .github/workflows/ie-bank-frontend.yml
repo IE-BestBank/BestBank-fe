@@ -9,6 +9,8 @@ on:
 env:
   FRONTEND_WEBAPP_DEV: bestbank-fe-dev
   FRONTEND_WEBAPP_UAT: bestbank-fe-uat
+  FRONTEND_WEBAPP_PROD: bestbank-fe-prod
+  
 
 jobs:
   build:
