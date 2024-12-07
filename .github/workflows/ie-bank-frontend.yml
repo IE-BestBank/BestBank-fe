@@ -45,6 +45,12 @@ jobs:
         with:
           name: node-app-uat
           path: dist-uat/
+          
+      - name: Upload artifact for prod
+        uses: actions/upload-artifact@v4
+        with:
+          name: node-app-prod
+          path: dist-prod/
 
   deploy-dev:
     runs-on: ubuntu-latest
@@ -128,7 +134,7 @@ jobs:
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
-          name: node-app-production
+          name: node-app-prod
 
       - uses: azure/login@v2
         with:
