@@ -9,6 +9,8 @@ on:
 env:
   FRONTEND_WEBAPP_DEV: bestbank-fe-dev
   FRONTEND_WEBAPP_UAT: bestbank-fe-uat
+  FRONTEND_WEBAPP_PROD: bestbank-fe-prod
+  
 
 jobs:
   build:
@@ -34,17 +36,29 @@ jobs:
 
           npm run build -- --mode uat --dest dist-uat
 
+      - name: npm install, build, and test (Production)
+        run: |
+          npm install
+
+          npm run build -- --mode prod --dest dist-prod
+
       - name: Upload artifact for Development
         uses: actions/upload-artifact@v4
         with:
-          name: node-app-dev
-          path: dist-dev/
+          name: node-app-prod
+          path: dist-prod/
 
       - name: Upload artifact for UAT
         uses: actions/upload-artifact@v4
         with:
           name: node-app-uat
           path: dist-uat/
+          
+      - name: Upload artifact for prod
+        uses: actions/upload-artifact@v4
+        with:
+          name: node-app-prod
+          path: dist-prod/
 
   deploy-dev:
     runs-on: ubuntu-latest
