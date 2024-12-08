@@ -187,7 +187,7 @@
                 <hr>
                 <h3>GitHub Secret Scanning</h3>
                 <div class="img-container">
-                    <img src="../images/SecScan.jpeg" alt="Development Infrastructure">
+                    <img src="./images/SecScan.jpeg" alt="Development Infrastructure">
                 </div>
                 <p>
                     Implemented to detect any accidental exposure of secrets in our repositories. This is vital, 
@@ -202,7 +202,7 @@
                 <hr>
                 <h3>Push Protection</h3>
                 <div class="img-container">
-                    <img src="../images/PushProte.jpeg" alt="Development Infrastructure">
+                    <img src="./images/PushProte.jpeg" alt="Development Infrastructure">
                 </div>
                 <p>
                     GitHub secret scanning was enhanced with push protection, which blocks pushes containing secrets. 
@@ -213,7 +213,7 @@
                 <hr>
                 <h3>CodeQL Implementation</h3>
                 <div class="img-container">
-                    <img src="../images/CodeQL.jpeg" alt="Development Infrastructure">
+                    <img src="./images/CodeQL.jpeg" alt="Development Infrastructure">
                 </div>
                 <p>
                     CodeQL was implemented in our frontend and backend repositories to detect unpatched code 
@@ -228,7 +228,7 @@
                 <hr>
                 <h3>OSSF Scorecard</h3>
                 <div class="img-container">
-                    <img src="../images/ScoreCard.jpeg" alt="Development Infrastructure">
+                    <img src="./images/ScoreCard.jpeg" alt="Development Infrastructure">
                 </div>
                 <p>
                     The OSSF Scorecard focuses on repository-level security, including dependency management, code 
@@ -243,7 +243,7 @@
                 <hr>
                 <h3>Dependabot</h3>
                 <div class="img-container">
-                    <img src="../images/Dependabot.jpeg" alt="Development Infrastructure">
+                    <img src="./images/Dependabot.jpeg" alt="Development Infrastructure">
                 </div>
                 <p>
                     Dependabot automatically detects and provides upgrades for dependencies used across our repositories. 
@@ -254,7 +254,7 @@
                 <hr>
                 <h3>Dependency Reviews</h3>
                 <div class="img-container">
-                    <img src="../images/DependReview.jpeg" alt="Development Infrastructure">
+                    <img src="./images/DependReview.jpeg" alt="Development Infrastructure">
                 </div>
                 <p>
                     Dependency reviews further enhance dependency management by providing developers with information 
@@ -265,7 +265,7 @@
                 <hr>
                 <h3>CODEOWNERS</h3>
                 <div class="img-container">
-                    <img src="../images/CODEOWNERS.jpeg" alt="Development Infrastructure">
+                    <img src="./images/CODEOWNERS.jpeg" alt="Development Infrastructure">
                 </div>
                 <p>
                     Implementing CODEOWNERS ensures that only authorized contributors can push changes. All code must 
@@ -275,7 +275,7 @@
 
                 <h3>Default Ruleset for Main Branch</h3>
                 <div class="img-container">
-                    <img src="../images/MainRuleSet.jpeg" alt="Development Infrastructure">
+                    <img src="./images/MainRuleSet.jpeg" alt="Development Infrastructure">
                 </div>
                 <p>
                     In addition to the policies above, a default ruleset was defined for the main branch, which is used 
@@ -299,7 +299,7 @@
             <div class="tab-content" id="content2">
                 <h3>Secure Credentials Management Strategy</h3>
                 <div class="img-container">
-                    <img src="../images/SecCredStrat.jpeg" alt="Development Infrastructure">
+                    <img src="./images/SecCredStrat.jpeg" alt="Development Infrastructure">
                 </div>
                 <p>
                     In our development and deployment phases we follow the principle of least privilege 
@@ -972,8 +972,10 @@
                 
                 <h4>Monitor Vulnerabilities in Dependencies</h4>
                 <ul>
-                    <li><strong>Dependabot & Dependency Reviews:</strong> Ensures outdated/insecure dependencies are 
-                        quickly addressed.</li>
+                    <li><strong>Dependabot & Dependency Reviews:</strong> Enabled across all repositories 
+                        to minimize risks inherited from selected libraries.</li>
+                    <li><strong>Dependabot:</strong> Automatically scans and proposes updates to vulnerable dependencies.</li>
+                    <li><strong>Dependency Reviews:</strong> Assesses security impact of dependency changes on each pull request.</li>
                 </ul>
                 
                 <h4>Prefer Memory-Safe Languages</h4>
@@ -984,13 +986,12 @@
                 
                 <h4>No Secrets in Repositories</h4>
                 <ul>
-                    <li><strong>GitHub Secret Scanning & Push Protection:</strong> Prevents credential leaks at the source.</li>
+                    <strong>GitHub Secret Scanning & Push Protection:</strong> Prevents credential leaks by detecting and blocking secret inclusion before commit.
                 </ul>
                 
                 <h4>Control Asset Loading from Own Domains</h4>
                 <ul>
-                    <li><strong>Minimized External Dependencies:</strong> No external JS/CSS/media directly loaded 
-                        from uncontrolled domains.</li>
+                    <li><strong>Minimized External Dependencies:</strong> No external JS/CSS/media directly loaded from uncontrolled domains, reducing supply chain attack risks.</li>
                 </ul>
                 
                 <h4>Evaluate Open Source Software Dependencies</h4>

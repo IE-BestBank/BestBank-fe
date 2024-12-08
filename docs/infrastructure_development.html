@@ -150,52 +150,56 @@
             <div class="tab-content" id="content1">
                 <h3>Modularization Strategy</h3>
                 <p>
-                    A modularization strategy for the Infrastructure as Code (IaC) was adopted to align with best practices 
-                    in modern cloud architecture. This decision was taken to ensure:
+                    A modularization strategy for the Infrastructure as Code (IaC) was adopted to align with best
+                    practices in modern cloud architecture. This decision was taken to ensure:
                 </p>
                 <ul>
-                    <li><strong>Maintainability:</strong> Breaking down the code into smaller, well-defined modules ensures that updates or changes 
-                        can be made to individual components without impacting the entire system.</li>
-                    <li><strong>Reusability:</strong> Each module can be reused across different environments (e.g., Development, UAT, Production) 
-                        or projects, reducing redundancy and improving consistency.</li>
-                    <li><strong>Scalability:</strong> Modular design makes it easier to add new features or components as the infrastructure evolves, 
-                        without requiring major overhauls to the existing codebase.</li>
-                    <li><strong>Testability:</strong> Isolated modules allow for targeted testing of specific resources or configurations, ensuring 
-                        each component meets the required standards.</li>
-                    <li><strong>Flexibility:</strong> The strategy provides the ability to customize specific modules for different use cases while 
-                        maintaining a unified and coherent codebase.</li>
+                    <li><strong>Maintainability:</strong> Breaking down the code into smaller, well-defined modules ensures
+                        that updates or changes can be made to individual components without impacting the
+                        entire system.</li>
+                    <li><strong>Reusability:</strong> Each module can be reused across different environments (e.g.,
+                        Development, UAT, Production), reducing redundancy and improving consistency.</li>
+                    <li><strong>Scalability:</strong> Modular design makes it easier to add new features or components as
+                        the infrastructure evolves, without requiring major changes to the existing codebase.</li>
+                    <li><strong>Testability:</strong> Isolated modules allow for targeted testing of specific resources or
+                        configurations, ensuring each component meets the required standards.</li>
+                    <li><strong>Flexibility:</strong> The strategy provides the ability to customize specific modules for
+                        different use cases while maintaining a unified and coherent codebase.</li>
                 </ul>
                 <hr>
                 <h3>Implementation of Modularization</h3>
                 <p>
-                    The adopted modularization strategy for the infrastructure includes a component-based modularization approach. 
-                    This ensures that each infrastructure resource or logical grouping of resources is encapsulated into individual Bicep modules.
+                    The adopted modularization strategy for the infrastructure includes a component-based
+                    modularization approach. This ensures that each infrastructure resource is seperated into
+                    individual Bicep modules.
                 </p>
                 <p>This modular strategy focuses on:</p>
 
                 <h4>1. Separation of Concerns</h4>
                 <ul>
                     <li>
-                        Each module is designed to manage a specific infrastructure component (Key Vault, App Service Plan, Application Insights, 
-                        Log Analytics, Container Registry, Database, Server, Static Web App, App Service) independently, aligning with the principle 
-                        of single responsibility.
+                        Each module is designed to manage a specific infrastructure component (Key Vault,
+                        App Service Plan, Application Insights, Log Analytics, Container Registry, Database,
+                        Server, Static Web App, App Service) independently, aligning with the principle of
+                        single responsibility.
                     </li>
                 </ul>
 
                 <h4>2. Parameterization</h4>
                 <ul>
                     <li>
-                        Modules are designed to be flexible by accepting parameters for customization (e.g., resource names, role assignments, SKUs). 
-                        This ensures modules can be reused across multiple environments (Development, UAT, Production) with different configurations.
-                        This allows for high scalability and flexibility by...
+                        The modules are designed to be flexible by accepting parameters for customization
+                        (e.g., resource names, role assignments, SKUs). This ensures that the modules can
+                        be reused across multiple environments (Development, UAT, Production) with
+                        different configurations.
                     </li>
                 </ul>
 
                 <h4>3. Standardized Outputs</h4>
                 <ul>
                     <li>
-                        Modules provide outputs such as resource IDs, which can be consumed by other modules or higher-level orchestration files, 
-                        enabling seamless integration and reducing duplication.
+                        The different modules release outputs such as resource IDs, which can be used by
+                        other modules allowing for seamless integration and no need for duplication
                     </li>
                 </ul>
 
@@ -216,8 +220,8 @@
                 <h4>5. Encapsulation and Independence</h4>
                 <ul>
                     <li>
-                        Each module is self-contained, meaning changes to one module (e.g., updating the Key Vault) do not require changes 
-                        in other modules, unless explicitly dependent.
+                        Each module is self-contained, meaning changes to one module (e.g., updating the
+                        Key Vault) does not require changes in other modules, unless they are dependent.
                     </li>
                 </ul>
 
@@ -225,28 +229,53 @@
                 <h3>Resources Used and Their Roles</h3>
                 <ol>
                     <li>
-                        <strong>Containerize the Backend:</strong> We decided to containerize the backend because containerization ensures consistency across different environments, makes scaling and deployment easier, and allows for rapid, reliable updates. By packaging the application and its dependencies into a container, we streamline CI/CD processes and improve portability across development, staging, and production environments.
+                        <strong>Containerize the Backend:</strong> We decided to containerize the backend because
+                        containerization ensures consistency across different environments, makes scaling
+                        and deployment easier, and allows for rapid, reliable updates. By packaging the
+                        application and its dependencies into a container, we streamline CI/CD processes
+                        and improve portability across development, staging, and production environments.
                     </li>
                     <li>
-                        <strong>App Service Plan (Backend Only):</strong> We decided to use 1 App Service Plan only for the backend since static web apps do not require app service plans. The purpose of the app service plan is to provide the necessary compute resources for our containerized backend, ensuring performance, scaling capabilities, and predictable resource allocation.
+                        <strong>App Service Plan (Backend Only):</strong> We decided to use 1 App Service Plan only for
+                        the backend since static web apps do not require app service plans. The purpose of
+                        the app service plan is to provide the necessary compute resources for our
+                        containerized backend, ensuring performance, scaling capabilities, and predictable
+                        resource allocation.
                     </li>
                     <li>
-                        <strong>Static Web App (Frontend):</strong> We chose a static web app for the frontend because static web apps offer a fully managed hosting service optimized for static content and front-end frameworks. They are cost-effective, provide integrated CI/CD support, scale automatically, and do not require an App Service Plan. This approach simplifies the frontend deployment process and ensures seamless user experiences even under fluctuating traffic.
+                        <strong>Static Web App (Frontend):</strong> We chose a static web app for the frontend because
+                        static web apps offer a fully managed hosting service optimized for static content and
+                        front-end frameworks. They are cost-effective, provide integrated CI/CD support,
+                        scale automatically, and do not require an App Service Plan. This approach simplifies
+                        the frontend deployment process and ensures seamless user experiences even
+                        under fluctuating traffic.
                     </li>
                     <li>
-                        <strong>Separate Modules for Database and Server:</strong> We decided to have separate modules for the database and the server for scalability, maintainability, and clear separation of concerns. By isolating these components, changes to one do not affect the other, making it easier to scale, replace, or upgrade individual parts of the infrastructure without impacting the entire system.
+                        <strong>Separate Modules for Database and Server:</strong> We decided to have separate
+                        modules for the database and the server for scalability, maintainability, and clear
+                        separation of concerns. By isolating these components, changes to one do not affect
+                        the other, making it easier to scale, replace, or upgrade individual parts of the
+                        infrastructure without impacting the entire system.
                     </li>
                     <li>
-                        <strong>Log Analytics:</strong> Used for monitoring the Azure resources, collecting and aggregating logs and metrics in a centralized workspace. This enhances observability and makes troubleshooting more efficient.
+                        <strong>Log Analytics:</strong> Used for monitoring the Azure resources, collecting and aggregating
+                        logs and metrics in a centralized workspace. This enhances observability and makes
+                        troubleshooting more efficient.
                     </li>
                     <li>
-                        <strong>Application Insights:</strong> Used for monitoring both the frontend and backend, providing performance metrics, request traces, and other telemetry data that help in diagnosing issues and optimizing the application experience.
+                        <strong>Application Insights:</strong> Used for monitoring both the frontend and backend, providing
+                        performance metrics, request traces, and other telemetry data that help in diagnosing
+                        issues and optimizing the application experience.
                     </li>
                     <li>
-                        <strong>Key Vault:</strong> Stores sensitive information such as container registry credentials and the static web app token securely. It ensures that these secrets are managed and accessed safely, adhering to security best practices.
+                        <strong>Key Vault:</strong> Stores sensitive information such as container registry credentials and
+                        the static web app token securely. It ensures that these secrets are managed and
+                        accessed safely, adhering to security best practices.
                     </li>
                     <li>
-                        <strong>Container Registry:</strong> Used to push and store container images that the backend App Service will run. This ensures a secure and reliable method of distributing application artifacts to the runtime environment.
+                        <strong>Container Registry:</strong> Used to push and store container images that the backend App
+                        Service will run. This ensures a secure and reliable method of distributing application
+                        artifacts to the runtime environment.
                     </li>
                 </ol>
                 <hr>
@@ -260,14 +289,13 @@
                 <ul>
                     <li><strong>Output:</strong> <code>logAnalyticsWorkspaceId</code></li>
                     <li>
-                        This ID is critical for enabling diagnostic settings in other resources:
+                        This ID is used for enabling diagnostic settings in other resources:
                         <ul>
                             <li>Key Vault: For logging activities.</li>
                             <li>App Service (backend): For application diagnostics.</li>
                             <li>PostgreSQL Server: For monitoring and diagnostics.</li>
                         </ul>
                     </li>
-                    <li><strong>Why:</strong> Centralizing logs and telemetry enhances observability and troubleshooting.</li>
                 </ul>
 
                 <h4>Step 2: Application Insights</h4>
@@ -279,7 +307,6 @@
                             <li><code>instrumentationKey</code>: Used to track backend and frontend application metrics.</li>
                         </ul>
                     </li>
-                    <li><strong>Why:</strong> Application Insights integrates with Log Analytics to provide performance monitoring, enabling developers to track app health and usage patterns.</li>
                 </ul>
 
                 <h4>Step 3: Key Vault</h4>
@@ -290,21 +317,20 @@
                             <li>Used by the Container Registry, Static Web App, and other modules to configure secrets or secure access.</li>
                         </ul>
                     </li>
-                    <li><strong>Why:</strong> Secure storage of sensitive information like credentials ensures compliance with security best practices.</li>
+                    
                 </ul>
 
                 <h4>Step 4: Container Registry</h4>
                 <ul>
                     <li><strong>Inputs:</strong> <code>logAnalyticsWorkspaceId</code> (for diagnostics), <code>keyVaultResourceId</code> (for secure admin credentials)</li>
                     <li><strong>Dependencies:</strong> Key Vault</li>
-                    <li><strong>Why:</strong> Secure container image management with diagnostics ensures that only authorized components can access the registry.</li>
+                    
                 </ul>
 
                 <h4>Step 5: App Service Plan</h4>
                 <ul>
                     <li><strong>Output:</strong> <code>appServicePlanId</code></li>
                     <li><strong>Consumed by:</strong> App Service (backend)</li>
-                    <li><strong>Why:</strong> Defines the hosting environment for the backend service, including scaling and SKU configuration.</li>
                 </ul>
 
                 <h4>Step 6: App Service (Backend)</h4>
@@ -318,28 +344,24 @@
                         </ul>
                     </li>
                     <li><strong>Dependencies:</strong> Key Vault, Container Registry, App Service Plan</li>
-                    <li><strong>Why:</strong> The backend requires multiple integrations (container images, telemetry, secure credentials) to operate effectively.</li>
                 </ul>
 
                 <h4>Step 7: PostgreSQL Server</h4>
                 <ul>
                     <li><strong>Inputs:</strong> <code>logAnalyticsWorkspaceId</code> for diagnostics, <code>appServiceWebsiteBE.outputs.systemAssignedIdentityPrincipalId</code> for RBAC with the backend.</li>
                     <li><strong>Dependencies:</strong> Backend App Service</li>
-                    <li><strong>Why:</strong> Tight integration with the backend ensures secure, identity-based access to the database.</li>
                 </ul>
 
                 <h4>Step 8: PostgreSQL Database</h4>
                 <ul>
                     <li><strong>Input:</strong> <code>postgreSQLServerName</code> to link the database with the server.</li>
                     <li><strong>Dependencies:</strong> PostgreSQL Server</li>
-                    <li><strong>Why:</strong> A consistent, structured database setup avoids configuration mismatches.</li>
                 </ul>
 
                 <h4>Step 9: Static Web App</h4>
                 <ul>
                     <li><strong>Input:</strong> <code>keyVaultResourceId</code> to securely retrieve the SWA token.</li>
                     <li><strong>Dependencies:</strong> Key Vault</li>
-                    <li><strong>Why:</strong> Ensures that the frontend can interact securely with other services and maintain secure operations.</li>
                 </ul>
                 <hr>
                 <h3>Why This Approach Works</h3>
@@ -371,7 +393,9 @@
                     <ul>
                         <li><strong>location:</strong> Ensures the App Insights resource is deployed in the same region as other resources to reduce latency and improve performance.</li>
                         <li><strong>WorkspaceResourceId:</strong> Links App Insights to our Log Analytics Workspace for centralized monitoring and telemetry data storage.</li>
-                        <li><strong>name:</strong> A unique and easily identifiable name for our App Insights resource.</li>
+                        <li><strong>name:</strong> A unique and easily identifiable name for our App Insights resource
+                            ('bestbank-appinsights-dev', 'bestbank-appinsights-uat’,
+                            'bestbank-appinsights-prod).</li>
                         <li><strong>applicationType:</strong> Specifies the type of application (e.g., web), optimizing monitoring configuration for our application.</li>
                         <li><strong>retentionInDays:</strong> Sets telemetry retention (90 days) to balance troubleshooting data availability and cost.</li>
                     </ul>
@@ -381,9 +405,10 @@
                 <ul>
                     <li><strong>Parameters:</strong></li>
                     <ul>
-                        <li><strong>name:</strong> Identifies the Log Analytics Workspace in our deployment.</li>
+                        <li><strong>name:</strong> Identifies the Log Analytics Workspace in our deployment.
+                            ('BestBank-log-dev', 'BestBank-log-uat’, 'BestBank-log-prod’)</li>
                         <li><strong>location:</strong> Aligns the workspace with other resources for consistent performance and minimal latency.</li>
-                        <li><strong>skuName:</strong> Defines the pricing tier (e.g., PerGB2018) to optimize costs for our environment.</li>
+                        <li><strong>skuName:</strong> Defines the pricing tier (what we're using:  PerGB2018) to optimize costs for our environment.</li>
                         <li><strong>dataRetention:</strong> Retains logs for 30 days, providing sufficient recent data for analysis without unnecessary cost.</li>
                     </ul>
                 </ul>
@@ -393,11 +418,13 @@
                     <li><strong>Parameters:</strong></li>
                     <ul>
                         <li><strong>location:</strong> Deploys the App Service close to other resources for better performance.</li>
-                        <li><strong>name:</strong> Unique name for easy identification in Azure.</li>
+                        <li><strong>name:</strong> Unique name for easy identification in Azure. ('bestbank-be-dev',
+                            'bestbank-be-uat’, 'bestbank-be-prod’)</li>
                         <li><strong>appServicePlanId:</strong> Links the App Service to an App Service Plan for hosting and scaling.</li>
                         <li><strong>dockerRegistryName:</strong> Points to the Azure Container Registry storing backend images.</li>
                         <li><strong>dockerRegistryServerUserName & dockerRegistryServerPassword:</strong> Credentials for authenticating with the Container Registry.</li>
-                        <li><strong>dockerRegistryImageName & dockerRegistryImageVersion:</strong> Specifies which backend container image and version to deploy.</li>
+                        <li><strong>dockerRegistryImageName & dockerRegistryImageVersion:</strong> Specifies
+                            which backend container image and version to deploy (‘latest’).</li>
                         <li><strong>WorkspaceResourceId:</strong> Connects the App Service to Log Analytics for logs and metrics.</li>
                         <li><strong>instrumentationKey & connectionString:</strong> Enables integration with App Insights for telemetry.</li>
                         <li><strong>adminUsername & adminPassword:</strong> Configures secure admin credentials for managing the backend.</li>
@@ -409,8 +436,10 @@
                     <li><strong>Parameters:</strong></li>
                     <ul>
                         <li><strong>location:</strong> Aligns the App Service Plan region with the App Service and other resources.</li>
-                        <li><strong>appServicePlanName:</strong> A distinct name for easy identification.</li>
-                        <li><strong>sku:</strong> Defines the pricing tier (e.g., B1 or F1) to balance cost and performance.</li>
+                        <li><strong>appServicePlanName:</strong> A distinct name for easy identification.
+                            ('bestbank-asp-be-dev', 'bestbank-asp-be-uat, 'bestbank-asp-be-prod)</li>
+                        <li><strong>sku:</strong> Defines the pricing tier ( B1 for prod or F1 for dev and uat) to balance
+                            cost and performance.</li>
                     </ul>
                 </ul>
             
@@ -418,11 +447,13 @@
                 <ul>
                     <li><strong>Parameters:</strong></li>
                     <ul>
-                        <li><strong>name:</strong> Unique name for the Azure Container Registry (ACR).</li>
+                        <li><strong>name:</strong> Unique name for the Azure Container Registry (ACR)
+                            ('bestbankContRegistryDev', 'bestbankContRegistryUat”,
+                            'bestbankContRegistryProd').</li>
                         <li><strong>location:</strong> Keeps the ACR in the same region as other resources.</li>
                         <li><strong>keyVaultResourceId:</strong> Links ACR to Key Vault for secure admin credential storage.</li>
                         <li><strong>keyVaultSecreNameAdminUsername & keyVaultSecreNameAdminPassword0/1:</strong> Names for ACR admin credentials in Key Vault.</li>
-                        <li><strong>sku:</strong> Determines the ACR pricing tier based on workload requirements.</li>
+                        <li><strong>sku:</strong> Determines the ACR pricing tier.</li>
                     </ul>
                 </ul>
             
@@ -430,7 +461,8 @@
                 <ul>
                     <li><strong>Parameters:</strong></li>
                     <ul>
-                        <li><strong>postgreSQLDatabaseName:</strong> Identifies the PostgreSQL database.</li>
+                        <li><strong>postgreSQLDatabaseName:</strong> Identifies the PostgreSQL database
+                            ('bestbank-db-dev’, 'bestbank-db-uat’, 'bestbank-db-prod').</li>
                         <li><strong>serverName:</strong> Links the database to the existing PostgreSQL server.</li>
                     </ul>
                 </ul>
@@ -439,11 +471,12 @@
                 <ul>
                     <li><strong>Parameters:</strong></li>
                     <ul>
-                        <li><strong>name:</strong> Globally unique Key Vault name.</li>
+                        <li><strong>name:</strong> unique Key Vault name ('BestBank-KV-dev, 'BestBank-KV-uat,
+                            'BestBank-KV-prod').</li>
                         <li><strong>enableRbacAuthorization:</strong> Enables Role-Based Access Control for secure, flexible permissions.</li>
                         <li><strong>enableVaultForDeployment & enableVaultForTemplateDeployment:</strong> Allows scripts and templates to access secrets during deployments.</li>
                         <li><strong>enableSoftDelete:</strong> Controls secret recovery. Set to false in Dev (due to nightly deletions) and true in UAT and Prod for enhanced safety.</li>
-                        <li><strong>sku:</strong> Standard or Premium tier based on environment.</li>
+                        <li><strong>sku:</strong> Standard since we do not need any advanced mechanisms.</li>
                         <li><strong>roleAssignments:</strong> Assigns roles to users or service principals for secure Key Vault access.</li>
                     </ul>
                 </ul>
@@ -463,7 +496,8 @@
                 <ul>
                     <li><strong>Parameters:</strong></li>
                     <ul>
-                        <li><strong>name:</strong> Names the Static Web App for easy identification.</li>
+                        <li><strong>name:</strong> Names the Static Web App for easy identification.
+                            ('bestbank-dbsrv-dev’, 'bestbank-dbsrv-uat’, 'bestbank-dbsrv-prod').</li>
                         <li><strong>sku:</strong> Chooses a service tier (Free or Standard) based on environment requirements.</li>
                         <li><strong>location:</strong> Keeps the Static Web App in the same region as other resources.</li>
                         <li><strong>keyVaultResourceId:</strong> Links to Key Vault to securely store the deployment token.</li>
@@ -476,11 +510,15 @@
                     The general configurations that differ between the three environments include:
                 </p>
                 <ul>
-                    <li><strong>Resource Names:</strong> Key Vault name, Container Registry name, PostgreSQL server name, PostgreSQL database name, App Service Plan name, Backend App Service name, Static Web App name, Log Analytics Workspace name, App Insights name.</li>
+                    <li><strong>Resource Names:</strong> Key Vault name, Container Registry name, PostgreSQL server
+                        name, PostgreSQL database name, App Service Plan name, Backend App Service
+                        name, Static Web App name, Log Analytics Workspace name, App Insights name.</li>
                     <li><strong>Key Vault Soft Delete:</strong> 
                         <ul>
                             <li>Dev: false (due to nightly deletions)</li>
-                            <li>UAT: true (mimicking production behavior for testing)</li>
+                            <li>UAT: true (mimicking production behavior for testing, although UAT has been
+                                set to delete overnight recently, no problems have been encountered
+                                therefore it has been maintained that way)</li>
                             <li>Prod: true (stable environment with no nightly deletions)</li>
                         </ul>
                     </li>
@@ -488,7 +526,8 @@
                     <li><strong>Key Vault Role Assignment:</strong> 
                         <ul>
                             <li>Only the service principal is given user access in both production and UAT for security.</li>
-                            <li>In UAT, the group is given Key Vault administrator access to verify functionality before applying similar settings in production.</li>
+                            <li>In Dev, the group is given Key Vault administrator access to verify
+                                functionality.</li>
                         </ul>
                     </li>
                     <li><strong>Container Registry Naming Convention:</strong> Using <code>LikeThisFormat</code> instead of <code>like-this-format</code> due to Azure restrictions on hyphenated formats.</li>
@@ -501,16 +540,17 @@
 
                 <h3>Development Environment (Dev)</h3>
                 <div class="img-container">
-                    <img src="../images/dev.png" alt="Development Infrastructure">
+                    <img src="./images/dev.png" alt="Development Infrastructure">
                 </div>
                 <h4>SKUs:</h4>
                 <ol>
                     <li><strong>Key Vault: Standard</strong><br>
-                        <em>Reason:</em> Offers RBAC integration and diagnostic logging, essential even in Dev for realistic testing scenarios.</li>
+                        <em>Reason:</em> Offers RBAC integration and diagnostic logging, essential even in Dev for
+                        realistic testing scenarios.</li>
                     <li><strong>Azure Container Registry (ACR): Basic</strong><br>
                         <em>Reason:</em> Sufficient for storing Docker images for development without requiring premium features.</li>
                     <li><strong>PostgreSQL Server: Standard_B1ms (Burstable Tier)</strong><br>
-                        <em>Reason:</em> Cost-effective and simulates real-world scenarios without over-provisioning.</li>
+                        <em>Reason:</em> Cost-effective and simulates real-world scenarios.</li>
                     <li><strong>App Service Plan: F1 (Free Tier)</strong><br>
                         <em>Reason:</em> Dev workloads are light; free resources suffice to test functionality.</li>
                     <li><strong>Static Web App: Free</strong><br>
@@ -524,22 +564,23 @@
 
                 <h3>User Acceptance Testing Environment (UAT)</h3>
                 <div class="img-container">
-                    <img src="../images/uat.png" alt="UAT Infrastructure">
+                    <img src="./images/uat.png" alt="UAT Infrastructure">
                 </div>
                 <h4>SKUs:</h4>
                 <ol>
                     <li><strong>Key Vault: Standard</strong><br>
-                        <em>Reason:</em> Mirrors production environment to validate configurations work as expected.</li>
+                        <em>Reason:</em> just for testing purposes we do not require advanced configurations.</li>
                     <li><strong>ACR: Basic</strong><br>
-                        <em>Reason:</em> Similar to Dev; adequate for testing limited image storage needs.</li>
+                        <em>Reason:</em> Similar to Dev; good enough for testing limited image storage needs.</li>
                     <li><strong>PostgreSQL Server: Standard_B1ms</strong><br>
                         <em>Reason:</em> Handles real-world usage simulations without high costs.</li>
                     <li><strong>App Service Plan: F1 (Free Tier)</strong><br>
-                        <em>Reason:</em> UAT focuses on behavior testing, not heavy traffic, so free is sufficient.</li>
+                        <em>Reason:</em> UAT focuses on behavior testing, not heavy traffic, so free is good enough. </li>
                     <li><strong>Static Web App: Free</strong><br>
                         <em>Reason:</em> No need for production-grade scalability during UAT.</li>
                     <li><strong>Log Analytics Workspace: PerGB2018</strong><br>
-                        <em>Reason:</em> Consistent SKU across all environments for unified diagnostics.</li>
+                        <em>Reason:</em> : Consistent SKU across all environments since it is pay as you go and is
+                        sufficient for what we need.</li>
                     <li><strong>Application Insights: 90-day Retention</strong><br>
                         <em>Reason:</em> Maintains retention for debugging and monitoring over UAT’s testing period.</li>
                 </ol>
@@ -547,7 +588,7 @@
 
                 <h3>Production Environment (Prod)</h3>
                 <div class="img-container">
-                    <img src="../images/prod.png" alt="Production Infrastructure">
+                    <img src="./images/prod.png" alt="Production Infrastructure">
                 </div>
                 <h4>SKUs:</h4>
                 <ol>
@@ -556,7 +597,7 @@
                     <li><strong>ACR: Standard</strong><br>
                         <em>Reason:</em> Faster performance, more storage, and geo-replication for production workloads.</li>
                     <li><strong>PostgreSQL Server: Standard_B1ms</strong><br>
-                        <em>Reason:</em> Balances cost and performance for workloads with intermittent bursts.</li>
+                        <em>Reason:</em> Balances cost and performance for workloads.</li>
                     <li><strong>App Service Plan: B1 (Basic Tier)</strong><br>
                         <em>Reason:</em> Supports higher traffic and production-grade workloads than F1.</li>
                     <li><strong>Static Web App: Standard</strong><br>
@@ -568,27 +609,12 @@
                 </ol>
                 <hr>
 
-                <h3>Design Decisions and Justifications</h3>
-                <h4>1. Free and Basic SKUs in Dev and UAT</h4>
-                <p><em>Reasoning:</em> Testing environments don’t need full scalability or performance. Using free and basic tiers optimizes costs while still enabling thorough testing.</p>
-                <p><em>Example:</em> F1 (Free) App Service Plan in Dev/UAT to test applications without incurring unnecessary costs.</p>
-
-                <hr>
-                <h4>2. Unified SKU for Log Analytics</h4>
-                <p><em>Reasoning:</em> PerGB2018 SKU works across all environments, simplifying configuration and providing consistent diagnostic capabilities.</p>
-
-                <hr>
-                <h4>3. Upgrade to Production-Grade SKUs</h4>
-                <p><em>Reasoning:</em> In Production, tiers ensure performance, scalability, and reliability.</p>
-                <p><em>Example:</em> Upgrading the Static Web App to Standard for features like custom domains and scaling, essential in a production-grade application.</p>
-
-                <hr>
-                <h4>4. Consistent Key Vault SKU Across Environments</h4>
-                <p><em>Reasoning:</em> Uniform security features and diagnostic settings across Dev, UAT, and Prod ensure consistent testing and deployment pipelines.</p>
-
+                
                 <hr>
                 <h3>Why Free SKUs in Production?</h3>
-                <p><em>Reason:</em> Some features don’t require higher-tier SKUs. Retaining a 90-day retention period for Application Insights in Production remains cost-efficient while still providing sufficient telemetry data for monitoring and debugging.</p>
+                <p><em>Reason:</em> Some features don’t require higher-tier SKUs. Retaining a 90-day retention period
+                    for Application Insights in Production remains cost-efficient while still providing sufficient
+                    telemetry data for monitoring and debugging.</p>
 
 
             </div>
@@ -601,29 +627,40 @@
                 </p>
                 <hr>
                 <h3>Key Aspects of the CI Pipeline</h3>
+                <ul>
+                    <li>The main workflow used: <strong>ie-bank-infra.yml</strong></li>
+                    <li>Testing Workflow: <strong>testing.yml</strong></li>
+                </ul>
                 <ol>
                     <li><strong>Automated Linting and Syntax Validation:</strong>
                         <ul>
-                            <li>The pipeline uses <code>az bicep build</code> to validate the syntax and structure of all Bicep files.</li>
-                            <li>This ensures code changes comply with best practices and will compile without errors.</li>
-                        </ul>
-                    </li>
-                    <li><strong>Dry-Run Validation (What-if Analysis):</strong>
-                        <ul>
-                            <li>The CI pipeline includes a dry-run step (<code>az deployment group what-if</code>) to simulate infrastructure deployments.</li>
-                            <li>This identifies unintended resource changes or conflicts without making actual changes.</li>
+                            <li>The main workflow pipeline uses <code>az bicep build</code> to validate the syntax and structure of all Bicep files.</li>
+                            <li>The testing workflow pipeline uses <code>az bicep build</code> to validate the syntax and structure of the Key Vault Bicep file.</li>
+
                         </ul>
                     </li>
                     <li><strong>Pull Request Integration:</strong>
                         <ul>
-                            <li>Pull requests targeting the main branch automatically trigger CI workflows.</li>
-                            <li>All proposed changes are validated before being merged into the primary branch.</li>
+                            <li>Pull requests targeting the main branch automatically trigger CI workflows
+                                (upon a pull request Dev will be deployed and if that is successful UAT will be
+                                deployed)</li>
+                            <li>All proposed changes are validated before being merged into the primary
+                                branch. (If both Dev and Uat have deployed successfully, Prod will deploy
+                                upon a merge to Main)</li>
                         </ul>
                     </li>
                     <li><strong>Key Vault Module Unit Testing:</strong>
                         <ul>
-                            <li>A dedicated <code>testing.yml</code> workflow deploys a temporary Key Vault to validate secrets, role assignments, and diagnostic settings.</li>
-                            <li>This prevents misconfigurations from affecting live environments.</li>
+                            <li>A dedicated <code>testing.yml</code> workflow deploys a temporary Key Vault to
+                                validate secrets, role assignments, and diagnostic settings.</li>
+                            <li>This prevents misconfigurations from affecting the live environments.</li>
+                            <li>Dry-Run Validation (What-if Analysis):</li>
+                            <ul>
+                                <li>The CI pipeline includes a dry-run step (az deployment group what-if)
+                                    to simulate infrastructure deployments.</li>
+                                <li>This identifies unintended resource changes or conflicts without
+                                    making actual changes.</li>
+                            </ul>
                         </ul>
                     </li>
                 </ol>
@@ -631,17 +668,21 @@
                 <hr>
                 <h3>Continuous Delivery (CD)</h3>
                 <p>
-                    The Continuous Delivery (CD) pipeline automates the deployment of infrastructure across multiple environments, 
-                    enabling a smooth and reliable transition from development to production.
+                    The Continuous Delivery (CD) pipeline automates the deployment of infrastructure across
+                    multiple environments, enabling a smooth and reliable transition from development to
+                    production with GitHub Actions.
                 </p>
             
                 <h3>Key Aspects of the CD Pipeline</h3>
                 <ol>
                     <li><strong>Environment-Specific Deployments:</strong>
                         <ul>
-                            <li>Separate stages for Development, UAT, and Production ensure controlled and isolated deployments.</li>
+                            <li>Separate stages for Development, UAT, and Production ensure controlled and
+                                isolated deployments.</li>
                             <li>Each environment uses parameterized configurations (<code>dev.bicepparam</code>, <code>uat.bicepparam</code>, <code>prod.bicepparam</code>) 
-                                to customize deployments while maintaining consistency.</li>
+                                to customize deployments while
+                                maintaining consistency.
+                            </li>
                         </ul>
                     </li>
                     <li><strong>Progressive Deployment Workflow:</strong>
@@ -653,7 +694,7 @@
                     </li>
                     <li><strong>Dependency Management:</strong>
                         <ul>
-                            <li>The pipeline uses the <code>needs</code> keyword to ensure sequential deployment across environments, preventing premature deployments.</li>
+                            <li>The pipeline uses the <code>needs</code> keyword to ensure sequential deployment across environments.</li>
                         </ul>
                     </li>
                     <li><strong>Secrets Management:</strong>
@@ -663,7 +704,9 @@
                     </li>
                     <li><strong>Full Automation:</strong>
                         <ul>
-                            <li>Each deployment is triggered automatically based on changes to the main branch or upon a workflow dispatch event, minimizing manual intervention.</li>
+                            <li>Each deployment is triggered automatically based on changes to the main
+                                branch or upon a workflow dispatch event, minimizing manual work needed
+                                by the team.</li>
                         </ul>
                     </li>
                 </ol>
@@ -671,7 +714,8 @@
                 <hr>
                 <h3>Release Strategy</h3>
                 <p>
-                    The release strategy ensures that infrastructure changes are deployed progressively, securely, and with minimal risk.
+                    The release strategy ensures that infrastructure changes are deployed progressively,
+                    securely, and with minimal risk.
                 </p>
             
 
@@ -679,36 +723,46 @@
                 <ul>
                     <li><strong>Multi-Stage Deployment:</strong>
                         <ul>
-                            <li>Infrastructure is deployed to Development, UAT, and Production environments in separate stages.</li>
-                            <li>Issues can be identified and resolved early in lower environments before reaching production.</li>
+                            <li>Infrastructure is deployed to Development, UAT, and Production environments
+                                in separate stages.</li>
+                            <li>Issues can be identified and resolved early in lower environments (Dev and
+                                Uat) before reaching production.</li>
                         </ul>
                     </li>
                     <li><strong>Conditional Triggers:</strong>
                         <ul>
-                            <li>Deployment to UAT and Production is triggered only after successful completion of the preceding stages.</li>
-                            <li>Deployment to Production is restricted to changes made to the main branch, ensuring only validated code is released.</li>
+                            <li>Deployment to UAT and Production is triggered only after successful
+                                completion of the Dev stage.</li>
+                            <li>Deployment to Production is restricted to changes made to the main branch,
+                                ensuring only validated code is released.</li>
                         </ul>
                     </li>
                     <li><strong>Testing in Isolation:</strong>
                         <ul>
-                            <li>Temporary resources, such as a test Key Vault, are deployed during CI to validate configurations without impacting live resources.</li>
+                            <li>Temporary resources, such as a test Key Vault, are deployed during CI to
+                                validate configurations without impacting live resources.</li>
                         </ul>
                     </li>
                     <li><strong>Observability and Monitoring:</strong>
                         <ul>
-                            <li>Diagnostic settings and telemetry are configured for all resources, integrating with Log Analytics and Application Insights.</li>
-                            <li>This ensures visibility into deployments and resource health across all environments.</li>
+                            <li>Diagnostic settings and telemetry are configured for all resources, integrating
+                                with Log Analytics and Application Insights.</li>
+                            <li>This ensures visibility into deployments and resource health across all
+                                environments.</li>
                         </ul>
                     </li>
                     <li><strong>Security by Design:</strong>
                         <ul>
-                            <li>All sensitive information is managed securely using Azure Key Vault and GitHub Secrets, adhering to security best practices.</li>
+                            <li>All sensitive information is managed securely using Azure Key Vault and
+                                GitHub Secrets, adhering to security best practices.</li>
                         </ul>
                     </li>
                     <li><strong>Rollback and Recovery:</strong>
                         <ul>
-                            <li>The modular nature of the infrastructure allows for targeted rollback of specific resources in case of failure.</li>
-                            <li>Version control makes it easier to revert to previous stable configurations if needed.</li>
+                            <li>The modular nature of the infrastructure allows for targeted rollback of
+                                specific resources in case of failure.</li>
+                            <li>Version control makes it easier to revert to previous stable configurations if
+                                needed.</li>
                         </ul>
                     </li>
                 </ul>
