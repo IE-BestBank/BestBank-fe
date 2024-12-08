@@ -77,13 +77,15 @@
 
         #subtab1:checked ~ #content1,
         #subtab2:checked ~ #content2,
-        #subtab3:checked ~ #content3 {
+        #subtab3:checked ~ #content3, 
+        #subtab4:checked ~ #content4 {
             display: block;
         }
 
         #subtab1:checked + label[for="subtab1"],
         #subtab2:checked + label[for="subtab2"],
-        #subtab3:checked + label[for="subtab3"] {
+        #subtab3:checked + label[for="subtab3"],
+        #subtab4:checked + label[for="subtab4"] {
             background: #fff;
             border-bottom: 1px solid #fff;
         }
@@ -94,6 +96,41 @@
             color: #666;
             padding: 10px;
             margin-top: 40px;
+        }
+        hr {
+            border: none;
+            border-top: 3px solid #0e0d0d;
+            margin: 40px 0; /* Add space before/after the line as needed */
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0 auto;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background: #f4f4f4;
+        }
+        tr:nth-child(even) {
+            background: #fafafa;
+        }
+        .section-note {
+            font-style: italic;
+            color: #555;
+        }
+
+        .img-container {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .img-container img {
+            max-width: 100%;
+            height: auto;
         }
     </style>
 </head>
@@ -115,32 +152,532 @@
     <div class="content">
         <h2>Site Reliability Engineering Overview</h2>
         <p>
-            This section details SRE practices, incident management, and performance improvements.
+            This section details IE BestBank's Site Reliability Engineering practices, incident management, and performance improvements.
         </p>
 
         <div class="subsection-tabs">
             <input type="radio" name="subtabs" id="subtab1" checked>
-            <label for="subtab1">Subsection 1 Title (Edit Here)</label>
+            <label for="subtab1">SLA and corresponding SLO's and SLI's</label>
 
             <input type="radio" name="subtabs" id="subtab2">
-            <label for="subtab2">Subsection 2 Title (Edit Here)</label>
+            <label for="subtab2">Monitoring Strategy</label>
 
             <input type="radio" name="subtabs" id="subtab3">
-            <label for="subtab3">Subsection 3 Title (Edit Here)</label>
+            <label for="subtab3">Incidence Response Approach</label>
+
+            <input type="radio" name="subtabs" id="subtab4">
+            <label for="subtab4">Engineering Design</label>
 
             <div class="tab-content" id="content1">
-                <h3>Subsection 1 Title (Edit Here)</h3>
-                <p>Placeholder content for Subsection 1.</p>
+                <h3>SLA and corresponding SLO's and SLI's</h3>
+                <p>
+                    Service Level Agreement (SLA) are agreements between a service provider and a customer that define the expected level of service. 
+                    Service Level Objectives (SLOs) are specific, measurable goals that are designed to ensure that the SLA is met. 
+                    Service Level Indicators (SLIs) are the metrics that are used to measure the performance of a service.
+                </p>
+                <hr>
+                <h4> Service Level Agreement </h4>
+                <p>Provided Below is a link to IE BestBank's Service Level Agreement</p>
+                <a href="SLA.pdf">Service Level Agreement</a>
+                <hr>
+                <h4> Service Level Objectives (SLO's) </h4>
+                <p>The SLOs selected for this application are summarised in the following table:</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Number</th>
+                            <th>Category</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Uptime - Database &amp; Key Vault</td>
+                            <td>Maintain 99% uptime for the database and Key Vault services over the monitoring period.</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Response Time - HTTP Requests</td>
+                            <td>Ensure the average HTTP response time remains below 2 seconds for all requests.</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Request Volume Tracking</td>
+                            <td>Track the number of HTTP requests processed hourly to ensure steady traffic flow.</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Failed Connection Rate</td>
+                            <td>Limit failed database connections to less than 10% of total connection attempts.</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>Error Rate - HTTP Requests</td>
+                            <td>Limit failed requests (5xx errors) to less than 1% of the total number of requests.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <hr>
+                <h4>Why These SLOs?</h4>
+                <p>
+                    These SLOs are a result of collaboration with BestBank’s full-stack developers, 
+                    infrastructure developers, and the cloud architect. The team has chosen these SLOs 
+                    for the time being, and they’re subject to change if they don’t reflect BestBank’s 
+                    preferences in terms of monitoring.
+                </p>
+                <hr>
+
+                <h4>Uptime</h4>
+                <p><strong>Rationale:</strong> Maintaining availability of the database and Key Vault is important 
+                to the functionality of our application as downtime impacts the user experience and administrative 
+                operations.</p>
+                <p><strong>Threshold:</strong> The target of 99% uptime aligns with realistic infrastructure 
+                constraints while meeting business needs.</p>
+                <hr>
+
+                <h4>Response Time</h4>
+                <p><strong>Rationale:</strong> Fast response times are vital for user satisfaction and operational 
+                performance. Slow responses can lead to user frustration and loss of trust.</p>
+                <p><strong>Threshold:</strong> The 2-second threshold balances the performance demands with system 
+                capabilities.</p>
+                <hr>
+
+                <h4>Request Volume Tracking</h4>
+                <p>
+                    Monitoring request volume assures the system can handle traffic fluctuations and prevents 
+                    bottlenecks. It also helps in identifying trends in user activity.
+                </p>
+                <hr>
+
+                <h4>Failed Connection Rate</h4>
+                <p>
+                    Database connection failures can indicate underlying issues in the system. Limiting these 
+                    failures ensures system reliability and reduces downtime risks.
+                </p>
+                <hr>
+
+                <h4>Error Rate</h4>
+                <p>
+                    Failed HTTP requests (5xx errors) indicate server issues. Keeping error rates below 1% 
+                    ensures a seamless experience for users and meets SLA expectations.
+                </p>
+                <hr>
+            
+                <h4> Service Level Indicators(SLI's) </h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Number</th>
+                            <th>SLO</th>
+                            <th>Corresponding SLI(s)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>99% Uptime for Database &amp; Key Vault</td>
+                            <td>Uptime Percentage: The ratio of time the database and Key Vault services are available over the monitoring period.</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Average HTTP Response Time</td>
+                            <td>Response Time Measurement: Tracks the average response time for HTTP requests, ensuring it remains below 2 seconds.</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Request Volume Tracking</td>
+                            <td>Request Volume: Monitors the number of HTTP requests processed hourly to identify traffic patterns.</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Failed Connection Rate</td>
+                            <td>Connection Reliability: Tracks the percentage of failed database connections relative to the total connection attempts.</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>Less than 1% failed requests</td>
+                            <td>Error Rate: Measures the percentage of failed HTTP requests (5xx errors) relative to the total number of requests.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <hr>
+                <h4>Service Level Indicators (SLIs) Rationale</h4>
+                <p>
+                    Measuring and monitoring important metrics with Azure tools is part of the SLI implementation process. 
+                    Application Insights' custom metrics are used to measure response time, with queries summarizing average 
+                    response time, while Azure Monitor's availability tests are used to track uptime. The connection reliability
+                     is tracked using PostgreSQL logs in Log Analytics, while the request volume is obtained from Azure Log 
+                     Analytics, which groups HTTP requests by hour. Last but not least, error rates are computed to monitor the 
+                     proportion of unsuccessful HTTP requests using Application Insights and Log Analytics. In order to improve 
+                     SLOs and SLIs based on performance and feedback, the next steps involve validating all SLIs using these tools 
+                     and performing quarterly reviews. Sections of pertinent design documents are linked for more information.
+                </p>
+
             </div>
 
             <div class="tab-content" id="content2">
-                <h3>Subsection 2 Title (Edit Here)</h3>
-                <p>Placeholder content for Subsection 2.</p>
+                <h3>Monitoring Strategy</h3>
+                <p>
+                    The Site Reliability Engineering (SRE) team at BestBank created this document to describe 
+                    the monitoring plan they used to make sure the application complies with the SLA and meets its SLOs.
+                </p>
+                <hr>
+                <h3>Type of Monitoring</h3>
+                <p>
+                    The selected monitoring strategy is focused on application monitoring and fault tolerance, 
+                    which includes tracking both infrastructure-level and application-level metrics to ensure 
+                    system reliability, performance, and availability. Future implementations could also include 
+                    capability monitoring.
+                </p>
+                <hr>
+                <h3>Data Collection Points</h3>
+                <p>
+                    Data collection points of our monitoring strategy include telemetry data sent to our 
+                    application insights by the frontend and backend of the application in addition to diagnostic 
+                    settings of selected Azure resources which have been configured to send logs to our log analytics 
+                    workspace.
+                </p>
+                <hr>
+                <h3>Tool Used</h3>
+                <p>
+                    Azure Workbooks with Kusto Query Language (KQL) queries are used to visualize metrics and provide 
+                    actionable insights. The Workbook includes:
+                </p>
+
+                <ul>
+                    <li><strong>Uptime Monitoring:</strong> Visualizes the availability of the database and Key Vault with uptime percentages.</li>
+                    <li><strong>Latency Analysis:</strong> Displays average HTTP response times to ensure they remain within the defined threshold (SLO: &lt;2 seconds).</li>
+                    <li><strong>Throughput Tracking:</strong> Shows the number of HTTP requests processed hourly to monitor traffic patterns.</li>
+                    <li><strong>Error Rate Monitoring:</strong> Tracks 5xx errors to ensure the error rate stays below 1%.</li>
+                    <li><strong>Database Connection Reliability:</strong> Monitors failed database connection attempts and ensures they remain below the 10% threshold.</li>
+                </ul>
+
+                <p>
+                    <strong>Note:</strong> Additional information and metrics are also being monitored in the current 
+                    version of BestBank’s workbook. While these could not directly connect to any of our selected 
+                    SLOs, BestBank’s site reliability engineering team chose to keep them as a source of data for 
+                    the application. This comes from the desire of BestBank being an intelligent data-driven organization.
+                </p>
+                <hr>
+                <h3>Automation</h3>
+                <p>
+                    The Azure Workbook used for the monitoring strategy has been translated into a Bicep module 
+                    (implemented via Infrastructure as Code). This aligns with BestBank’s practice of employing 
+                    modularization of services and resources for reusability and consistency.
+                </p>
+                <p>
+                    This step will deploy BestBank’s workbook each time there is a code change and will ensure 
+                    that the workbook does not lose the resources it is tied to (i.e., Application Insights and 
+                    Log Analytics Workspace).
+                </p>
+
             </div>
 
             <div class="tab-content" id="content3">
-                <h3>Subsection 3 Title (Edit Here)</h3>
-                <p>Placeholder content for Subsection 3.</p>
+                <h3>Incidence Response Approach</h3>
+                <p>
+                    This document outlines the incident response approach implemented by BestBank’s 
+                    Site Reliability Engineering (SRE) team to address cases where any of the selected 
+                    Service Level Objectives (SLOs) is at risk of being violated.
+                </p>
+                <hr>
+                <h3>Objectives of Implementing an Incident Response Strategy</h3>
+                <ul>
+                    <li><strong>Minimize Downtime:</strong> Ensure incidents are resolved promptly to maintain SLA compliance.</li>
+                    <li><strong>Real-Time Alerts:</strong> Enable rapid detection of incidents and notify the relevant team members.</li>
+                    <li><strong>Structured Response:</strong> Follow a defined workflow to assess, triage, and resolve incidents.</li>
+                    <li><strong>Continuous Improvement:</strong> Review and learn from incidents to prevent recurrence.</li>
+                </ul>
+                <hr>
+
+                <h3>Alerting Workflow</h3>
+                <p>
+                    For the alerting workflow, we used Logic Apps that help automate the process in addition to Slack, 
+                    which is the chosen communication platform by BestBank. We created a channel for the alerts, 
+                    where we configured an “API” which has a webhook URL that was utilized by the HTTP POST to Slack 
+                    method in the alerting workflow. This will be further elaborated on later in this document.
+                </p>
+                <hr>
+
+                <h3>Key Features</h3>
+                <ul>
+                    <li><strong>Recurrence Trigger:</strong> The Logic App is triggered every 5 minutes to ensure timely checks for alerts.</li>
+                    <li><strong>Slack Notification:</strong> Sends an HTTP POST request to the Slack Webhook URL with the alert message.</li>
+                    <li><strong>Customizable Alerts:</strong> The alert message can be modified to include additional details in the future, 
+                        such as severity and affected services.
+                    </li>
+                </ul>
+                <hr>
+                <h3>Alerting Workflow Diagram</h3>
+                <div class="img-container">
+                    <img src="../images/image1.png" alt="Alerting Workflow Diagram">
+                </div>
+                <hr>
+
+                <h3>Incident Management Workflow</h3>
+                <p>BestBank’s SRE team chose to employ the following incident management workflow:</p>
+
+                <h4>Detect</h4>
+                <p>
+                    Based on the alert rules defined, if any of the rules is satisfied, we proceed to the alerting stage.
+                </p>
+                <hr>
+
+                <h4>Alert</h4>
+                <p>
+                    The Logic App sends a real-time notification to the Slack channel, alerting the team about the incident.
+                </p>
+                <hr>
+
+                <h4>Acknowledge</h4>
+                <p>
+                    As BestBank is committed to being transparent, users will be informed about the issue and any potential 
+                    outages or disruptions (possibly through a notification on the website). Future implementations could 
+                    include personalized email notifications to affected users.
+                </p>
+                <hr>
+
+                <h4>Investigate</h4>
+                <p>
+                    The SRE team reviews diagnostic data to identify the cause of the issue. This includes:
+                </p>
+                <ul>
+                    <li>Checking logs in Log Analytics for anomalies.</li>
+                    <li>Reviewing metrics in Azure Workbooks for patterns or spikes.</li>
+                    <li>Using tools like Application Insights for detailed performance analysis.</li>
+                    <li>Relevant team members (e.g., developers, infrastructure engineers) are called based on the 
+                        nature of the problem.
+                    </li>
+                </ul>
+                <hr>
+
+                <h4>Resolve</h4>
+                <p>
+                    The responsible team, in collaboration with the SRE team, works on implementing a fix. 
+                    The resolution process includes:
+                </p>
+                <br>
+                <ul>
+                    <li>Deploying changes to the development and User Acceptance Testing (UAT) environments.</li>
+                    <li>Verifying the fix in these environments before deploying it to production.</li>
+                </ul>
+
+                <hr>
+                <h4>Post-Mortem</h4>
+                <p>
+                    After the incident is resolved, a post-mortem is conducted to analyze the issue and improve future responses. 
+                    In this meeting, the team will analyze the problem and discuss what could be done to avoid similar problems 
+                    in the future. This aligns with BestBank’s generative culture, which aims to avoid blame and encourages 
+                    shared responsibility for incidents.
+                </p>
+
+                <hr>
+                <h4>Future Action (if applicable)</h4>
+                <ul>
+                    <li>Implement measures to prevent recurrence of the incident, including adjusting monitoring thresholds 
+                        for earlier detection.
+                    </li>
+                    <li>Automate resolution steps for repetitive issues.</li>
+                    <li>Add specific dashboards or queries for improved visibility.</li>
+                    <li>Conduct training sessions to improve response times and processes.</li>
+                </ul>
+
+                <h3>Automation</h3>
+                <p>
+                    The Logic App and the alert rules used to implement this incident response strategy were translated into 
+                    Bicep modules (implemented via Infrastructure as Code). This practice supports BestBank’s focus on 
+                    modularization, reusability, and consistency in managing services and resources.
+                </p>
+                <hr>
+
+                <p>
+                    This incident response design ensures that BestBank is equipped to handle incidents effectively, minimize downtime, 
+                    and continuously improve system reliability to meet user expectations and SLA commitments.
+                </p>
+
+            </div>
+
+            <div class="tab-content" id="content4">
+                <h3>Engineering Design</h3>
+                <h3>Monitoring Design and Implementation</h3>
+                <p>
+                    As discussed earlier, BestBank has invested in site reliability engineering. 
+                    The first step was a collaboration between the SRE team with the full-stack developers, 
+                    infrastructure developers, and the cloud architect to define Service Level Objectives (SLOs) 
+                    and corresponding Service Level Indicators (SLIs). This step allowed BestBank to state clear 
+                    performance targets such as uptime and error rates. Afterward, the site reliability engineers 
+                    collaborated with infrastructure developers and full-stack developers to configure the 
+                    resources to send telemetry data and diagnostic settings to Azure Application Insights and a 
+                    Log Analytics Workspace.
+                </p>
+                <br>
+                <p>
+                    Implementing a monitoring strategy will contribute to greater well-being for practitioners, 
+                    as well as organizational and operational performance. This ensures the team can identify 
+                    potential issues early (related to defining SLOs) and reduce downtime and production outages 
+                    (achieved by implementing disaster recovery plans and improvement work whenever reliability 
+                    targets are missed), leading to improved operational performance and thus organizational 
+                    performance.
+                </p>
+
+                <h3>Incident Response</h3>
+                <p>
+                    As discussed earlier, BestBank’s SRE team worked on implementing an incident response approach 
+                    to ensure that any outages are reported before users start complaining and raising issues. 
+                    The incident response design was implemented using Azure Logic Apps and alert rules defined 
+                    in a Bicep module.
+                </p>
+                <br>
+                <p>
+                    Our Log Analytics Workspace and Application Insights receive continuous telemetry and diagnostic 
+                    data, allowing for real-time anomaly detection. The Logic App has a recurrence trigger set up to 
+                    check for alerts every hour. If an alert condition is met, it notifies the designated team channel 
+                    via an HTTP POST request to a Slack Webhook URL. Service Level Objectives (SLOs), including 
+                    error rates, response times, and uptime, form the basis for alert definitions. Future improvements 
+                    might include more thorough alert messages that include contextual details like the affected area 
+                    or suggested next actions.
+                </p>
+                <br>
+                <p><strong>Important:</strong> Our Slack webhook URL is not exposed in our code; it is saved as a repository 
+                secret in the infrastructure repository and passed to the relevant modules accordingly.</p>
+
+                <hr>
+                <h3>Capacity Design</h3>
+                <p>
+                    To ensure BestBank's application can adapt to varying workloads and maintain top performance, 
+                    the following scalability and resource management strategies have been implemented:
+                </p>
+                <hr>
+
+                <h4>BestBank’s Frontend</h4>
+                <p>
+                    <strong>Dynamic Scaling:</strong> Configure Azure Static Web Apps to scale automatically 
+                    based on real-time metrics, such as request volume and memory usage, ensuring consistent 
+                    user experience during traffic spikes. This minimizes the need for manual developer 
+                    intervention, enabling a self-healing strategy (scale up or scale out).
+                </p>
+
+                <br>
+                <h4>BestBank’s Backend Scaling</h4>
+                <p>
+                    <strong>Efficient Deployment Pipeline:</strong> Employ Azure Container Registry (ACR) to 
+                    store and distribute container images securely, enabling rapid deployments and updates.
+                </p>
+
+                <br>
+                <h4>Database Performance Management</h4>
+                <p>
+                    <strong>Adaptive PostgreSQL Scaling:</strong> Configure PostgreSQL Flexible Server to 
+                    scale resources automatically, ensuring uninterrupted performance during traffic surges.
+                </p>
+
+                <br>
+                <h4>Other Services Robustness</h4>
+                <p>
+                    <strong>Reliable Authentication:</strong> Monitor Key Vault usage to prevent throttling 
+                    during authentication peaks, ensuring secure and consistent access to secrets.
+                </p>
+
+                <hr>
+                <h3>Performance Efficiency</h3>
+                <p>
+                    BestBank assures that the desired performance is achieved by implementing various strategies 
+                    that handle different workloads. Backend performance is improved by using efficient API designs, 
+                    asynchronous calls, and caching to minimize response times. Indexing and partitioning techniques 
+                    improve query execution speeds and support large datasets during high traffic periods.
+                </p>
+                <br>
+                <p>
+                    Application Insights monitors application dependencies to identify potential performance 
+                    bottlenecks. Traffic patterns are simulated using Azure Load Testing to refine resource 
+                    configurations so that SLOs are always met under stress conditions. These methods guarantee 
+                    reliability and performance.
+                </p>
+
+                <hr>
+
+                <h2>Cost Optimization</h2>
+                <p>
+                    BestBank uses a process for cost optimization to utilize resources effectively and minimize 
+                    expenses. It leverages Azure Cost Management dashboards for real-time expenditure tracking 
+                    and insights into usage. Budgets and alerts on expenses keep costs within predefined limits. 
+                    Prepaying for reserved instances reduces operational costs for predictable workloads. 
+                    Auto-scaling ensures instances are not over-provisioned, preventing unnecessary expense.
+                </p>
+                <p>
+                    Collaboration is central to BestBank's cost optimization strategy. The team jointly reviews 
+                    Azure costs, ensuring accountability and transparency in resource allocation. Resource tagging 
+                    policies will allocate costs across departments and projects accurately. Thus, BestBank 
+                    maintains an optimized cloud infrastructure while adhering to financial objectives.
+                </p>
+                <p>
+                    <strong>Future Implementations:</strong>  
+                    Use AI tools to find additional cost-saving opportunities and automate resource management.  
+                    Improve automated systems to adjust resources and remove unused ones, saving time and money.
+                </p>
+
+                <h2>Operational Excellence and Release Engineering</h2>
+                <h3>Release Strategy</h3>
+                <ul>
+                    <li><strong>Automation:</strong> CI/CD pipelines in Azure DevOps automate build, testing, 
+                        and deployment, minimizing human errors.</li>
+                    <li><strong>Stability Strategies:</strong> Blue-Green Deployments ensure zero-downtime 
+                        releases. Feature Flags enable instant disabling of features if issues arise.</li>
+                    <li><strong>Incremental Updates:</strong> Progressive rollouts minimize risks and allow 
+                        actionable feedback from production environments.</li>
+                </ul>
+
+                <h3>Operational Practices</h3>
+                <ul>
+                    <li><strong>Environment Consistency:</strong> Maintains consistency across development, 
+                        staging, and production to reduce deployment issues.</li>
+                    <li><strong>Readiness Assessments:</strong> Load testing and system health checks ensure 
+                        systems are prepared before major updates.</li>
+                    <li><strong>Monitoring Integration:</strong> Real-time monitoring tools offer actionable 
+                        insights post-deployment for rapid response to performance issues.</li>
+                </ul>
+
+                <h3>Release Engineering</h3>
+                <p>
+                    The release engineering team collaborates with development and infrastructure teams to 
+                    standardize workflows, define clear SLAs for minimal disruption, and foster continuous 
+                    improvement through retrospectives and post-mortems.
+                </p>
+
+                <h2>Reliability Design</h2>
+                <p>
+                    BestBank ensures that its system remains functional, meets performance objectives, and 
+                    recovers from failures by addressing data loss, downtime, and service availability.
+                </p>
+
+                <h3>High Availability</h3>
+                <ul>
+                    <li><strong>Configured Azure Traffic Manager for Regional Failover:</strong> Routes traffic 
+                        between multiple regions. If a region fails, Traffic Manager redirects traffic to another region.</li>
+                    <li><strong>Replication of PostgreSQL:</strong> A copy of the database in another Azure region 
+                        ensures seamless failover if the primary database becomes unavailable.</li>
+                </ul>
+
+                <h3>Resiliency</h3>
+                <ul>
+                    <li><strong>Stateless Services:</strong> Services avoid reliance on specific instances. External 
+                        storage (e.g., Azure Redis Cache) maintains state, allowing smooth failover and scaling.</li>
+                    <li><strong>Retry Policies:</strong> Retry mechanisms handle temporary issues like network timeouts, 
+                        ensuring critical operations (e.g., payment processing) succeed after transient failures.</li>
+                    <li><strong>Circuit Breakers:</strong> Temporarily halts requests to failing services, preventing 
+                        system-wide disruptions and allowing affected services time to recover.</li>
+                </ul>
+
+                <h3>Recovery Objectives</h3>
+                <ul>
+                    <li><strong>Recovery Time Objective (RTO):</strong> Systems restored within 5 minutes after a failure. 
+                        Example: Database restoration within 5 minutes to minimize service disruption.</li>
+                    <li><strong>Recovery Point Objective (RPO):</strong> Maximum acceptable data loss is 1 minute. 
+                        Example: If the database fails, only up to 1 minute of data changes may be lost, preserving 
+                        critical transaction data.</li>
+                </ul>
             </div>
         </div>
     </div>
