@@ -2,9 +2,12 @@ name: ie-bank-frontend
 
 on:
   push:
+      paths-ignore:
+        - 'docs/**'
   pull_request:
     branches: [ "main" ]
   workflow_dispatch:
+
 
 env:
     BESTBANK_KV_DEV: BestBank-KV-dev
