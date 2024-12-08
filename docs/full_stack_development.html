@@ -95,6 +95,42 @@
             padding: 10px;
             margin-top: 40px;
         }
+        hr {
+            border: none;
+            border-top: 3px solid #0e0d0d;
+            margin: 40px 0; /* Add space before/after the line as needed */
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 4px;
+        }
+        .img-container {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .img-container img {
+            max-width: 100%;
+            height: 350px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+        }
+
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background: #f4f4f4;
+        }
     </style>
 </head>
 <body>
@@ -121,27 +157,576 @@
 
         <div class="subsection-tabs">
             <input type="radio" name="subtabs" id="subtab1" checked>
-            <label for="subtab1">Subsection 1 Title (Edit Here)</label>
+            <label for="subtab1">Git Feature Branch Strategy</label>
 
             <input type="radio" name="subtabs" id="subtab2">
-            <label for="subtab2">Subsection 2 Title (Edit Here)</label>
+            <label for="subtab2">Test Driven Deployment Strategy</label>
 
             <input type="radio" name="subtabs" id="subtab3">
-            <label for="subtab3">Subsection 3 Title (Edit Here)</label>
+            <label for="subtab3">Release Strategy and CD Workflows</label>
 
             <div class="tab-content" id="content1">
-                <h3>Subsection 1 Title (Edit Here)</h3>
-                <p>Placeholder content for Subsection 1.</p>
+                <h3>Git Feature Branch Strategy</h3>
+                <p>
+                    The Git feature branch strategy enables streamlined, isolated development, 
+                    fostering efficient collaboration between team members. It helps maintain 
+                    a clean main branch, ensuring only high-quality, thoroughly reviewed code 
+                    is merged. This strategy encourages modularity, where each feature or bug 
+                    fix is developed independently and does not interfere with the work of other 
+                    team members.
+                </p>
+                
+                <hr>
+                <h3>Branch Policies</h3>
+                <ul>
+                    <li><strong>Pull Request (PR) Reviews:</strong> All PRs must be reviewed and approved by at least one other developer.</li>
+                    <li><strong>Passing CI Checks:</strong> PRs must pass all automated CI checks (e.g., tests, linting) before merging.</li>
+                    <li><strong>Status Checks:</strong> CI pipelines must confirm successful builds before PRs can merge.</li>
+                </ul>
+                
+                <hr>
+                <h3>Actions Triggered</h3>
+                <p><strong>Feature Branch Push:</strong></p>
+                <ul>
+                    <li>Automatically triggers deployment to the development environment, allowing developers to test changes in a live-like setting.</li>
+                </ul>
+                
+                <p><strong>Pull Request to main:</strong></p>
+                <ul>
+                    <li>Deploys to both development and User Acceptance Testing (UAT) environments for controlled validation before moving to production.</li>
+                    <li>Ensures QA engineers and stakeholders can verify functionality.</li>
+                </ul>
+                
+                <p><strong>Push to main:</strong></p>
+                <ul>
+                    <li>Triggers deployment to all environments: development, UAT, and production.</li>
+                    <li>Includes safety mechanisms such as automated smoke tests and rollback capabilities to maintain system stability.</li>
+                </ul>
+                
+                <hr>
+                <h3>Configuration</h3>
+                <ul>
+                    <li><strong>Code Reviews:</strong> Enforced by GitHub branch protection policies to ensure peer collaboration and code quality.</li>
+                    <li><strong>GitHub Actions:</strong> Used for automated CI/CD pipelines, streamlining build, test, and deployment processes.</li>
+                </ul>
+                
+                <hr>
+                <h3>Workflow Example</h3>
+                <h4>Feature Branch Workflow</h4>
+                <ol>
+                    <li>Developer creates a feature branch (e.g., <code>feature/add-login-form</code>).</li>
+                    <li>After completing the feature, pushing the branch to GitHub triggers CI pipelines.</li>
+                    <li>The code deploys to the development environment for testing, running automated tests.</li>
+                </ol>
+                
+                <h4>Pull Request Workflow</h4>
+                <ol>
+                    <li>Developer opens a PR from <code>feature/add-login-form</code> to <code>main</code>.</li>
+                    <li>CI pipelines validate the PR (tests, linting) and deploy to UAT.</li>
+                    <li>If checks pass and PR is approved, it merges into the main branch.</li>
+                </ol>
+                
+                <h4>Main Branch Workflow</h4>
+                <ol>
+                    <li>Merging into main triggers deployments to dev, UAT, and production.</li>
+                    <li>Automated tests (e.g., smoke tests) validate production environment.</li>
+                </ol>
+                
+                <hr>
+                <h3>Key Benefits</h3>
+                <ul>
+                    <li><strong>Collaboration:</strong> Reduced conflicts and isolated development enhance teamwork.</li>
+                    <li><strong>Code Quality:</strong> CI pipelines and reviews ensure production-ready code.</li>
+                    <li><strong>Automation:</strong> GitHub Actions handle repetitive tasks, letting developers focus on features.</li>
+                </ul>
+                
+                <hr>
+                <h2>CI Workflow for Frontend</h2>
+                <h3>Install Dependencies</h3>
+                <ul>
+                    <li>Installs all required frontend packages (npm, yarn).</li>
+                    <li>Ensures a consistent development environment for all contributors.</li>
+                    <li><strong>Purpose:</strong> Guarantees all libraries/tools are available for building, testing, deploying.</li>
+                </ul>
+                
+                <h3>Run Tests</h3>
+                <ul>
+                    <li>Executes unit tests for functionality and code quality validation.</li>
+                    <li>Checks for edge cases, input validation, and component rendering.</li>
+                    <li><strong>Purpose:</strong> Detects issues early and enforces quality pre-deployment.</li>
+                </ul>
+                
+                <h3>Build Static Files</h3>
+                <ul>
+                    <li>Transpiles and bundles JS, CSS, and assets into production-ready files.</li>
+                    <li>Minifies code and optimizes assets for performance.</li>
+                    <li><strong>Purpose:</strong> Prepares a lightweight, optimized application for deployment.</li>
+                </ul>
+                
+                <h3>Deploy</h3>
+                <ul>
+                    <li><strong>Dev Environment:</strong> Deploys static files for testing and debugging.</li>
+                    <li><strong>UAT Environment:</strong> Deploys to UAT server for QA and stakeholder validation.</li>
+                    <li><strong>Prod Environment:</strong> Deploys final, optimized files to production or CDN for end-users.</li>
+                </ul>
+                
+                <h3>Deployment Process by Environment</h3>
+                <ul>
+                    <li><strong>Development (Dev):</strong> Focus on feature validation and debugging.</li>
+                    <li><strong>UAT:</strong> Pre-production validation by QA/stakeholders.</li>
+                    <li><strong>Production (Prod):</strong> Final deployment, ensuring performance and reliability.</li>
+                </ul>
+                
+                <h3>Purpose of Frontend CI Workflow</h3>
+                <ul>
+                    <li>Automates repetitive tasks (testing, building, deploying).</li>
+                    <li>Ensures consistency across environments.</li>
+                    <li>Increases reliability by catching issues early.</li>
+                    <li>Enhances efficiency by reducing manual intervention.</li>
+                </ul>
+                
+                <hr>
+                <h2>CI Workflow for Backend</h2>
+                
+                <h3>Install Dependencies</h3>
+                <ul>
+                    <li>Installs required backend libraries (e.g., pip install for Python).</li>
+                    <li>Ensures consistent environment for all contributors.</li>
+                    <li><strong>Purpose:</strong> Guarantees necessary libraries for building, testing, running backend app.</li>
+                </ul>
+                
+                <h3>Run Lint Checks</h3>
+                <ul>
+                    <li>Checks code quality, syntax, and standards (e.g., flake8, black, pylint).</li>
+                    <li><strong>Purpose:</strong> Maintains consistency, readability, and reduces bugs from poor formatting.</li>
+                </ul>
+                
+                <h3>Execute Unit Tests</h3>
+                <ul>
+                    <li>Runs unit tests (e.g., pytest) to verify component functionality.</li>
+                    <li>Generates coverage reports for completeness.</li>
+                    <li><strong>Purpose:</strong> Detects bugs early, ensures core features behave as expected.</li>
+                </ul>
+                
+                <h3>Execute Postman Tests</h3>
+                <ul>
+                    <li>Runs API tests for endpoint behavior and response accuracy.</li>
+                    <li>Verifies HTTP status codes, payloads, error handling.</li>
+                    <li><strong>Purpose:</strong> Confirms endpoint correctness in real-world scenarios.</li>
+                </ul>
+                
+                <h3>Build Docker Image</h3>
+                <ul>
+                    <li>Creates a production-ready Docker image of the backend.</li>
+                    <li>Tags images for versioning and easy rollbacks.</li>
+                    <li><strong>Purpose:</strong> Provides a consistent, portable deployment artifact.</li>
+                </ul>
+                
+                <h3>Deploy</h3>
+                <ul>
+                    <li><strong>Dev:</strong> Deploy container for integration testing and debugging.</li>
+                    <li><strong>UAT:</strong> Deploy for QA validation and stakeholder approval.</li>
+                    <li><strong>Prod:</strong> Deploy final container ensuring scalability and availability.</li>
+                </ul>
+                
+                <h3>Purpose of Backend CI Workflow</h3>
+                <ul>
+                    <li>Automates testing and deployment to minimize manual effort and errors.</li>
+                    <li>Ensures scalability via Docker images and container deployments.</li>
+                    <li>Maintains reliability with rigorous testing and validation.</li>
+                    <li>Enhances quality by enforcing coding standards, extensive tests, and API correctness.</li>
+                </ul>
             </div>
 
             <div class="tab-content" id="content2">
-                <h3>Subsection 2 Title (Edit Here)</h3>
-                <p>Placeholder content for Subsection 2.</p>
+                <h3>Test Driven Deployment Strategy</h3>
+                <p>
+                    Test-Driven Development (TDD) for user stories ensures that development is guided 
+                    by clear, measurable acceptance criteria. This approach:
+                </p>
+                <ul>
+                    <li><strong>Drives Development:</strong> Focuses on fulfilling well-defined acceptance criteria for each user story.</li>
+                    <li><strong>Ensures Robust Validation:</strong> Addresses error handling, security checks, and proper input validation from the start.</li>
+                    <li><strong>Encourages Maintainability:</strong> Writing tests first leads to code that is modular, testable, and easier to maintain.</li>
+                </ul>
+                
+                <hr>
+                <h3>User Stories with Acceptance Criteria</h3>
+                
+                <h4>User Story: Account Creation</h4>
+                <p><strong>Description:</strong> As a prospective bank customer, I want to register using a registration form (username, password, confirmation) to create a new bank account.</p>
+                <p><strong>Acceptance Criteria:</strong></p>
+                <ul>
+                    <li>Tests confirm presence of required fields (name, username, password, confirmation).</li>
+                    <li>Tests validate input formats (e.g., password strength).</li>
+                    <li>Error messages displayed for missing or invalid fields.</li>
+                </ul>
+                <p><strong>Test Example:</strong></p>
+                <code>Input: Missing password confirmation field</code><br>
+                <code>Expected Result: "Password confirmation is required"</code>
+                
+                <h4>User Story: Secure Login System</h4>
+                <p><strong>Description:</strong> As a bank user, I want to log in with username and password to access my bank accounts securely.</p>
+                <p><strong>Acceptance Criteria:</strong></p>
+                <ul>
+                    <li>Tests ensure passwords are encrypted before storage.</li>
+                    <li>Only correct username-password combos allow login.</li>
+                    <li>Invalid logins return appropriate error messages.</li>
+                </ul>
+                <p><strong>Test Example:</strong></p>
+                <code>Input: Correct username, incorrect password</code><br>
+                <code>Expected Result: "Invalid credentials"</code>
+                
+                <h4>User Story: User Interface for Transactions</h4>
+                <p><strong>Description:</strong> As a user, I want a straightforward UI to navigate and deposit into my account easily.</p>
+                <p><strong>Acceptance Criteria:</strong></p>
+                <ul>
+                    <li>Tests ensure intuitive UI with all key actions (deposit, view balance) visible.</li>
+                    <li>Deposit inputs validated and processed correctly.</li>
+                    <li>Error messages for invalid inputs (e.g., negative amounts).</li>
+                </ul>
+                <p><strong>Test Example:</strong></p>
+                <code>Input: Deposit amount = -50</code><br>
+                <code>Expected Result: "Invalid amount"</code>
+                
+                <h4>User Story: Money Transfer</h4>
+                <p><strong>Description:</strong> As a bank user, I want to transfer money to other accounts by entering the recipient’s account number and amount, ensuring I don't exceed my balance.</p>
+                <p><strong>Acceptance Criteria:</strong></p>
+                <ul>
+                    <li>Tests validate transfer inputs (account number, amount).</li>
+                    <li>Transfers do not exceed sender’s available balance.</li>
+                    <li>Error messages for invalid or incomplete inputs.</li>
+                </ul>
+                <p><strong>Test Example:</strong></p>
+                <code>Input: Transfer amount exceeds available balance</code><br>
+                <code>Expected Result: "Insufficient balance"</code>
+                
+                <h4>User Story: Multiple Accounts</h4>
+                <p><strong>Description:</strong> As a bank user, I want the ability to create multiple bank accounts and access them all.</p>
+                <p><strong>Acceptance Criteria:</strong></p>
+                <ul>
+                    <li>Tests confirm users can create/manage multiple accounts under one profile.</li>
+                    <li>Tests validate viewing all linked accounts.</li>
+                </ul>
+                <p><strong>Test Example:</strong></p>
+                <code>Input: Create a second account for an existing user</code><br>
+                <code>Expected Result: A second account is created and displayed</code>
+                
+                <h4>User Story: Default Admin Account</h4>
+                <p><strong>Description:</strong> As a system admin, I want a default admin account with predefined credentials to log in and access the user management portal.</p>
+                <p><strong>Acceptance Criteria:</strong></p>
+                <ul>
+                    <li>Tests verify a default admin account exists.</li>
+                    <li>Only the default admin can access the admin portal initially.</li>
+                </ul>
+                <p><strong>Test Example:</strong></p>
+                <code>Input: Login attempt with invalid credentials</code><br>
+                <code>Expected Result: "Invalid credentials" error</code>
+                
+                <h4>User Story: Admin Dashboard</h4>
+                <p><strong>Description:</strong> As a bank admin, I want a management dashboard to view all user accounts.</p>
+                <p><strong>Acceptance Criteria:</strong></p>
+                <ul>
+                    <li>Tests ensure admin dashboard lists all user accounts.</li>
+                    <li>Tests confirm filtering and sorting capabilities.</li>
+                </ul>
+                <p><strong>Test Example:</strong></p>
+                <code>Input: Admin requests to view all users</code><br>
+                <code>Expected Result: List of user accounts displayed</code>
+                
+                <h4>User Story: User Management by Admin</h4>
+                <p><strong>Description:</strong> As a bank admin, I want to list, create, update, and delete users and their passwords.</p>
+                <p><strong>Acceptance Criteria:</strong></p>
+                <ul>
+                    <li>Tests verify CRUD operations on user accounts.</li>
+                    <li>Tests confirm proper permissions and security checks.</li>
+                </ul>
+                <p><strong>Test Example:</strong></p>
+                <code>Input: Delete a user without proper admin auth</code><br>
+                <code>Expected Result: "Access denied"</code>
+                
+                <hr>
+                <h3>Functionalities and Code Descriptions</h3>
+                
+                <h4>General Functionality</h4>
+                <ul>
+                    <li><strong>Hello World Endpoint (/):</strong> Health check endpoint returns "Hello, World!".</li>
+                    <li><strong>Skull Endpoint (/skull):</strong> Debug endpoint exposing DB connection details (development use).</li>
+                </ul>
+                
+                <h4>Account Management</h4>
+                <ul>
+                    <li><strong>POST /accounts:</strong> Creates a new bank account.</li>
+                    <li><strong>GET /accounts:</strong> Retrieves all bank accounts.</li>
+                    <li><strong>GET /accounts/&lt;id&gt;:</strong> Fetches details of a specific account.</li>
+                    <li><strong>PUT /accounts/&lt;id&gt;:</strong> Updates account details.</li>
+                    <li><strong>DELETE /accounts/&lt;id&gt;:</strong> Deletes an account by ID.</li>
+                </ul>
+                
+                <h4>User Management</h4>
+                <ul>
+                    <li><strong>POST /users/register:</strong> Registers a user with username and password confirmation.</li>
+                    <li><strong>POST /users/login:</strong> Authenticates user credentials.</li>
+                    <li><strong>GET /users/&lt;id&gt;:</strong> Retrieves user details and associated accounts.</li>
+                </ul>
+                
+                <h4>Transaction Management</h4>
+                <ul>
+                    <li><strong>POST /transactions:</strong> Executes money transfers between accounts, validating inputs and balances.</li>
+                    <li><strong>GET /transactions:</strong> Lists all transactions.</li>
+                    <li><strong>GET /transactions/&lt;user_id&gt;:</strong> Retrieves transactions for a specific user.</li>
+                </ul>
+                
+                <h4>Deposit Management</h4>
+                <ul>
+                    <li><strong>POST /deposit:</strong> Deposits funds into a specified account, enabling balance testing.</li>
+                </ul>
+                
+                <h4>Admin Routes</h4>
+                <ul>
+                    <li><strong>POST /admin/users:</strong> Admin creates new users with default accounts.</li>
+                    <li><strong>PUT /admin/users/&lt;id&gt;:</strong> Admin updates a user’s username/password.</li>
+                    <li><strong>DELETE /admin/users/&lt;id&gt;:</strong> Admin deletes a user and their accounts.</li>
+                    <li><strong>GET /admin/users:</strong> Retrieves all non-admin users.</li>
+                </ul>
+                
+                <h4>Utility Functions</h4>
+                <ul>
+                    <li><strong>format_account(account):</strong> Returns formatted JSON for account objects.</li>
+                    <li><strong>format_user(user, accounts):</strong> Returns formatted JSON for user objects with accounts.</li>
+                    <li><strong>format_transaction(transaction):</strong> Returns formatted JSON for transaction objects.</li>
+                </ul>
+                
+                <hr>
+                <h3>Functional Tests Overview</h3>
+                <p>
+                    The Postman API Collection ("Improved BestBank API Collection") validates the core functionalities 
+                    of the system in Development, UAT, and Production. Environment variables like <code>{{base_url}}</code> 
+                    allow dynamic testing across environments.
+                </p>
+                
+                <h3>Key Functional Test Scenarios</h3>
+                <h4>General Tests</h4>
+                <ul>
+                    <li><strong>Hello World Endpoint:</strong> Verifies backend accessibility and returns "Hello, World!".</li>
+                    <li><strong>Skull Endpoint:</strong> Checks database connection details exposure in debug mode.</li>
+                </ul>
+                
+                <h4>Accounts</h4>
+                <ul>
+                    <li><strong>Create Account:</strong> Tests account creation with required fields, expects 201 status and account id in response.</li>
+                    <li><strong>Get All Accounts:</strong> Verifies retrieval of all user accounts, expects 200 status and array of accounts.</li>
+                </ul>
+                
+                <h4>Users</h4>
+                <ul>
+                    <li><strong>Register User:</strong> Tests user registration with validation, expects 201 and user id in response.</li>
+                    <li><strong>Login User:</strong> Validates authentication, expects 200 and user details on success.</li>
+                </ul>
+
+                <hr>
+                <h3>Execution in UAT Environment</h3>
+
+                <h4>Steps to Execute Tests</h4>
+                <ol>
+                    <li><strong>Open the collection in Postman:</strong> Load the "ImprovedBestBankAPICollection.json".</li>
+                    <li><strong>Configure environment variables:</strong> Set <code>{{base_url}}</code> to point to the UAT environment.</li>
+                    <li><strong>Run the collection:</strong>
+                        <ul>
+                            <li>Manually in Postman UI.</li>
+                            <li>Automate with Newman:
+                                <code>newman run ImprovedBestBankAPICollection.json --environment uat-environment.json</code>
+                            </li>
+                        </ul>
+                    </li>
+                </ol>
+
+                <h4>Integration with CI/CD Pipelines</h4>
+                <ul>
+                    <li>Functional tests are executed as part of the CI pipelines in GitHub Actions.</li>
+                    <li>GitHub Status Checks block merging PRs if any test fails.</li>
+                    <li>Postman/Newman integration triggers test execution after deployment to UAT, ensuring code quality before moving forward.</li>
+                </ul>
+
+                <h4>Purpose</h4>
+                <ul>
+                    <li><strong>Validate API Functionality:</strong> Ensures endpoints behave as expected under various scenarios.</li>
+                    <li><strong>Early Issue Detection:</strong> Identifies broken APIs or logic issues before production deployment.</li>
+                    <li><strong>Streamlined Testing:</strong> Automation and consistency across deployments enhance reliability and speed.</li>
+                </ul>
             </div>
 
             <div class="tab-content" id="content3">
-                <h3>Subsection 3 Title (Edit Here)</h3>
-                <p>Placeholder content for Subsection 3.</p>
+                <h3>Release Strategy and CD Workflows</h3>
+                <hr>
+                <h3>Release Strategy: Docker Build and Push</h1>
+
+                <h4>Build the Docker Image</h4>
+                <p>
+                    The Docker image is built twice:
+                </p>
+                <ul>
+                    <li><strong>Tagged with <code>latest</code>:</strong> Always reflects the most recent image.</li>
+                    <li><strong>Tagged with a version:</strong> Derived from the image-version step for traceability.</li>
+                </ul>
+
+                <h4>Push the Docker Image</h4>
+                <p>
+                    Both tags are pushed to the production Docker registry:
+                </p>
+                <ul>
+                    <li><strong><code>latest</code> tag:</strong> Ensures the most up-to-date version is readily available.</li>
+                    <li><strong>Version-specific tag:</strong> Provides a fixed reference for deployments.</li>
+                </ul>
+
+                <h4>Testing Before Deployment</h4>
+                <p>
+                    Changes are tested thoroughly in UAT and DEV environments before merging into the main branch. This 
+                    ensures issues are caught early, providing a stable release for production.
+                </p>
+
+                <h4>Deployment to Production</h4>
+                <p>
+                    Once testing is completed and changes are merged into the main branch, the Docker images are deployed 
+                    to the Production environment.
+                </p>
+                <p>
+                    This strategy ensures a consistent, reliable, and tested process for delivering containerized 
+                    applications to production environments.
+                </p>
+
+                <hr>
+                <h3>Inner Loop</h3>
+                <p><strong>Description:</strong> The inner loop focuses on rapid, iterative development performed locally by developers. This includes writing, debugging, and testing code on their machines before committing to the shared repository.</p>
+
+                <h3>Workflow</h3>
+                <ul>
+                    <li><strong>Local Environment Setup:</strong> Developers use Docker to containerize their application, ensuring consistency across local and production environments.</li>
+                    <li><strong>Debugging and Testing:</strong></li>
+                    <ul>
+                        <li><strong>Frontend:</strong> Run locally (e.g., <code>npm run dev</code>) for quick UI iteration.</li>
+                        <li><strong>Backend:</strong> Use Docker + VS Code for debugging backend services, simulating production-like conditions.</li>
+                    </ul>
+                    <li><strong>Testing:</strong> Execute unit/integration tests locally (e.g., pytest, Postman) before pushing code.</li>
+                </ul>
+
+                <h4>Tools Used</h4>
+                <ul>
+                    <li>Docker, VS Code (with Docker/debugging extensions), Local testing frameworks (pytest, Postman).</li>
+                </ul>
+
+                <h4>Purpose</h4>
+                <ul>
+                    <li>Ensures code works as intended in a local, isolated environment.</li>
+                    <li>Reduces deployment issues by catching errors early.</li>
+                </ul>
+
+                <hr>
+                <h3>Outer Loop</h3>
+                <p><strong>Description:</strong> The outer loop refers to automated CI/CD processes that handle building, testing, and deploying apps to shared environments, ensuring a seamless transition from development to production.</p>
+
+                <h3>Workflow</h3>
+                <ul>
+                    <li><strong>Code Commit:</strong> Developers commit changes to feature branches.</li>
+                    <li><strong>CI Pipelines:</strong> Automated build and test (unit, integration, functional) processes. Backend is Dockerized; frontend is built into production-ready assets.</li>
+                    <li><strong>Deployment:</strong> Automatic deployment to dev, UAT, and production using containerized workflows (Kubernetes, etc.).</li>
+                    <li><strong>Monitoring:</strong> Automated smoke tests and monitoring tools ensure successful, regression-free deployments.</li>
+                </ul>
+
+                <h4>Purpose</h4>
+                <ul>
+                    <li>Provides a consistent, reliable deployment process.</li>
+                    <li>Automates manual steps, reducing errors and speeding delivery.</li>
+                </ul>
+
+                <h4>Tools Used</h4>
+                <ul>
+                    <li>GitHub Actions, Docker, Kubernetes, Postman/Newman for API testing, Monitoring tools (Prometheus/Grafana).</li>
+                </ul>
+
+                <hr>
+
+                <h3>Comparison of Inner Loop and Outer Loop</h3>
+                <table style="width:100%; border-collapse: collapse; margin: 30px 0;">
+                    <tr style="border-bottom: 1px solid #ccc; background: #f4f4f4;">
+                        <th style="padding:12px; text-align:left;">Aspect</th>
+                        <th style="padding:12px; text-align:left;">Inner Loop</th>
+                        <th style="padding:12px; text-align:left;">Outer Loop</th>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #ccc;">
+                        <td style="padding:12px;">Scope</td>
+                        <td style="padding:12px;">Local development & testing</td>
+                        <td style="padding:12px;">Automated CI/CD & shared environments</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #ccc;">
+                        <td style="padding:12px;">Environment</td>
+                        <td style="padding:12px;">Developer’s local machine</td>
+                        <td style="padding:12px;">Dev, UAT, Production environments</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #ccc;">
+                        <td style="padding:12px;">Tools</td>
+                        <td style="padding:12px;">Docker, VS Code, local testing</td>
+                        <td style="padding:12px;">GitHub Actions, Docker, Kubernetes</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #ccc;">
+                        <td style="padding:12px;">Speed</td>
+                        <td style="padding:12px;">Fast iteration</td>
+                        <td style="padding:12px;">Slower, comprehensive testing & deployment</td>
+                    </tr>
+                    <tr>
+                        <td style="padding:12px;">Purpose</td>
+                        <td style="padding:12px;">Debug & validate changes locally</td>
+                        <td style="padding:12px;">Automated deployment & maintain code quality</td>
+                    </tr>
+                </table>
+
+                <h3>Summary</h3>
+                <p>The inner loop allows developers to quickly iterate and test locally, while the outer loop ensures automated, reliable deployments across shared environments. Together, they minimize errors and accelerate high-quality software delivery.</p>
+
+                <hr>
+                <h3>Environment Progression</h3>
+                <ul>
+                    <li><strong>Development Environment:</strong> For testing/debugging during feature development.</li>
+                    <li><strong>UAT Environment:</strong> Staging area for QA and stakeholder validation.</li>
+                    <li><strong>Production Environment:</strong> Final stage for end-user access.</li>
+                </ul>
+
+                <hr>
+
+                <h3>Automated Deployment Process</h3>
+                <ul>
+                    <li><strong>Feature Branch Push:</strong> Deploys to Dev environment for isolated testing.</li>
+                    <li><strong>Pull Request to main:</strong> Deploys to UAT for QA review and acceptance.</li>
+                    <li><strong>Push to main:</strong> Deploys to Production automatically once changes are approved.</li>
+                </ul>
+
+                </hr>
+                <h3>CD Workflow for Frontend</h3>
+                <h4>Steps</h4>
+                <ul>
+                    <li><strong>Build Static Assets:</strong> Use <code>npm run build</code> or <code>yarn build</code> for production-ready files.</li>
+                    <li><strong>Deploy Static Files to CDN:</strong> Distribute via AWS S3+CloudFront, Azure Blob+CDN, or Netlify for global reach and improved performance.</li>
+                </ul>
+                <h4>Purpose</h4>
+                <ul>
+                    <li>Ensures a lightweight, optimized frontend.</li>
+                    <li>Improves performance and reduces latency for end-users.</li>
+                </ul>
+
+                <hr>
+                <h3>CD Workflow for Backend</h3>
+                <h4>Steps</h4>
+                <ul>
+                    <li><strong>Build Docker Images with Tagged Versions:</strong> Encapsulates backend and dependencies for portability.</li>
+                    <li><strong>Push Docker Image to Registry:</strong> Stores image in Docker Hub, AWS ECR, or Azure Container Registry.</li>
+                    <li><strong>Deploy Docker Container to Kubernetes:</strong> Kubernetes handles scaling, load balancing, and resilience. Deployment manifests (YAML/Helm) define container specs.</li>
+                </ul>
+
+                <h4>Purpose</h4>
+                <ul>
+                    <li>Provides scalability, fault tolerance, and high availability for backend services.</li>
+                    <li>Versioning facilitates rollbacks if needed.</li>
+                </ul>
             </div>
         </div>
     </div>

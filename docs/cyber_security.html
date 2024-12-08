@@ -972,8 +972,10 @@
                 
                 <h4>Monitor Vulnerabilities in Dependencies</h4>
                 <ul>
-                    <li><strong>Dependabot & Dependency Reviews:</strong> Ensures outdated/insecure dependencies are 
-                        quickly addressed.</li>
+                    <li><strong>Dependabot & Dependency Reviews:</strong> Enabled across all repositories 
+                        to minimize risks inherited from selected libraries.</li>
+                    <li><strong>Dependabot:</strong> Automatically scans and proposes updates to vulnerable dependencies.</li>
+                    <li><strong>Dependency Reviews:</strong> Assesses security impact of dependency changes on each pull request.</li>
                 </ul>
                 
                 <h4>Prefer Memory-Safe Languages</h4>
@@ -984,13 +986,12 @@
                 
                 <h4>No Secrets in Repositories</h4>
                 <ul>
-                    <li><strong>GitHub Secret Scanning & Push Protection:</strong> Prevents credential leaks at the source.</li>
+                    <strong>GitHub Secret Scanning & Push Protection:</strong> Prevents credential leaks by detecting and blocking secret inclusion before commit.
                 </ul>
                 
                 <h4>Control Asset Loading from Own Domains</h4>
                 <ul>
-                    <li><strong>Minimized External Dependencies:</strong> No external JS/CSS/media directly loaded 
-                        from uncontrolled domains.</li>
+                    <li><strong>Minimized External Dependencies:</strong> No external JS/CSS/media directly loaded from uncontrolled domains, reducing supply chain attack risks.</li>
                 </ul>
                 
                 <h4>Evaluate Open Source Software Dependencies</h4>
