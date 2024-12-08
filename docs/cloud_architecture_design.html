@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/> 
+    <title>IE BestBank - Cloud Architecture Design</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+        }
+        header {
+            background: #1E90FF;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background: #333;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 14px 20px;
+            display: inline-block;
+        }
+        nav a:hover {
+            background: #1E90FF;
+        }
+        .content {
+            max-width: 1200px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            min-height: 600px;
+        }
+        h2 {
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+
+        /* Tabs for Subsections */
+        .subsection-tabs {
+            margin-top: 40px;
+        }
+
+        .subsection-tabs input[type="radio"] {
+            display: none;
+        }
+
+        .subsection-tabs label {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #ddd;
+            margin: 0;
+            cursor: pointer;
+            border: 1px solid #ccc;
+            border-bottom: none;
+            border-radius: 5px 5px 0 0;
+            margin-right: 4px;
+        }
+
+        .subsection-tabs label:hover {
+            background: #ccc;
+        }
+
+        .subsection-tabs .tab-content {
+            border: 1px solid #ccc;
+            padding: 20px;
+            background: #fff;
+            display: none;
+            border-radius: 0 5px 5px 5px;
+        }
+
+        #subtab1:checked ~ #content1,
+        #subtab2:checked ~ #content2,
+        #subtab3:checked ~ #content3 {
+            display: block;
+        }
+
+        #subtab1:checked + label[for="subtab1"],
+        #subtab2:checked + label[for="subtab2"],
+        #subtab3:checked + label[for="subtab3"] {
+            background: #fff;
+            border-bottom: 1px solid #fff;
+        }
+
+        footer {
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+            padding: 10px;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>IE BestBank Documentation - Cloud Architecture Design</h1>
+    </header>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="product_owner.html">Product Owner</a>
+        <a href="full_stack_development.html">Full Stack Development</a>
+        <a href="infrastructure_development.html">Infrastructure Development</a>
+        <a href="cyber_security.html">Cyber Security</a>
+        <a href="site_reliability_engineering.html">Site Reliability Engineering</a>
+        <a href="cloud_architecture_design.html">Cloud Architecture Design</a>
+    </nav>
+
+    <div class="content">
+        <h2>Cloud Architecture Design Overview</h2>
+        <p>
+            This section outlines strategies, patterns, and best practices 
+            for designing and managing cloud architectures at IE BestBank.
+        </p>
+
+        <div class="subsection-tabs">
+            <input type="radio" name="subtabs" id="subtab1" checked>
+            <label for="subtab1">Subsection 1 Title (Edit Here)</label>
+
+            <input type="radio" name="subtabs" id="subtab2">
+            <label for="subtab2">Subsection 2 Title (Edit Here)</label>
+
+            <input type="radio" name="subtabs" id="subtab3">
+            <label for="subtab3">Subsection 3 Title (Edit Here)</label>
+
+            <div class="tab-content" id="content1">
+                <h3>Subsection 1 Title (Edit Here)</h3>
+                <p>Placeholder content for Subsection 1.</p>
+            </div>
+
+            <div class="tab-content" id="content2">
+                <h3>Subsection 2 Title (Edit Here)</h3>
+                <p>Placeholder content for Subsection 2.</p>
+            </div>
+
+            <div class="tab-content" id="content3">
+                <h3>Subsection 3 Title (Edit Here)</h3>
+                <p>Placeholder content for Subsection 3.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2024 IE BestBank. All rights reserved.
+    </footer>
+</body>
+</html>

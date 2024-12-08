@@ -1,210 +1,112 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>ER Diagram</title>
-    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
-    <script>
-        mermaid.initialize({ startOnLoad: true });
-    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/> 
+    <title>IE BestBank Documentation</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+        }
+        header {
+            background: #1E90FF;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background: #333;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 14px 20px;
+            display: inline-block;
+        }
+        nav a:hover {
+            background: #1E90FF;
+        }
+        .content {
+            max-width: 1200px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            min-height: 600px;
+        }
+        footer {
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+            padding: 10px;
+        }
+
+        hr {
+            border: none;
+            border-top: 3px solid #0e0d0d;
+            margin: 40px 0; /* Add space before/after the line as needed */
+        }
+    </style>
 </head>
 <body>
-    <h1>ER Diagram</h1>
-    <div class="mermaid">
-    erDiagram
-        USER ||--|{ ACCOUNT : "owns"
+    <header>
+        <h1>IE BestBank Documentation</h1>
+    </header>
 
-    
-        USER {
-            int id PK
-            string username
-            string password
-            datetime created_at
-            boolean is_admin
-        }
-    
-        ACCOUNT {
-            int id PK
-            string name
-            string account_number
-            float balance
-            string currency
-            string status
-            datetime created_at
-            string country
-            int user_id FK
-        }
-    
-        TRANSACTION {
-            int id PK
-            float amount
-            datetime timestamp
-            int sender_account_id FK
-            int receiver_account_id FK
-        }
-    
-        TRANSACTION }o--|| ACCOUNT : "sender_account"
-        TRANSACTION }o--|| ACCOUNT : "receiver_account"
+    <nav>
+        <!-- Horizontal Section Picker -->
+        <a href="index.html">Home</a>
+        <a href="product_owner.html">Product Owner</a>
+        <a href="full_stack_development.html">Full Stack Development</a>
+        <a href="infrastructure_development.html">Infrastructure Development</a>
+        <a href="cyber_security.html">Cyber Security</a>
+        <a href="site_reliability_engineering.html">Site Reliability Engineering</a>
+        <a href="cloud_architecture_design.html">Cloud Architecture Design</a>
+    </nav>
+
+    <div class="content">
+        <!-- Main content or introduction can go here -->
+        <h2>Welcome to the IE BestBank Documentation</h2>
+        <p>
+            This portal is designed to provide detailed documentation for various parts and technical domains 
+            within the IE BestBank ecosystem. Use the navigation menu above to explore the different sections, 
+            each containing detailed subsections of information related to each specialized area related to the software in question.
+        </p>
+
+        <hr>
+
+        <h2>Product Overview</h2>
+        <p>
+            The software designed and deployed by IE BestBank is a banking system allowing users to register and create accounts seamlessly
+            and securely, while also allowing the ability to deposit funds as well as tranfer and receive from multiple accounts. The software is designed to be user-friendly and intuitive, 
+            allowing users to easily navigate through the system. 
+        </p>
+
+        <hr>
+
+        <h2>Our Team</h2>
+        <p>
+            The IE BestBank team is comprised of highly skilled and experienced professionals in the fields of software development, 
+            infrastructure, cyber security, and cloud architecture. Our team is dedicated to providing the best possible service and 
+            support to our clients and users.
+
+            Specific roles within the team include:
+            <ul>
+                <li> <b>Product Owner:</b> Farah Orfaly</li>
+                <li> <b>Full Stack Developers:</b> Daniel Mora and Jose Izarra</li>
+                <li> <b>Infrastructure Developers:</b> Alexa Khreiche</li>
+                <li> <b>Cyber Security Specialist:</b> Els Vaks </li>
+                <li> <b>Site Reliability Engineers:</b> Ja'far Obeidat and David Adeakin</li>
+                <li> <b>Cloud Architect:</b> Saleh Abd Elrahman</li>
+            </ul>
+        </p>
     </div>
 
-    <h1>Data Flow Diagram</h1>
-    <div class="mermaid">
-    flowchart TD
-        
-        %% External Entities
-        User[[User]]
-        Admin[[Admin]]
-        
-        %% Processes
-        AuthenticateUser([Authenticate User])
-        ManageAccounts([Manage Accounts])
-        ManageTransactions([Manage Transactions])
-        
-        %% Data Stores
-        UserTable[(User Table)]
-        AccountTable[(Account Table)]
-        TransactionTable[(Transaction Table)]
-        
-        %% Data Flows
-        
-        %% User Authentication
-        User -->|Credentials| AuthenticateUser
-        AuthenticateUser -->|User Data| UserTable
-        AuthenticateUser -->|Authentication Result| User
-        
-        %% Account Management
-        User -->|Account Requests : Create,Edit,Delete,| ManageAccounts
-        ManageAccounts -->|Account Data| AccountTable
-        ManageAccounts -->|Account Info| User
-        
-        %% Transaction Management
-        User -->|Transaction Requests: Create, Transfer| ManageTransactions
-        ManageTransactions -->|Transaction Data| TransactionTable
-        ManageTransactions -->|Transaction Confirmation| User
-        
-        %% Account Balance Update
-        ManageTransactions -->|Update Balance| AccountTable
-        
-        %% Admin Interactions
-        Admin -->|Manage Users: Create, Delete| ManageAccounts
-    </div>
-
-    
-    <h1>Sequence Diagram (Registration)</h1>
-    <div class="mermaid">
-        sequenceDiagram
-            participant User
-            participant WebApp
-            participant Database
-
-            User->>WebApp: Open Registration Page
-            User->>WebApp: Submit Registration Form
-            WebApp->>Database: Check if Username Exists
-            Database-->>WebApp: Username Available
-            WebApp->>Database: Save New User Details
-            Database-->>WebApp: Confirmation
-            WebApp->>User: Registration Successful
-
-    </div>  
-    
-    <h1>Sequence Diagram (Login)</h1>
-    <div class="mermaid">
-        sequenceDiagram
-            participant User
-            participant WebApp
-            participant Database
-
-            User->>WebApp: Enter Credentials
-            WebApp->>Database: Retrieve User by Username
-            Database-->>WebApp: Return User Data
-            WebApp->>WebApp: Verify Password
-            alt Password Correct
-                WebApp->>User: Login Successful
-            else Password Incorrect
-                WebApp->>User: Login Failed
-            end
-    </div>
-
-    <h1>Sequence Diagram (Deposit Funds)</h1>
-    <div class="mermaid">
-        sequenceDiagram
-            participant User
-            participant WebApp
-            participant Database
-
-            User->>WebApp: Initiate Deposit
-            WebApp->>Database: Retrieve Account Details
-            Database-->>WebApp: Account Data
-            WebApp->>Database: Update Account Balance
-            Database-->>WebApp: Update Confirmation
-            WebApp->>User: Deposit Successful
-    </div>
-
-    <h1>Sequence Diagram (Transfer Funds)</h1>
-    <div class="mermaid">
-        sequenceDiagram
-            participant User
-            participant WebApp
-            participant Database
-
-            User->>WebApp: Initiate Transfer (Amount, Receiver Account)
-            WebApp->>Database: Retrieve Sender Account
-            WebApp->>Database: Retrieve Receiver Account
-            WebApp->>WebApp: Validate Accounts and Balance
-            alt Validation Successful
-                WebApp->>Database: Deduct Amount from Sender
-                WebApp->>Database: Add Amount to Receiver
-                WebApp->>Database: Record Transaction
-                Database-->>WebApp: Transaction Recorded
-                WebApp->>User: Transfer Successful
-            else Validation Fails
-                WebApp->>User: Transfer Failed
-            end
-    </div>
-
-    <h1>Sequence Diagram (Withdraw Funds)</h1>
-    <div class="mermaid">
-        sequenceDiagram
-            participant User
-            participant WebApp
-            participant Database
-
-            User->>WebApp: Initiate Withdrawal (Amount)
-            WebApp->>Database: Retrieve User Account Details
-            Database-->>WebApp: Return Account Data
-            WebApp->>WebApp: Validate Withdrawal Amount
-            alt Sufficient Funds
-                WebApp->>Database: Deduct Amount from Account Balance
-                Database-->>WebApp: Update Confirmation
-                WebApp->>Database: Record Withdrawal Transaction
-                Database-->>WebApp: Transaction Recorded
-                WebApp->>User: Withdrawal Successful
-            else Insufficient Funds
-                WebApp->>User: Withdrawal Failed - Insufficient Funds
-            end
-    </div>
-
-    <h1>Sequence Diagram (Admin changes user account to admin)</h1>
-    <div class="mermaid">
-        sequenceDiagram
-            participant Admin
-            participant WebApp
-            participant Database
-
-            Admin->>WebApp: Request to Promote User to Admin (User ID)
-            WebApp->>Database: Retrieve User Details by ID
-            Database-->>WebApp: Return User Data
-            WebApp->>WebApp: Validate Admin Privileges
-            alt Authorized
-                WebApp->>Database: Update User's is_admin to True
-                Database-->>WebApp: Update Confirmation
-                WebApp->>Database: Log Admin Promotion Transaction
-                Database-->>WebApp: Transaction Recorded
-                WebApp->>Admin: User Promoted to Admin Successfully
-            else Unauthorized
-                WebApp->>Admin: Promotion Failed - Unauthorized Action
-            end
-    </div>
-        
+    <footer>
+        &copy; 2024 IE BestBank. All rights reserved.
+    </footer>
 </body>
 </html>
