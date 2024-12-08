@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/> 
+    <title>IE BestBank - Product Owner</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+        }
+        header {
+            background: #1E90FF;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background: #333;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 14px 20px;
+            display: inline-block;
+        }
+        nav a:hover {
+            background: #1E90FF;
+        }
+        .content {
+            max-width: 1200px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            min-height: 600px;
+        }
+        h2 {
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+
+        /* Tabs for Subsections */
+        .subsection-tabs {
+            margin-top: 40px;
+        }
+
+        .subsection-tabs input[type="radio"] {
+            display: none;
+        }
+
+        .subsection-tabs label {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #ddd;
+            margin: 0;
+            cursor: pointer;
+            border: 1px solid #ccc;
+            border-bottom: none;
+            border-radius: 5px 5px 0 0;
+            margin-right: 4px;
+        }
+
+        .subsection-tabs label:hover {
+            background: #ccc;
+        }
+
+        .subsection-tabs .tab-content {
+            border: 1px solid #ccc;
+            padding: 20px;
+            background: #fff;
+            display: none;
+            border-radius: 0 5px 5px 5px;
+        }
+
+        #subtab1:checked ~ #content1,
+        #subtab2:checked ~ #content2,
+        #subtab3:checked ~ #content3 {
+            display: block;
+        }
+
+        #subtab1:checked + label[for="subtab1"],
+        #subtab2:checked + label[for="subtab2"],
+        #subtab3:checked + label[for="subtab3"] {
+            background: #fff;
+            border-bottom: 1px solid #fff;
+        }
+
+        footer {
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+            padding: 10px;
+        }
+
+        hr {
+            border: none;
+            border-top: 3px solid #0e0d0d;
+            margin: 40px 0; /* Add space before/after the line as needed */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>IE BestBank Documentation - Product Owner</h1>
+    </header>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="product_owner.html">Product Owner</a>
+        <a href="full_stack_development.html">Full Stack Development</a>
+        <a href="infrastructure_development.html">Infrastructure Development</a>
+        <a href="cyber_security.html">Cyber Security</a>
+        <a href="site_reliability_engineering.html">Site Reliability Engineering</a>
+        <a href="cloud_architecture_design.html">Cloud Architecture Design</a>
+    </nav>
+
+    <div class="content">
+        <h2>Product Owner Overview</h2>
+        <p>
+            This section contains detailed guidelines and best practices for Product Owners viewing this documentation. 
+            Please refer to the subsections below for more information.
+        </p>
+
+        <div class="subsection-tabs">
+            <!-- Radio buttons for tabs -->
+            <input type="radio" name="subtabs" id="subtab1" checked>
+            <label for="subtab1">Product Planning</label>
+
+            <input type="radio" name="subtabs" id="subtab2">
+            <label for="subtab2">MVP and OKRs</label>
+
+            <input type="radio" name="subtabs" id="subtab3">
+            <label for="subtab3">Scrum Methodology/DevOps Collaboration</label>
+
+            <!-- Tab content sections -->
+            <div class="tab-content" id="content1">
+                <h3>Product Planning</h3>
+                <h4>Product Vision</h4>
+                <p>
+                    IE BestBank's product vision is 'Your bank, anytime, anywhere - secure, simple, and empowering'. 
+                    We provide an intuitive and secure banking experience for our customers to manage accounts and transactions, 
+                    ensuring financial empowerment and peace of mind.
+                </p>
+                <hr>
+                <h4>Product Mission</h4>
+                <p>
+                    IE BestBank's mission is to deliver innovative banking solutions that simplify financial management, 
+                    enhance customer experience, and foster financial well-being for our customers. 
+                    We aim to provide secure, reliable, and user-friendly banking services that empower customers to achieve their financial goals.
+                </p>
+                <hr>
+                <h4>Product Vision Board</h4>
+                <p>
+                    The Product Vision Board is a collaborative tool used to define and communicate the product vision, 
+                    strategy, and goals. It consists of key elements such as product vision, target groups, 
+                    needs, key features, business goals, cost factors, etc. 
+                    The Product Vision Board helps align stakeholders and development teams on the product vision and goals.
+
+                    <ul>
+                        <li>Product Vision: 'Your bank, anytime, anywhere - secure, simple, and empowering'</li>
+                        <br>
+                        <li>Target Group: 
+                            <ul>
+                                <br>
+                                <li>Young professionals (18-35)</li>
+                                <br>
+                                <li>Tech-dependent individuals - Environmentally conscious</li>
+                                <br>
+                                <li>Users who value secure, convenient, and innovative digital banking solutions</li>
+                            </ul>
+                        </li>
+                        <br>
+                        <li>Needs:
+                            <ul>
+                                <br>
+                                <li>Convenience: Manage accounts, transfers, and bills in one app</li>
+                                <br>
+                                <li>Security: Trusted features to protect data and transactions</li>
+                                <br>
+                                <li>Accessibility: Banking anywhere, anytime, without branches</li>
+                                <br>
+                                <li>Simplicity: Intuitive design for all tech skill levels</li>
+                                <br>
+                                <li>Eco-consciousness: Digital banking with minimal environmental impact</li>
+                            </ul>
+                        </li>
+                        <br>
+                        <li>Product: 
+                            <ul>
+                                <br>
+                                <li>Type: A mobile banking app available on iOS and Android, and website</li>
+                                <br>
+                                <li>Differentiated: Combines simplicity, security, and eco-conscious features to provide a unique user experience</li>
+                                <br>
+                                <li>Features:</li>
+                                <ul>
+                                    <br>
+                                    <li>Account management: View balances, track spending, and manage accounts</li>
+                                    <br>
+                                    <li>Money transfers: Fast, secure transfers domestically and internationally</li>
+                                    <br>
+                                    <li>Insights: Financial tracking and recommendations for better budgeting</li>
+                                </ul>
+                                <br>
+                            </ul>
+                        </li>
+                        <br>
+                        <li>Business Goals:</li>
+                        <ul>
+                            <br>
+                            <li>Increase revenue: Boost income by expanding the customer base through a user-friendly app</li>
+                            <br>
+                            <li>Enhance brand reputation: Position IE Bank as a leader in digital banking innovation</li>
+                            <br>
+                            <li>Improve customer retention: Foster loyalty through a seamless and secure banking experience</li>
+                            <br>
+                            <li>Reduce operational costs: Lower expenses by minimizing physical branch reliance.</li>
+                            <br>
+                            <li>Support sustainability goals: Align with eco-conscious banking practices to attract environmentally aware users </li>
+                        </ul>
+                        <br>
+                        <li>Competitors:</li>
+                        <ul>
+                            <br>
+                            <li>Revolut</li>
+                            <br>
+                            <li>N26</li>
+                            <br>
+                            <li>Bunq</li>
+                            <br>
+                            <li>Openbank</li>
+                            <br>
+                            <li>Bnext</li>
+                            <br>
+                            <li>Other IE banks</li>
+                        </ul>
+                        <br>
+                        <li>Revenue Streams:</li>
+                        <ul>
+                            <br>
+                            <li>Transaction fees (international transfers or bill payments)</li>
+                            <br>
+                            <li>Interest on loans and credit</li>
+                            <br>
+                            <li>Card interchange fees</li>
+                            <br>
+                            <li>Partner commissions (insurances, investments)</li>
+                        </ul>
+                        <br>
+                        <li>Cost Factors:</li>
+                        <ul>
+                            <br>
+                            <li>Cost of hosting application</li>
+                            <br>
+                            <li>Software Development</li>
+                            <br>
+                            <li>Testing and Quality assurance</li>
+                            <br>
+                            <li>Storage Costs</li>
+                        </ul>
+                        <br>
+                        <li>Channels</li>
+                        <ul>
+                            <br>
+                            <li>Partnerships: Collaborations with fintech companies, business networks, etc</li>
+                            <br>
+                            <li>Digital Marketing: email marketing, social media campaigns</li>
+                        </ul>
+                    
+                    </ul>
+                </p>
+            </div>
+
+            <div class="tab-content" id="content2">
+                <h3>MVP and OKRs</h3>
+                <h4>Minimum Viable Product (MVP) Description</h4>
+                <p>
+                    The MVP for the IE Bank app will establish a foundational platform for 
+                    digital banking, focusing on simplicity, security, and essential functionality. 
+                    This version will cater to two primary user groups: bank administrators and 
+                    individual customers, providing them with dedicated portals to manage their 
+                    respective needs effectively.
+                </p>
+                <hr>
+                <h4>Core Features</h4>
+                <ul>
+                    <li>Admin Portal: Efficient User Management</li>
+                    <ul>
+                        <br>
+                        <li>The Admin Portal serves as the control center for bank administrators, allowing them to 
+                            manage user accounts and ensure the smooth operation of the banking system. A default
+                            administrator account will be pre-configured during the application setup, offering secure 
+                            initial access to the portal. Once logged in, the administrator can:</li>
+                        <br>
+                        <ul>
+                            <li>View User Accounts: Access a comprehensive list of registered bank users, displaying their associated bank accounts and basic details</li>
+                            <br>
+                            <li>Create New Users: Easily add new bank users by filling out their details and initializing their profiles with a secure password</li>
+                            <br>
+                            <li>Update User Information: Modify user credentials or update personal details as required</li>
+                            <br>
+                            <li>Delete User Accounts: Safely remove inactive or incorrect user profiles and their associated data</li>
+                            <br>
+                        </ul> 
+                        <li>This portal ensures that the administrator has full control over the user database, enabling 
+                            streamlined management through an intuitive interface</li>
+                    </ul>
+                    <br>
+                    <li>User Portal: Personalized Banking Experience</li>
+                    <ul>
+                        <br>
+                        <li>The User Portal is designed for individual customers to manage their bank accounts 
+                            with ease. To onboard new users, the portal includes a simple and secure registration 
+                            process. Users can create an account by providing a unique username, confirming their 
+                            password, and completing basic form validations. Upon successful registration, the 
+                            system automatically generates a new bank account with a random account number, 
+                            ready for immediate use
+                        </li>
+                        <br>
+                        <li>After logging in, users gain access to a personalized dashboard that displays their 
+                            associated bank accounts and recent transactions. The portal emphasizes user security, 
+                            requiring credentials to be hashed and securely stored in the backend database
+                        </li>
+                        <br>
+                        <li>Core functionalities include:</li>
+                        <br>
+                        <ul>
+                            <li>Account Management: Users can view detailed information about their accounts, such as balances and transaction histories, ensuring transparency and control</li>
+                            <br>
+                            <li>Fund Transfers: Customers can seamlessly transfer money to other accounts 
+                                within the bank by specifying the recipient’s account number and the transfer 
+                                amount. The system ensures that the transfer amount does not exceed the account balance, 
+                                safeguarding users from overdrafts
+                            </li>
+                            <br>
+                        </ul> 
+                        <li>This portal delivers a straightforward banking experience, prioritizing usability and 
+                            reliability while maintaining strict adherence to security standards
+                        </li>
+                    </ul>
+                    <br>
+                    <li>Secure Authentication and Data Storage</li>
+                    <ul>
+                        <br>
+                        <li>Security is at the heart of the MVP. Both admin and user portals feature a robust 
+                            authentication system requiring valid credentials (username and password) for access. 
+                            To protect user data:
+                        </li>
+                        <br>
+                        <ul>
+                            <li>Passwords are encrypted and stored as secure hashes in the PostgreSQL database</li>
+                            <br>
+                            <li>Advanced authentication methods, such as multi-factor authentication or OAuth, are 
+                                deferred for future releases to keep the MVP lightweight and focused
+                            </li>
+                            <br>
+                        </ul> 
+                    </ul>
+                    <li>Simple and Functional Interface</li>
+                    <ul>
+                        <br>
+                        <li>The MVP frontend will be developed using Vue.js, ensuring a reactive and smooth user experience. 
+                            While visual aesthetics are not a priority at this stage, the interface will be clean and 
+                            straightforward, allowing users to focus on functionality. Accessibility and responsiveness 
+                            will be considered for future iterations
+                        </li>
+                        <br>
+                    </ul>
+                </ul>
+                <hr>
+                <h4>Objectives and Key Results (OKRs)</h4>
+                <ul>
+                    <br>
+                    <li>Objective 1: Deliver a Secure and Functional MVP</li>
+                    <br>
+                    <ul>
+                        <li>Description: Ensure the MVP is released with essential features that are secure, 
+                            reliable, and meet the defined acceptance criteria</li>
+                        <br>
+                        <li>Key Result 1: Implement secure user authentication with hashed credentials and 
+                            pass 100% of authentication tests by the end of Q1
+                        </li>
+                        <br>
+                        <li>Key Result 2: Deploy the Admin Portal with full CRUD (Create, Read, Update, Delete) 
+                            functionality for user management, validated with at least 10 successful user tests by the 
+                            end of Q1
+                        </li>
+                        <br>
+                        <li>Key Result 3: Enable user registration with automated account creation and unique 
+                            account numbers, achieving a 100% success rate in UAT by the second sprint
+                        </li>
+                        <br>
+                        <li>Key Result 4: Implement fund transfer functionality, ensuring balance validation and 
+                            accuracy in 100% of test cases by the second sprint
+                        </li>
+                        <br>
+                        <li>Key Result 5: Achieve 95% unit test coverage for MVP components, with all acceptance 
+                            criteria met, by the end of Q1
+                        </li>
+                        
+                    </ul>
+
+                    <br>
+                    <li>Objective 2: Ensure Scalable and Reliable Infrastructure</li>
+                    <br>
+                    <ul>
+                        <li>Description: Build a robust foundation for the app to ensure scalability, 
+                            reliability, and future growth potential
+                        </li>
+                        <br>
+                        <li>Key Result 1: Deploy development, UAT, and production environments on Azure 
+                            using Infrastructure as Code (IaC), validated through automated tests by the 
+                            end of Q1
+                        </li>
+                        <br>
+                        <li>Key Result 2: Implement CI pipelines for frontend and backend, achieving 90% 
+                            automation of builds and tests by mid-Q1
+                        </li>
+                        <br>
+                        <li>Key Result 3: Set up CD pipelines to automatically deploy the app to production 
+                            after successful UAT testing, achieving zero deployment failures by the end of Q1
+                        </li>
+                        <br>
+                        <li>Key Result 4: Maintain 99.5% uptime in the production environment during the first month post-MVP 
+                            launch, monitored via Azure tools
+                        </li>
+                        <br>
+                        <li>Key Result 5: Enable centralized logging and monitoring using Azure Log Analytics and 
+                            Application Insights, generating actionable alerts within the second sprint
+                        </li>
+                        
+                    </ul>
+
+                    <br>
+                    <li>Objective 3: Enhance Team Collaboration and Efficiency</li>
+                    <br>
+                    <ul>
+                        <li>Description: Improve team productivity by fostering effective communication, 
+                            streamlined workflows, and efficient processes
+                        </li>
+                        <br>
+                        <li>Key Result 1: Integrate Slack, GitHub, and Azure Boards for communication and task 
+                            tracking, achieving 100% adoption by the team within the first week
+                        </li>
+                        <br>
+                        <li>Key Result 2: Conduct three sprint planning sessions and one retrospective by the end 
+                            of Q1, with 100% team participation
+                        </li>
+                        <br>
+                        <li>Key Result 3: Refine 100% of user stories in the backlog, ensuring clear acceptance criteria 
+                            before the second sprint
+                        </li>
+                        <br>
+                        <li>Key Result 4: Reduce average pull request approval time to under 24 hours for 80% of PRs by 
+                            the end of the second sprint
+                        </li>
+                        <br>
+                        <li>Key Result 5: Document 100% of workflows, decisions, and progress in GitHub Pages, achieving 
+                            real-time accessibility for all stakeholders by the end of Q1
+                        </li>
+                        
+                    </ul>
+
+                    <br>
+                    <li>Objective 4: Build Trust Through a Secure and Intuitive User Interface</li>
+                    <br>
+                    <ul>
+                        <li>Description: Create a user-friendly and seamless interface for both admin and user 
+                            portals to instill confidence and enhance usability
+                        </li>
+                        <br>
+                        <li>Key Result 1: Deliver user interfaces for admin and user portals that meet 100% of functional requirements 
+                            and are fully operational by the second sprint
+                        </li>
+                        <br>
+                        <li>Key Result 2: Achieve a 100% success rate in user workflows (e.g., registration, login, transfers) 
+                            during UAT, with no critical usability issues by the third sprint
+                        </li>
+                        <br>
+                        <li>Key Result 3: Conduct five user testing sessions, addressing 100% of major feedback points before 
+                            the MVP release
+                        </li>
+                        <br>
+                        <li>Key Result 4: Add contextual error messages and tooltips for registration and transactions, 
+                            reducing user errors by 30% during UAT by the third sprint
+                        </li>
+                        <br>
+                        <li>Key Result 5: Ensure 95% of user actions achieve a response time under 2 seconds, validated 
+                            by performance testing by the end of Q1
+                        </li>
+                        
+                    </ul>
+
+                    <br>
+                    <li>Objective 5: Establish a Strong Security Framework</li>
+                    <br>
+                    <ul>
+                        <li>Description: Protect user data and secure the application by 
+                            following industry best practices and implementing robust security measures
+                        </li>
+                        <br>
+                        <li>Key Result 1: Enable GitHub Advanced Security features, including CodeQL analysis, 
+                            secret scanning, and dependency reviews, achieving 100% coverage by the end of 
+                            the first sprint
+                        </li>
+                        <br>
+                        <li>Key Result 2: Store 100% of sensitive credentials (e.g., PostgreSQL, Docker Registry) 
+                            in Azure Key Vault, validated through security audits by the end of the first sprint
+                        </li>
+                        <br>
+                        <li>Key Result 3: Conduct a comprehensive security audit, resolving all critical and 
+                            high-severity issues before the MVP release
+                        </li>
+                        <br>
+                        <li>Key Result 4: Implement and document five OpenSSF best practices and five SAFECode 
+                            principles for secure development, achieving team compliance by the end of Q1
+                        </li>
+                        <br>
+                        <li>Key Result 5: Maintain zero critical or high-severity vulnerabilities in production 
+                            during the first month post-MVP launch, monitored through automated tools
+                        </li>
+                        
+                    </ul>
+                </ul>
+            </div>
+
+            <div class="tab-content" id="content3">
+                <h3>Scrum Methodology/DevOps Collaboration</h3>
+                <h4>Scrum Methodology</h4>
+                <ul>
+                    <li>Implement Scrum Framework</li>
+                    <br>
+                    <ul>
+                        <li>Azure Boards Backlog Grooming: Create a prioritized product backlog with epics broken down into
+                            user stories, and acceptance criteria for the MVP. Ensure that the backlog is refined 
+                            and updated regularly to reflect the team's progress and priorities. Assign story points
+                            to user stories to estimate complexity and effort required for implementation.
+                        </li>
+                        <br>
+                        <li>Sprint Planning: Define sprint goals based on set requirements of MVP, as well as current project Roadmap.
+                            Select user stories from the product backlog and assign them to the sprint backlog. 
+                            Ensure that the sprint backlog is achievable and well documented, as well as aligns with the sprint goals.
+                            Ensure that the team understands the scope and acceptance criteria for each user story.
+                        </li>
+                        <br>
+                        <li>Daily Standups: Conduct daily standup meetings to discuss progress, challenges, and plans for the day. 
+                            Each team member should provide updates on their work, any blockers, and plans for the day. 
+                            The Scrum Master should facilitate the meeting and ensure that the team stays focused and on track.
+                        </li>
+                        <br>
+                        <li>Sprint Review: At the end of each sprint, conduct a sprint review meeting to demonstrate the completed 
+                            user stories to stakeholders and gather feedback. Review the sprint goals and discuss any changes or 
+                            adjustments needed for the next sprint.
+                        </li>
+                        <br>
+                        <li>Retrospectives: Conduct retrospectives at the end of each sprint to reflect on the team's performance, 
+                            identify areas for improvement, and plan action items for the next sprint. 
+                            Encourage open communication and feedback from team members to foster continuous improvement.
+                        </li>
+                    </ul>
+                    <br>
+                    <li>Roles and Responsibilities</li>
+                    <br>
+                    <ul>
+                        <li>Product Owner: Responsible for defining and prioritizing the product backlog,
+                            ensuring that it is up-to-date and reflects the team's progress and priorities. 
+                            Collaborates with stakeholders to gather requirements and feedback, and communicates
+                            the product vision and goals to the team.
+                        </li>
+                        <br>
+                        <li>Scrum Master: Facilitates the Scrum process, ensures that the team follows Scrum practices,
+                            and helps remove any impediments that may affect the team's progress.
+                        </li>
+                        <br>
+                        <li>Scrum Team: Responsible for implementing user stories, meeting sprint goals, and delivering
+                            a potentially shippable product increment at the end of each sprint.
+
+                        </li>
+                    </ul>
+                </ul>
+                <hr>
+                <h4>DevOps Collaboration</h4>
+                <ul>
+                    <li>GitHub Integration: Integrated Github alerts and notifications into Slack channels to keep the team informed 
+                        about code changes, pull requests, and issues. This integration helps streamline communication and collaboration 
+                        among team members and ensures that everyone is up-to-date on project progress.
+                    </li>
+                    <br>
+                    <li>Zoom Integration: Integrated Zoom for daily standup meetings, sprint planning, and retrospectives. 
+                        Zoom provides a platform for team members to connect, discuss project updates, and plan sprints effectively. 
+                        The integration ensures that team members can easily join meetings and collaborate in real-time.
+                    </li>
+                    <br>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2024 IE BestBank. All rights reserved.
+    </footer>
+</body>
+</html>
