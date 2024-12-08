@@ -77,13 +77,15 @@
 
         #subtab1:checked ~ #content1,
         #subtab2:checked ~ #content2,
-        #subtab3:checked ~ #content3 {
+        #subtab3:checked ~ #content3,
+        #subtab4:checked ~ #content4 {
             display: block;
         }
 
         #subtab1:checked + label[for="subtab1"],
         #subtab2:checked + label[for="subtab2"],
-        #subtab3:checked + label[for="subtab3"] {
+        #subtab3:checked + label[for="subtab3"],
+        #subtab4:checked + label[for="subtab4"] {
             background: #fff;
             border-bottom: 1px solid #fff;
         }
@@ -94,6 +96,42 @@
             color: #666;
             padding: 10px;
             margin-top: 40px;
+        }
+        hr {
+            border: none;
+            border-top: 3px solid #0e0d0d;
+            margin: 40px 0; /* Add space before/after the line as needed */
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 4px;
+        }
+        .img-container {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .img-container img {
+            max-width: 100%;
+            height: 350px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+        }
+
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background: #f4f4f4;
         }
     </style>
 </head>
@@ -120,27 +158,928 @@
 
         <div class="subsection-tabs">
             <input type="radio" name="subtabs" id="subtab1" checked>
-            <label for="subtab1">Subsection 1 Title (Edit Here)</label>
+            <label for="subtab1">GitHub Hardening Strategy</label>
 
             <input type="radio" name="subtabs" id="subtab2">
-            <label for="subtab2">Subsection 2 Title (Edit Here)</label>
+            <label for="subtab2">Secure Credentials Management Strategy</label>
 
             <input type="radio" name="subtabs" id="subtab3">
-            <label for="subtab3">Subsection 3 Title (Edit Here)</label>
+            <label for="subtab3">Threat Modelling</label>
+
+            <input type="radio" name="subtabs" id="subtab4">
+            <label for="subtab4">Security Implementation Requirements</label>
 
             <div class="tab-content" id="content1">
-                <h3>Subsection 1 Title (Edit Here)</h3>
-                <p>Placeholder content for Subsection 1.</p>
+                <h3>GitHub Hardening Strategy</h3>
+                <p>
+                    Our GitHub hardening strategy is based on mediating risks that could compromise software security. 
+                    The goal is to enable developers to produce the most secure software possible by preventing sensitive 
+                    information exposure, code vulnerabilities, and insecure dependencies, and by enforcing code reviews 
+                    on every push. This ensures that changes to codebases comply with previously established development 
+                    standards.
+                </p>
+
+                <p>
+                    To achieve this, various tools from GitHub and external providers were implemented across 
+                    <code>BestBank-fe</code>, <code>BestBank-be</code>, and <code>BestBank-infra</code>.
+                </p>
+
+                <hr>
+                <h3>GitHub Secret Scanning</h3>
+                <div class="img-container">
+                    <img src="../images/SecScan.jpeg" alt="Development Infrastructure">
+                </div>
+                <p>
+                    Implemented to detect any accidental exposure of secrets in our repositories. This is vital, 
+                    especially since our repository is public, to avoid the risk of API keys, passwords, or tokens 
+                    being discovered and exploited by malicious actors.
+                </p>
+                <p>
+                    Developers were instructed to ensure no secrets are pushed to GitHub from their local environments. 
+                    As a result, no secrets were ever pushed onto any development or main branches.
+                </p>
+
+                <hr>
+                <h3>Push Protection</h3>
+                <div class="img-container">
+                    <img src="../images/PushProte.jpeg" alt="Development Infrastructure">
+                </div>
+                <p>
+                    GitHub secret scanning was enhanced with push protection, which blocks pushes containing secrets. 
+                    This automates the prevention of human error since pushes with secrets are automatically blocked. 
+                    Should a developer override the block, an alert is generated.
+                </p>
+
+                <hr>
+                <h3>CodeQL Implementation</h3>
+                <div class="img-container">
+                    <img src="../images/CodeQL.jpeg" alt="Development Infrastructure">
+                </div>
+                <p>
+                    CodeQL was implemented in our frontend and backend repositories to detect unpatched code 
+                    vulnerabilities at the code level. The review runs on pushes and pull requests to the main 
+                    branch, as well as every Friday at 9:27 AM.
+                </p>
+                <p>
+                    CodeQL helps identify issues like SQL injection and XSS, among other vulnerabilities. Continuous 
+                    monitoring of CodeQL alerts ensures critical risks are minimized before they affect the production environment.
+                </p>
+
+                <hr>
+                <h3>OSSF Scorecard</h3>
+                <div class="img-container">
+                    <img src="../images/ScoreCard.jpeg" alt="Development Infrastructure">
+                </div>
+                <p>
+                    The OSSF Scorecard focuses on repository-level security, including dependency management, code 
+                    reviews, and general security hygiene. It runs on every push to the main branch and every Tuesday 
+                    at 5:39 PM.
+                </p>
+                <p>
+                    By catching vulnerabilities early, the OSSF Scorecard helps prevent issues at the source and 
+                    provides insight into the security practices implemented in frontend, backend, and infrastructure repositories.
+                </p>
+
+                <hr>
+                <h3>Dependabot</h3>
+                <div class="img-container">
+                    <img src="../images/Dependabot.jpeg" alt="Development Infrastructure">
+                </div>
+                <p>
+                    Dependabot automatically detects and provides upgrades for dependencies used across our repositories. 
+                    This is critical as many of our repositories (except infrastructure) rely on multiple dependencies. 
+                    Keeping dependencies up-to-date helps prevent known vulnerabilities from persisting.
+                </p>
+
+                <hr>
+                <h3>Dependency Reviews</h3>
+                <div class="img-container">
+                    <img src="../images/DependReview.jpeg" alt="Development Infrastructure">
+                </div>
+                <p>
+                    Dependency reviews further enhance dependency management by providing developers with information 
+                    about how changes in dependencies might affect the project's security. If critical vulnerabilities 
+                    are found, merging is blocked until the issue is addressed.
+                </p>
+
+                <hr>
+                <h3>CODEOWNERS</h3>
+                <div class="img-container">
+                    <img src="../images/CODEOWNERS.jpeg" alt="Development Infrastructure">
+                </div>
+                <p>
+                    Implementing CODEOWNERS ensures that only authorized contributors can push changes. All code must 
+                    be reviewed by designated code owners (the main maintainers for each repository) before it can be merged.
+                </p>
+                <hr>
+
+                <h3>Default Ruleset for Main Branch</h3>
+                <div class="img-container">
+                    <img src="../images/MainRuleSet.jpeg" alt="Development Infrastructure">
+                </div>
+                <p>
+                    In addition to the policies above, a default ruleset was defined for the main branch, which is used 
+                    for deployment:
+                </p>
+                <ul>
+                    <li>All changes must be submitted via pull request before merging.</li>
+                    <li>At least one codeowner review is required prior to merging.</li>
+                    <li>Force pushes are blocked.</li>
+                    <li>Dependency review for critical vulnerabilities must pass before merging.</li>
+                    <li>Deletion of the main branch is restricted.</li>
+                </ul>
+
+                <p>
+                    By implementing this GitHub hardening strategy, our repositories are continuously monitored for 
+                    vulnerabilities, and potential issues are addressed before they can materialize. This approach 
+                    ensures a robust security posture throughout the development lifecycle.
+                </p>
             </div>
 
             <div class="tab-content" id="content2">
-                <h3>Subsection 2 Title (Edit Here)</h3>
-                <p>Placeholder content for Subsection 2.</p>
+                <h3>Secure Credentials Management Strategy</h3>
+                <div class="img-container">
+                    <img src="../images/SecCredStrat.jpeg" alt="Development Infrastructure">
+                </div>
+                <p>
+                    In our development and deployment phases we follow the principle of least privilege 
+                    (as outlined in PA-7 of Azure best practices). Each entity should have access only to 
+                    the privileged data essential for their tasks. Based on this, we have outlined our 
+                    secure credentials management strategy.
+                </p>
+                <p>
+                    We combine the strengths of both GitHub Secrets and Azure Key Vault to store 
+                    credentials securely.
+                </p>
+                <hr>
+            
+                <h3>1. Variables to Store in GitHub Secrets vs. Managed Identities vs. Azure Key Vault</h3>
+            
+                <h4>GitHub Secrets</h4>
+                <p>
+                    We use GitHub Secrets for deployment-time credentials and parameters needed by our 
+                    GitHub Actions workflows during the CI/CD process.
+                </p>
+                <ul>
+                    <li><strong>Azure Service Principal Credentials (AZURE_CREDENTIALS)</strong>: Used by GitHub Actions to authenticate with Azure.</li>
+                    <li><strong>Admin Names and Passwords</strong>: Sensitive data used to access our application as administrators.</li>
+                </ul>
+                <p><strong>Why store these in GitHub Secrets?</strong></p>
+                <ul>
+                    <li><strong>Deployment-Time Use</strong>: Required by the CI/CD pipeline during deployment.</li>
+                    <li><strong>Secure Storage in GitHub</strong>: GitHub Secrets store sensitive data safely for workflows, allowing initialization of Key Vault without exposure.</li>
+                    <li><strong>Not Needed at Runtime</strong>: Credentials are not required after deployment; they’re used to bootstrap our environment.</li>
+                </ul>
+            
+                <h4>Managed Identities for Enhanced Security</h4>
+                <p>
+                    Managed Identities provide Azure services with an automatically managed identity in 
+                    Azure Active Directory (AAD), eliminating the need for explicit credentials and 
+                    reducing the risk of credential leakage.
+                </p>
+                <ul>
+                    <li><strong>Used for Database Credentials</strong>: Securely manage connection strings to PostgreSQL via managed identities.</li>
+                </ul>
+                <p><strong>Reasons for Using Managed Identities:</strong></p>
+                <ul>
+                    <li><strong>Elimination of Credential Management</strong>: No manual handling of credentials, reducing leakage risk.</li>
+                    <li><strong>Seamless Integration</strong>: Easily integrates with Azure services for secure, streamlined access.</li>
+                    <li><strong>Enhanced Security Posture</strong>: Relies on AAD for authentication, adhering to least privilege without exposing credentials as environment variables.</li>
+                </ul>
+            
+                <h4>Azure Key Vault</h4>
+                <p>
+                    We use Azure Key Vault for runtime secrets and credentials needed by the application 
+                    while running in Azure.
+                </p>
+                <ul>
+                    <li><strong>Certificates and Encryption Keys</strong>: Future TLS/SSL certificates, cryptographic keys.</li>
+                    <li><strong>Container Registry Credentials</strong>: For pulling images from a private container registry at runtime.</li>
+                </ul>
+                <p><strong>Why Azure Key Vault?</strong></p>
+                <ul>
+                    <li><strong>Runtime Secret Management</strong>: Secure storage and controlled access to runtime secrets.</li>
+                    <li><strong>Integration with Azure Services</strong>: Seamless access via Managed Identities.</li>
+                    <li><strong>Centralized Secret Management</strong>: Manage, rotate, and audit secrets centrally, allowing future integration with enhanced security features.</li>
+                </ul>
+            
+                <hr>
+                <h3>Permissions Across Environments (Prod, UAT, Dev)</h3>
+                <p>
+                    Following best practices for protecting secrets:
+                </p>
+                <ul>
+                    <li><strong>Apply Granular Access Control</strong>: Use Azure RBAC to control who/what can access secrets.</li>
+                    <li><strong>Leverage Managed Identities</strong>: Eliminates managing credentials in code.</li>
+                </ul>
+            
+                <h4>Setting Up Permissions for Azure Key Vault</h4>
+                <p><strong>Use Azure RBAC for Access Control:</strong></p>
+                <ul>
+                    <li><strong>Key Vault Administrator</strong>: Full access to keys, secrets, certificates (e.g., service principal).</li>
+                    <li><strong>Key Vault Reader</strong>: Read metadata (no secret values).</li>
+                    <li><strong>Key Vault Secrets Officer</strong>: Manage secrets without altering Key Vault configuration.</li>
+                    <li><strong>Key Vault Secrets User</strong>: Applications accessing secrets at runtime.</li>
+                </ul>
+            
+                <p><strong>Separate Key Vaults per Environment</strong> (dev, UAT, prod):</p>
+                <ul>
+                    <li>Isolate secrets and access controls per environment.</li>
+                    <li>Environment-specific access: Grant access only to resources/identities in that environment.</li>
+                    <li>Different permission models: Prod and UAT more constrained than dev, maintaining deployment integrity.</li>
+                </ul>
+            
+                <h4>Cyber Security Team’s Proposed Permissions per Environment</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Team Member</th>
+                            <th>Dev Environment</th>
+                            <th>UAT Environment</th>
+                            <th>Prod Environment</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Product Owner</td>
+                            <td>Key Vault Reader (if necessary)</td>
+                            <td>Key Vault Reader (if necessary)</td>
+                            <td>No access</td>
+                        </tr>
+                        <tr>
+                            <td>Infrastructure Dev</td>
+                            <td>Key Vault Administrator</td>
+                            <td>Key Vault Administrator</td>
+                            <td>Key Vault Administrator</td>
+                        </tr>
+                        <tr>
+                            <td>Full Stack Developer</td>
+                            <td>Key Vault Administrator</td>
+                            <td>No direct access</td>
+                            <td>No access</td>
+                        </tr>
+                        <tr>
+                            <td>Cloud Engineer</td>
+                            <td>Key Vault Administrator</td>
+                            <td>Key Vault Secrets Officer (if necessary), Key Vault Reader (if necessary)</td>
+                            <td>Key Vault Reader (if necessary)</td>
+                        </tr>
+                        <tr>
+                            <td>Cyber Security Eng</td>
+                            <td>Key Vault Administrator</td>
+                            <td>Key Vault Administrator</td>
+                            <td>Key Vault Administrator</td>
+                        </tr>
+                    </tbody>
+                </table>
+            
+                <p><strong>Justifications:</strong></p>
+                <ul>
+                    <li><strong>Product Owner</strong>: Minimal access; may have read-only permissions in non-prod for oversight.</li>
+                    <li><strong>Infrastructure Developer</strong>: High access (admin) across all deployments, as they manage cloud infrastructure.</li>
+                    <li><strong>Full Stack Developer</strong>: Access in dev only. No access in UAT/Prod to maintain separation of duties.</li>
+                    <li><strong>Cloud Engineer</strong>: Needs access across environments, though with varying roles.</li>
+                    <li><strong>Cyber Security Engineer</strong>: Administrator access in all environments for oversight and compliance.</li>
+                </ul>
+            
+                <p>
+                    Due to current constraints, implementing these exact access controls may not be possible within 
+                    the scope of this project. To ensure maximal compliance, administrator privileges are only given 
+                    to team members in development, and only the service principal has access in production and UAT environments.
+                </p>
             </div>
 
             <div class="tab-content" id="content3">
-                <h3>Subsection 3 Title (Edit Here)</h3>
-                <p>Placeholder content for Subsection 3.</p>
+                <h3>Threat Modelling</h3>
+                <p>This section provides an overview of the application and its components to understand the overall system and identify the security boundaries.</p>
+
+                <hr>
+                <h3>Application Information</h3>
+                <p><strong>Application Name:</strong> IE Bank Application<br>
+                <strong>Version:</strong> 1.0<br>
+                <strong>Description:</strong> A banking platform enabling users to manage accounts, perform transactions, and administer backend configurations via frontend and backend interfaces.<br>
+                <strong>Document Owner:</strong> Security Team<br>
+                <strong>Participants:</strong> Development Team, Security Analysts, Infra Team</p>
+                
+                <hr>
+                <h3>Assets</h3>
+                <p>Assets are the core elements of the system that attackers may target.</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Trust Levels</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>User Accounts</td>
+                            <td>User credentials and sensitive account details stored in the database.</td>
+                            <td>Authenticated Users, Database Admins</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Transaction Data</td>
+                            <td>Transaction records containing sensitive PII.</td>
+                            <td>Authenticated Users, Backend Admins</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Application Logs</td>
+                            <td>Logs stored in Azure Log Analytics that may contain sensitive data.</td>
+                            <td>Developers, Azure Service Principal</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Secrets</td>
+                            <td>Stored in Azure Key Vault, includes API keys, passwords, and connection strings.</td>
+                            <td>Authorized Services, Infra Team</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>Database</td>
+                            <td>PostgreSQL storing user, account, and transaction data.</td>
+                            <td>Admin Users, Database Service Principal</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <hr>
+                <h3>Entry Points</h3>
+                <p>Entry points are interfaces through which users or external systems interact with the application.</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Trust Levels</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Backend API</td>
+                            <td>Core API providing functionalities like user authentication, account, and transactions.</td>
+                            <td>Authenticated Users</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Frontend Application</td>
+                            <td>Web-based UI for end-users to interact with backend APIs.</td>
+                            <td>Anonymous, Authenticated Users</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Admin Routes</td>
+                            <td>Admin-level routes for managing users and accounts.</td>
+                            <td>Admin Users</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Azure Services</td>
+                            <td>Interfaces for provisioning and managing infrastructure resources.</td>
+                            <td>Azure Service Principal, Infra development team</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <hr>
+                <h3>Data Flow Diagrams</h3>
+                <h4>High-Level DFD:</h4>
+                <p><strong>Actors:</strong> End-User → Frontend → Backend APIs → Database & Infrastructure Services</p>
+                <p><strong>Trust Boundaries:</strong><br>
+                1: Between user’s browser and frontend.<br>
+                2: Between frontend and backend APIs.<br>
+                3: Between backend APIs and infrastructure.</p>
+                
+                <h3>Low-Level DFDs</h3>
+                <h4>1. User Authentication</h4>
+                <p><strong>Data Flow:</strong> User submits login credentials → Backend validates credentials against the database → Response returned to the user.</p>
+                <p><strong>Threats:</strong><br>
+                Spoofing (unauthenticated access), Information Disclosure (credentials over insecure channel)</p>
+                <p><strong>Mitigations:</strong><br>
+                Enforce HTTPS, Implement MFA.</p>
+                
+                <h4>2. Transaction Processing</h4>
+                <p><strong>Data Flow:</strong> User initiates a transaction → Backend validates and updates balances in database → Transaction recorded in logs.</p>
+                <p><strong>Threats:</strong><br>
+                Tampering (manipulating transaction data), Repudiation (lack of audit trails)</p>
+                <p><strong>Mitigations:</strong><br>
+                Use database transactions for atomicity, Enable detailed audit logging.</p>
+                
+                <hr>
+                <h3>Threat Analysis</h3>
+                <p>Using STRIDE, we analyze threats across the backend, frontend, and infrastructure components.</p>
+                
+                <h4>Backend Threats</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Threat ID</th>
+                            <th>STRIDE Type</th>
+                            <th>Description</th>
+                            <th>Impact</th>
+                            <th>Likelihood</th>
+                            <th>Risk</th>
+                            <th>Mitigation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>BE1</td>
+                            <td>Information Disclosure</td>
+                            <td>Sensitive data exposed via /skull route.</td>
+                            <td>High</td>
+                            <td>High</td>
+                            <td>High</td>
+                            <td>Remove or sanitize the route output.</td>
+                        </tr>
+                        <tr>
+                            <td>BE2</td>
+                            <td>Elevation of Privilege</td>
+                            <td>Default admin credentials used for initial setup.</td>
+                            <td>High</td>
+                            <td>Medium</td>
+                            <td>High</td>
+                            <td>Replace with unique, rotated credentials.</td>
+                        </tr>
+                        <tr>
+                            <td>BE3</td>
+                            <td>Spoofing</td>
+                            <td>No token-based authentication on sensitive routes.</td>
+                            <td>High</td>
+                            <td>Medium</td>
+                            <td>High</td>
+                            <td>Use JWT/OAuth for authentication.</td>
+                        </tr>
+                        <tr>
+                            <td>BE4</td>
+                            <td>Tampering</td>
+                            <td>SQL Injection risk from unvalidated inputs.</td>
+                            <td>High</td>
+                            <td>Medium</td>
+                            <td>High</td>
+                            <td>Use ORM and parameterized queries.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h4>Frontend Threats</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Threat ID</th>
+                            <th>STRIDE Type</th>
+                            <th>Description</th>
+                            <th>Impact</th>
+                            <th>Likelihood</th>
+                            <th>Risk</th>
+                            <th>Mitigation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>FE1</td>
+                            <td>Tampering</td>
+                            <td>Weak input validation on login/registration forms.</td>
+                            <td>Medium</td>
+                            <td>Medium</td>
+                            <td>Medium</td>
+                            <td>Enforce validation on client & server.</td>
+                        </tr>
+                        <tr>
+                            <td>FE2</td>
+                            <td>Denial of Service</td>
+                            <td>No rate limiting for frontend interactions.</td>
+                            <td>High</td>
+                            <td>High</td>
+                            <td>High</td>
+                            <td>Implement rate limiting middleware.</td>
+                        </tr>
+                        <tr>
+                            <td>FE3</td>
+                            <td>Elevation of Privilege</td>
+                            <td>No CSRF protection for state-changing requests.</td>
+                            <td>High</td>
+                            <td>Medium</td>
+                            <td>High</td>
+                            <td>Add CSRF tokens to all sensitive actions.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h4>Infrastructure Threats</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Threat ID</th>
+                            <th>STRIDE Type</th>
+                            <th>Description</th>
+                            <th>Impact</th>
+                            <th>Likelihood</th>
+                            <th>Risk</th>
+                            <th>Mitigation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>INF1</td>
+                            <td>Information Disclosure</td>
+                            <td>Public network access enabled for application insights.</td>
+                            <td>High</td>
+                            <td>Medium</td>
+                            <td>High</td>
+                            <td>Restrict access to private endpoints.</td>
+                        </tr>
+                        <tr>
+                            <td>INF2</td>
+                            <td>Spoofing</td>
+                            <td>Admin user enabled for container registry.</td>
+                            <td>High</td>
+                            <td>Medium</td>
+                            <td>High</td>
+                            <td>Disable admin user & enforce Azure AD auth.</td>
+                        </tr>
+                        <tr>
+                            <td>INF3</td>
+                            <td>Denial of Service</td>
+                            <td>Short PostgreSQL backup retention period.</td>
+                            <td>Medium</td>
+                            <td>Low</td>
+                            <td>Medium</td>
+                            <td>Increase retention & enable geo-redundancy.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h4>Countermeasures and Mitigations</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Threat ID</th>
+                            <th>Countermeasure</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>BE1</td>
+                            <td>Remove /skull route or sanitize output.</td>
+                        </tr>
+                        <tr>
+                            <td>BE2</td>
+                            <td>Use unique admin credentials and rotate regularly.</td>
+                        </tr>
+                        <tr>
+                            <td>BE3</td>
+                            <td>Implement token-based authentication (OAuth/JWT).</td>
+                        </tr>
+                        <tr>
+                            <td>BE4</td>
+                            <td>Validate inputs & use parameterized queries with ORM.</td>
+                        </tr>
+                        <tr>
+                            <td>FE1</td>
+                            <td>Client & server-side input validation.</td>
+                        </tr>
+                        <tr>
+                            <td>FE2</td>
+                            <td>Implement rate-limiting middleware.</td>
+                        </tr>
+                        <tr>
+                            <td>FE3</td>
+                            <td>Use CSRF tokens for sensitive actions.</td>
+                        </tr>
+                        <tr>
+                            <td>INF1</td>
+                            <td>Restrict public access & enable private endpoints.</td>
+                        </tr>
+                        <tr>
+                            <td>INF2</td>
+                            <td>Disable admin user for container registry & use RBAC.</td>
+                        </tr>
+                        <tr>
+                            <td>INF3</td>
+                            <td>Increase backup retention & enable geo-redundancy.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <hr>
+                <h3>Final Assessment</h3>
+                <p><strong>Risk Factors:</strong></p>
+                <p>High-risk threats: Sensitive data exposure, weak authentication, infrastructure misconfigurations.<br>
+                Medium-risk threats: Lack of input validation, missing rate limits.</p>
+                
+                <p><strong>Status:</strong></p>
+                <p>Immediate remediation required for backend & infrastructure issues. Continuous security testing recommended for frontend vulnerabilities.</p>                
+            </div>
+
+            <div class="tab-content" id="content4">
+                <h3>Security Implementation Requirements</h3>
+                <p>
+                    Our project is built on the "assume breach" principle, presuming potential vulnerabilities and 
+                    focusing on minimizing risks from the outset. From the planning stage, we implemented comprehensive 
+                    cybersecurity strategies (utilizing Open SSF and SAFECode frameworks) to mitigate controllable risks 
+                    during the development phase, enabling us to prioritize more complex threats as they arise later in 
+                    the deployment phase.
+                </p>
+                
+                <hr>
+                <h3>SAFECode Practices Implemented</h3>
+                <p>
+                We chose five principles from the SAFECode “Fundamental Practices for Secure Software Development” 
+                and documented how we applied them:
+                (<a href="https://safecode.org/wp-content/uploads/2018/03/SAFECode_Fundamental_Practices_for_Secure_Software_Development_March_2018.pdf">
+                Reference</a>)
+                </p>
+                
+                <hr>
+                <h3>Secure Design Principles (Based on Saltzer and Schroeder)</h3>
+                
+                <h4>Economy of Mechanism</h4>
+                <ul>
+                    <li><strong>Simplified Architecture:</strong> The IE Bank app focuses on core functionalities 
+                        (user, account, transfers) without unnecessary features, reducing potential vulnerabilities.</li>
+                    <li><strong>Minimal Dependencies:</strong> A simple frontend framework and limited third-party 
+                        integrations keep the system lightweight and easier to audit.</li>
+                    <li><strong>Basic Authentication:</strong> Straightforward username/password avoids complexities 
+                        and reduces security pitfalls that might arise from advanced methods (e.g. OAuth).</li>
+                </ul>
+                
+                <h4>Fail-Safe Defaults</h4>
+                <ul>
+                    <li><strong>Role-Based Access Control (RBAC):</strong> Clear roles with explicit permissions ensure 
+                        no user gets extra privileges by default.</li>
+                    <li><strong>Default Denial:</strong> All resources are inaccessible by default, only explicitly 
+                        permitted actions are allowed.</li>
+                    <li><strong>Secure Defaults in Configuration:</strong> Firewall rules and DB permissions start from 
+                        deny-all and are opened as needed.</li>
+                </ul>
+                
+                <h4>Complete Mediation</h4>
+                <p>
+                All access to every resource is checked for authorization each time, ensuring no cached or assumed 
+                permissions.
+                </p>
+                
+                <h4>Least Privilege</h4>
+                <ul>
+                    <li><strong>Granular Permissions:</strong> Admins handle only user-management tasks; regular users 
+                        manage their own accounts. Each entity only gets the minimal permissions they need.</li>
+                    <li><strong>Service Account Restrictions:</strong> Service principals and DevOps accounts have 
+                        minimal required permissions.</li>
+                    <li><strong>Database Access Controls:</strong> Application components can only query data they 
+                        strictly need, reducing leakage risk.</li>
+                </ul>
+                
+                <h4>Least Common Mechanism</h4>
+                <ul>
+                    <li><strong>Isolated Functional Modules:</strong> Admin and user portals are separate modules, 
+                        limiting shared dependencies.</li>
+                    <li><strong>Separate Environments:</strong> Dev, UAT, and prod environments are independent, 
+                        preventing cascading issues.</li>
+                    <li><strong>Independent Authentication Flows:</strong> Admin and user portals have distinct 
+                        authentication, reducing common targets.</li>
+                </ul>
+                
+                <h4>Psychological Acceptability</h4>
+                <ul>
+                    <li><strong>Intuitive UI:</strong> Simple interfaces encourage correct security behavior by users.</li>
+                    <li><strong>Clear Feedback:</strong> Immediate confirmations or error messages help users avoid 
+                        mistakes.</li>
+                    <li><strong>Streamlined Authentication:</strong> Straightforward login/registration reduces user 
+                        errors that could compromise security.</li>
+                </ul>
+                
+                <h4>Compromise Recording</h4>
+                <ul>
+                    <li><strong>Comprehensive Logging:</strong> Critical events (logins, updates, transactions) are 
+                        logged for forensic analysis.</li>
+                    <li><strong>Audit Trails:</strong> Administrative actions are fully traced.</li>
+                    <li><strong>Monitoring and Alerts:</strong> Real-time monitoring of logs detects suspicious activity, 
+                        supported by secure log storage.</li>
+                </ul>
+
+                <hr>
+                
+                <h3>Use of Static Analysis Security Testing (SAST) Tools</h3>
+                <p>
+                We employed SAST tools to identify flaws early in the code:
+                </p>
+                
+                <h4>CodeQL as SAST for Frontend and Backend</h4>
+                <ul>
+                    <li><strong>CodeQL Integration:</strong> Implemented for Vue.js frontend and Python backend.</li>
+                    <li><strong>Comprehensive Code Analysis:</strong> Deep semantic checks catch issues traditional 
+                        linters miss.</li>
+                    <li><strong>Automated Detection:</strong> Runs on every commit/PR, ensuring continuous security assessment.</li>
+                    <li><strong>Custom Queries:</strong> Tailored queries for IE Bank’s needs enhance vulnerability detection.</li>
+                </ul>
+                
+                <h4>GitHub Secret Scanning and Push Protection</h4>
+                <ul>
+                    <li><strong>Secret Scanning:</strong> Prevents committing API keys, passwords, and tokens.</li>
+                    <li><strong>Push Protection:</strong> Blocks secret-containing pushes, alerting developers if they 
+                        attempt to override.</li>
+                </ul>
+                
+                <h4>OSSF Scorecard</h4>
+                <ul>
+                    <li><strong>Security Metrics Evaluation:</strong> Measures adherence to security best practices.</li>
+                    <li><strong>Continuous Improvement:</strong> Insights guide SAST configurations and focus areas.</li>
+                </ul>
+                
+                <h4>Dependabot and Dependency Reviews</h4>
+                <ul>
+                    <li><strong>Vulnerability Management:</strong> Keeps dependencies updated, reducing 
+                        vulnerabilities from outdated packages.</li>
+                    <li><strong>Proactive Security:</strong> Reviews assess potential security risks from new or 
+                        updated dependencies.</li>
+                </ul>
+                
+                <hr>
+                <h3>Establishment of Log Requirements and Audit Practices</h3>
+                
+                <h4>Centralized Logging (Application Insights & Log Analytics)</h4>
+                <ul>
+                    <li><strong>Application Insights:</strong> Logs user interactions, errors, and performance for 
+                        frontend and backend.</li>
+                    <li><strong>Log Analytics Workspace:</strong> Azure resources send diagnostics here, enabling 
+                        unified monitoring and easier audits.</li>
+                </ul>
+                
+                <h4>Defined Log Requirements Aligned with SLA and SLOs</h4>
+                <ul>
+                    <li><strong>SLA & SLO-driven Logging:</strong> Logs support measuring SLIs to ensure SLA compliance.</li>
+                </ul>
+                
+                <h4>Secure Log Storage and Protection</h4>
+                <ul>
+                    <li><strong>Encryption and RBAC:</strong> Logs are encrypted and access is controlled.</li>
+                    <li><strong>Immutable Logs:</strong> Prevents tampering; ensures integrity for forensic analysis.</li>
+                </ul>
+                
+                <h4>Audit Trails and Accountability</h4>
+                <ul>
+                    <li><strong>Detailed Metadata:</strong> Timestamps, user IDs, and action types enable traceability.</li>
+                </ul>
+                
+                <h4>Automated Log Analysis and Monitoring</h4>
+                <ul>
+                    <li><strong>Azure Workbooks/Dashboards:</strong> Visualizes SLIs and key metrics in real-time.</li>
+                    <li><strong>Azure Alerts & ChatOps:</strong> Immediate Slack notifications for suspicious activities.</li>
+                </ul>
+                
+                <h4>Integration with Incident Response</h4>
+                <ul>
+                    <li><strong>Slack Integration:</strong> Alerts posted to channels for rapid incident response.</li>
+                </ul>
+                
+                <h4>Regular Auditing and Review</h4>
+                <ul>
+                    <li><strong>Scheduled Audits:</strong> Ensures ongoing compliance and continuous improvement.</li>
+                </ul>
+                
+                <hr>
+                <h3>Threat Modeling and Risk Acceptance Process</h3>
+                <p>
+                Threat modeling was performed regularly (every 1-2 PRs) by the cybersecurity team, identifying 
+                threats based on SAST results and logical reviews.
+                </p>
+                <ul>
+                    <li><strong>Risk Threshold:</strong> Severe risks fixed immediately, high risks fixed if feasible, 
+                        medium/low deferred for next sprint.</li>
+                    <li><strong>Collaboration:</strong> Cybersecurity team, full stack devs, and product manager 
+                        coordinate on prioritizing fixes.</li>
+                </ul>
+                
+                <hr>
+                <h3>Automated Testing</h3>
+                
+                <h4>Test-Driven Development</h4>
+                <ul>
+                    <li><strong>Unit Tests:</strong> Positive and negative tests for backend (pytest) and frontend (Vue.js).</li>
+                    <li><strong>Functional Tests with Postman:</strong> End-to-end tests in UAT, integrated into CI/CD, 
+                        must pass before PR approval.</li>
+                </ul>
+                
+                <hr>
+                <h3>OpenSSF Principles Implemented</h3>
+                
+                <h4>Monitor Vulnerabilities in Dependencies</h4>
+                <ul>
+                    <li><strong>Dependabot & Dependency Reviews:</strong> Ensures outdated/insecure dependencies are 
+                        quickly addressed.</li>
+                </ul>
+                
+                <h4>Prefer Memory-Safe Languages</h4>
+                <ul>
+                    <li><strong>Backend (Python):</strong> Automatic memory management prevents common vulnerabilities.</li>
+                    <li><strong>Frontend (Vue.js/JS):</strong> Automatic memory operations ensure safer memory handling.</li>
+                </ul>
+                
+                <h4>No Secrets in Repositories</h4>
+                <ul>
+                    <li><strong>GitHub Secret Scanning & Push Protection:</strong> Prevents credential leaks at the source.</li>
+                </ul>
+                
+                <h4>Control Asset Loading from Own Domains</h4>
+                <ul>
+                    <li><strong>Minimized External Dependencies:</strong> No external JS/CSS/media directly loaded 
+                        from uncontrolled domains.</li>
+                </ul>
+                
+                <h4>Evaluate Open Source Software Dependencies</h4>
+                <ul>
+                    <li><strong>Dependency Vetting:</strong> Each dependency documented and researched before adoption.</li>
+                </ul>
+                
+                <hr>
+                <h3>Dependency Overview</h3>
+                
+                <h4>Backend Dependencies (Python/Flask)</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Dependency</th>
+                            <th>Purpose</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Flask==3.0.0</td><td>Web framework for APIs.</td></tr>
+                        <tr><td>Flask-Cors==4.0.2</td><td>Handles CORS securely.</td></tr>
+                        <tr><td>Flask-SQLAlchemy==3.1.1</td><td>ORM for DB interactions.</td></tr>
+                        <tr><td>Flask-Migrate==4.0.7</td><td>Manages DB migrations.</td></tr>
+                        <tr><td>SQLAlchemy==2.0.36</td><td>ORM toolkit for DB access.</td></tr>
+                        <tr><td>psycopg2-binary</td><td>PostgreSQL adapter for Python.</td></tr>
+                        <tr><td>python-dotenv==0.21.0</td><td>Loads environment variables securely.</td></tr>
+                        <tr><td>pytest</td><td>Testing framework for unit tests.</td></tr>
+                        <tr><td>pytest-cov</td><td>Test coverage measurement.</td></tr>
+                        <tr><td>bcrypt==4.2.0</td><td>Secure password hashing.</td></tr>
+                        <tr><td>gunicorn==23.0.0</td><td>WSGI server for production.</td></tr>
+                        <tr><td>azure-identity==1.19.0</td><td>Azure service authentication.</td></tr>
+                    </tbody>
+                </table>
+                
+                <h4>Frontend Dependencies (Vue.js)</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Dependency</th>
+                            <th>Purpose</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>axios@^1.1.3</td><td>HTTP client for API requests.</td></tr>
+                        <tr><td>bootstrap@^4.6.0</td><td>UI framework for responsive design.</td></tr>
+                        <tr><td>bootstrap-vue@^2.21.2</td><td>Vue integration with Bootstrap.</td></tr>
+                        <tr><td>vue@^2.6.14</td><td>Core Vue.js framework.</td></tr>
+                        <tr><td>vue-router@^3.5.1</td><td>Client-side routing.</td></tr>
+                    </tbody>
+                </table>
+                
+                <h4>Dev Dependencies for Frontend</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Dependency</th>
+                            <th>Purpose</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>@vue/cli-plugin-babel@~5.0.0</td><td>Babel integration for transpiling JS.</td></tr>
+                        <tr><td>@vue/cli-plugin-router@~5.0.0</td><td>Adds router capabilities to Vue CLI.</td></tr>
+                        <tr><td>@vue/cli-service@~5.0.0</td><td>CLI service for building Vue apps.</td></tr>
+                        <tr><td>vue-template-compiler@^2.6.14</td><td>Compiles Vue templates.</td></tr>
+                    </tbody>
+                </table>
+                
+                <h4>Infrastructure Dependencies</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Dependency</th>
+                            <th>Purpose</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Azure CLI</td><td>Manages Azure resources via command line.</td></tr>
+                    </tbody>
+                </table>
+                
+                <hr>
+                <h3>Conclusion</h3>
+                <p>
+                By implementing principles from SAFECode and OpenSSF frameworks, utilizing SAST tools, enforcing 
+                secret scanning, maintaining secure logging and auditing, and practicing careful dependency 
+                management, we have laid a strong foundation of security. Our approach ensures minimal risk exposure 
+                throughout development and sets the stage for proactive threat mitigation during later deployment and 
+                operations phases.
+                </p>
             </div>
         </div>
     </div>
