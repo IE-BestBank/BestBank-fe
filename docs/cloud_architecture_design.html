@@ -95,6 +95,44 @@
             padding: 10px;
             margin-top: 40px;
         }
+        hr {
+            border: none;
+            border-top: 3px solid #0e0d0d;
+            margin: 40px 0; /* Add space before/after the line as needed */
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 4px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+        }
+
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th {
+            background: #f4f4f4;
+        }
+        .img-container {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .img-container img {
+            max-width: 100%;
+            height: 400px;
+        }
     </style>
 </head>
 <body>
@@ -121,27 +159,777 @@
 
         <div class="subsection-tabs">
             <input type="radio" name="subtabs" id="subtab1" checked>
-            <label for="subtab1">Subsection 1 Title (Edit Here)</label>
+            <label for="subtab1">Infrastructure Architecture and Environments Design</label>
 
             <input type="radio" name="subtabs" id="subtab2">
-            <label for="subtab2">Subsection 2 Title (Edit Here)</label>
+            <label for="subtab2">Well Architected Framework Design</label>
 
             <input type="radio" name="subtabs" id="subtab3">
-            <label for="subtab3">Subsection 3 Title (Edit Here)</label>
+            <label for="subtab3">Diagrams and Release Strategy</label>
 
             <div class="tab-content" id="content1">
-                <h3>Subsection 1 Title (Edit Here)</h3>
-                <p>Placeholder content for Subsection 1.</p>
+                <h3>Infrastructure Architecture and Environments Design</h3>
+                <p>
+                    The infrastructure for the IE BestBank MVP is designed to ensure scalability, security, 
+                    and cost-effectiveness, adhering to the functional and non-functional requirements 
+                    of the application. By following a cloud-native approach and leveraging Microsoft 
+                    Azure services, we implement a robust DTAP (Development, Testing, Acceptance, 
+                    Production) environment strategy. This design aligns with the Azure Well-Architected 
+                    Framework and integrates industry best practices.
+                </p>
+
+                <div class="img-container">
+                    <img src="../images/ArchInfra.png" alt="Development Infrastructure">
+                </div>
+                
+                <h2>Key Azure Services and Architecture Components</h2>
+                
+                <h3>Azure Static Web Apps for Frontend</h3>
+                <ul>
+                    <li>Lightweight and cost-effective</li>
+                    <li>Implementation of CI/CD Integration through GitHub Actions</li>
+                    <li>Ease of scalability and faster delivery speed of frontend assets</li>
+                </ul>
+                
+                <h3>Azure App Service for Backend</h3>
+                <ul>
+                    <li>Highly reliable when hosting API services</li>
+                    <li>Azure monitoring tools can be integrated easily into it</li>
+                    <li>Effecient when it comes to conatiner mangament decisions</li>
+                </ul>
+                
+                <h3>PostgreSQL Azure Database</h3>
+                <ul>
+                    <li>Flexible Server mode utilization allows for higher performance and cost optimization</li>
+                </ul>
+                
+                <h3>Azure Container Registry (ACR)</h3>
+                <ul>
+                    <li>Basic SKU implemented for Development and UAT, Standard SKU for Production</li>
+                    <li>Linked with an Azure Key Vault in order to ensure security of credentials</li>
+                </ul>
+                
+                <h3>Azure Key Vault</h3>
+                <ul>
+                    <li>Automated secret retrieval</li>
+                    <li>Standard SKU across all environments enusring consistency/li>
+                </ul>
+                
+                <h3>Monitoring and Logging</h3>
+                <ul>
+                    <li><strong>Azure Log Analytics:</strong> PerGB2018 SKU for scalable logging/analysis, centralized for infrastructure. </li>
+                    <li><strong>Azure Application Insights:</strong> 90 day retention period, Sufficient telemetry data for long-term trends and live environment debugging.</li>
+                    <li><strong>Azure Workbooks:</strong> Provides us with a visualization of logs and metrics for actionable insights.</li>
+                    <li><strong>Azure Alerts:</strong> Real-time incident notifications.</li>
+                </ul>
+                
+                <hr>
+                <h2>Environment Setup: DTAP Strategy</h2>
+                <p>
+                    IE BestBank's MVP employs a structured DTAP (Development, Testing, Acceptance, Production) 
+                    strategy in order to improve and propelry ensure application lifecycle. The main reason behind as to why we deployed this strategy was to ensure 
+                    that each stage operates independently, ensuring that errors or issues were not carried over to the next stage. This allowed us to ensure our stakeholders of
+                    the quality of the application before it was deployed to production, increasing its reliability and trust.
+                </p>
+
+                <h2>Advantages of the DTAP Strategy</h2>
+                <ul>
+                    <li>Improved quality of the application</li>
+                    <li>Increased reliability and trust</li>
+                    <li>Reduced risk of errors and issues</li>
+                    <li>Enhanced collaboration between development and operations teams</li>
+
+                </ul>
+
+                <h2>Environment Details</h2>
+
+                <h3>Development Environment</h3>
+                <ul>
+                    <li><strong>Resource Group:</strong> BCSAI2024-DEVOPS-STUDENTS-A-DEV.</li>
+                    <li><strong>Focus:</strong>
+                        <ul>
+                            <li>Focused on increased speed and deployment of new features to the application.</li>
+                            <li>Supports rapid iteration and testing of new experimental functionality. </li>
+
+                        </ul>
+                    </li>
+                    <li><strong>Setup:</strong>
+                        <ul>
+                            <li>Continuous Integration (CI) is triggered through the usage of feature branch commits.</li>
+                            <li>GitHub Actions are used to automate the deployment of new code changes.</li>
+                            <li>Containerized application components are stored in Azure Container Registry.</li>
+                            <li>Azure Key Vault securely manages secrets such as credentials in our database</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <h3>Testing/UAT Environment</h3>
+                <ul>
+                    <li><strong>Resource Group:</strong> BCSAI2024-DEVOPS-STUDENTS-A-UAT.</li>
+                    <li><strong>Focus:</strong>
+                        <ul>
+                            <li>Ensures that the application meets the required quality standards.</li>
+                            <li>Provides a controlled environment for stakeholders to review and approve new features.</li>
+
+                        </ul>
+                    </li>
+                    <li><strong>Setup:</strong>
+                        <ul>
+                            <li>Deployments are triggered only after successful testing in the Development environment.</li>
+                            <li>Uses Azure Key Vault for secure secrets management.</li>
+                            <li>Simulation of production environment, allowing our stakeholders to see almost exact version of true functionality</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <h3>Production Environment</h3>
+                <ul>
+                    <li><strong>Resource Group:</strong> BCSAI2024-DEVOPS-STUDENTS-A-PROD.</li>
+                    <li><strong>Focus:</strong>
+                        <ul>
+                            <li>Ensures that the application is stable and reliable for end-users.</li>
+                            <li>Supports high availability and scalability of the application.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Setup:</strong>
+                        <ul>
+                            <li>Deployments are triggered only after successful testing in the UAT environment.</li>
+                            <li>Uses Azure Key Vault for secure secrets management.</li>
+                            <li>High availability and scalability are ensured through Azure App Service and Azure Database.</li>
+                        </ul>
+                    </li>
+                </ul>
+
             </div>
 
             <div class="tab-content" id="content2">
-                <h3>Subsection 2 Title (Edit Here)</h3>
-                <p>Placeholder content for Subsection 2.</p>
-            </div>
+                <h1>Well Architected Framework Design</h1>
+                <h2>Operational Excellence Pillar</h2>
+                <p>
+                    The Operational Excellence pillar focuses on running and managing the workload to deliver business value and to improve efficiency
+                </p>
 
+                <h3>Deployment Strategies</h3>
+                <ul>
+                    <li><strong>Continuous Integration and Deployment:</strong> 
+                        Implemented CI/CD pipelines using GitHub Actions for automated deployment of code changes across environments. 
+                        Ensured consistent deployment practices with automated testing and validation.
+
+                    </li>
+                    <li><strong>Environment Provisioning:</strong> 
+                        Utilized Azure Bicep templates for infrastructure as code (IaC) to provision and manage resources consistently across environments.
+                    </li>
+                </ul>
+
+                <h3>Monitoring and Diagnostics</h3>
+                <ul>
+                    <li><strong>Monitoring Tools:</strong> 
+                        Leveraged Azure Application Insights and Log Analytics Workspace for real-time monitoring and diagnostics.
+                    </li>
+                    <li><strong>Custom Metrics:</strong> 
+                        Defined custom metrics and alerts to monitor application performance and resource utilization.
+                        These were based on our predefined Service Level Objectives (SLOs) and Service Level Indicators(SLIs).
+                    
+                    </li>
+                </ul>
+
+                <h3>Incident Management</h3>
+                <ul>
+                    <li><strong>Real-Time Notifications:</strong> 
+                        Integrated Azure Logic Apps with Slack for instant incident notifications and alerts.
+                    </li>
+                    <li><strong>Automated Recovery:</strong> 
+                        Developed automated recovery scripts to restore services in case of failures.
+                    </li>
+                    <li><strong>Documentation and Tracking:</strong> 
+                        Maintained detailed incident reports and tracked resolution times for continuous improvement.
+                    </li>
+                </ul>
+
+                <h3>Continuous Improvement</h3>
+                <ul>
+                    <li>Conducted regular retrospectives after sprints and implemented feedback loops to optimize workflows and enhance operational efficiency.</li>
+                </ul>
+
+                <h2>Cost Optimization Pillar</h2>
+                <p>
+                    Focuses on optimizing costs without sacrificing performance by leveraging cloud services efficiently.
+                </p>
+
+                <h3>Cost-Efficient Infrastructure Provisioning</h3>
+                <ul>
+                    <li><strong>Infrastructure as Code (IaC):</strong> 
+                        Utilized Azure Bicep templates for consistent and automated resource provisioning.
+                    </li>
+                    <li><strong>Right-Sizing Resources:</strong> 
+                        Selected appropriate resource tiers based on workload requirements to balance performance and cost.
+                    </li>
+                </ul>
+
+                <h3>Cost Monitoring and Analysis</h3>
+                <ul>
+                    <li>
+                        Utilized Static Web Apps for frontend to minimize costs and optimize performance, as well as PostgreSQL Flexible Server for cost-effective database operations.
+                    </li>
+                    <li>
+                        Implemented environment-specific retention policies in our Application Insights and Log Analytics (30-90 days).
+                    </li>
+                    <li>
+                        Integrated Slack with Azure Logic Apps for real-time cost monitoring alerts.
+                    </li>
+                </ul>
+
+                <h3>Automation for Cost Reduction</h3>
+                <ul>
+                    <li><strong>Auto-Scaling:</strong> 
+                        Configured auto-scaling for Azure App Service and PostgreSQL to adjust resources based on demand, reducing costs during low-traffic periods.
+                    </li>
+                    <li><strong>Automated Shutdown:</strong> 
+                        Scheduled automated shutdowns for non-production environments to minimize costs outside of working hours.
+                    </li>
+                    <li><strong>Cleanup of Unused Resources:</strong> 
+                        Implemented automated scripts to identify and remove unused resources, reducing unnecessary expenses.
+                    </li>
+                </ul>
+
+                <h2>Performance Optimization Pillar</h2>
+                <p>
+                    Focuses on optimizing performance to meet the demands of the workload and deliver a seamless user experience.
+                </p>
+
+                <h3>Resource Utilization</h3>
+                <ul>
+                    <li>
+                        Utilized Azure App Service for hosting backend services, ensuring high availability and scalability.
+                    </li>
+                    <li>
+                        Configured Azure Container Registry for efficient container management decisions.
+                    </li>
+                    <li>
+                        Implemented Azure Key Vault for secure secrets management across all environments.
+                    </li>
+                </ul>
+
+                <h3>Cost-Effective Performance Improvements</h3>
+                <ul>
+                    <li>
+                        Utilized Azure CDN for efficient content delivery and reduced latency, enhancing user experience.
+                    </li>
+                </ul>
+
+                <h3>Continuous Performance Optimization</h3>
+                <ul>
+                    <li>
+                        Conducted regular performance testing and optimization to identify bottlenecks and improve system efficiency.
+                    </li>
+                </ul>
+
+                <h3>Enhancing System Efficiency</h3>
+                <ul>
+                    <li>
+                        Implemented Azure Log Analytics and Application Insights for real-time monitoring and diagnostics to identify performance issues.
+                    </li>
+                    <li>
+                        Defined custom metrics and alerts to monitor application performance and resource utilization, ensuring optimal system efficiency.
+                    </li>
+                </ul>
+
+                <h2>Security Pillar</h2>
+                <p>
+                    Focuses on protecting data, systems, and assets from threats and vulnerabilities throughout the application lifecycle.
+                </p>
+
+                <h3>Design Features</h3>
+                <ul>
+                    <li><strong>Azure Key Vault:</strong> 
+                        Centralized secrets management for secure storage and access control. Ensures sensitive data is encrypted and protected.
+                        
+                    </li>
+                    <li><strong>CI/CD Security Tools:</strong></li>
+                    <ul>
+                        <li><strong>CodeQL:</strong> 
+                            Static code analysis tool that identifies security vulnerabilities in the codebase.
+                        </li>
+                        <li><strong>OSSF Scorecard:</strong> 
+                            Open Source Security Foundation tool that assesses the security posture of open-source projects.
+                        </li>
+                    </ul>
+                    <li><strong>Dependency Management:</strong></li>
+                    <ul>
+                        <li><strong>Dependabot:</strong> 
+                            Automated dependency management tool that detects and fixes vulnerabilities in dependencies.
+                        </li>
+                    </ul>
+                    <li><strong>Secrets Management:</strong></li>
+                    <ul>
+                        <li><strong>GitHub Secret Scanning:</strong> 
+                            Scans repositories for exposed secrets and alerts developers to take corrective action.
+                        </li>
+                        <li><strong>Push Protection:</strong> 
+                            Prevents accidental exposure of secrets by blocking pushes that contain sensitive information.
+                        </li>
+                    </ul>
+                    <li><strong>Encryption:</strong> 
+                        Utilized Azure Key Vault for encryption at rest and in transit to protect sensitive data.
+                        Protected data in transit using HTTPS and TLS encryption.
+                    </li>
+                    <li><strong>Threat Modeling:</strong> 
+                        Conducted threat modeling sessions to identify potential security risks and implement appropriate controls.
+                    </li>
+                    <li><strong>Secure Coding Practices:</strong> 
+                        Followed secure coding practices to prevent common vulnerabilities such as SQL injection, cross-site scripting (XSS), and others.
+                    </li>
+                </ul>
+                <p>
+                    By incorporating these security measures, the application is protected against threats and vulnerabilities, ensuring data confidentiality, integrity, and availability throughout the system lifecycle.
+                </p>
+
+                <h2>Reliability Pillar</h2>
+                <p>
+                    Focuses on ensuring system availability, fault tolerance, and resilience to maintain a consistent user experience.
+                </p>
+
+                <h3>Ensuring System Availability</h3>
+                <ul>
+                    <li><strong>High-Availability Targets:</strong> 
+                        Defined very high level Service Level Objectives (SLOs):
+                        <ul>
+                            <li>99.9% for Azure Key Vault (Standard tier).</li>
+                        </ul>
+
+                    </li>
+                    <li><strong>Redundancy Strategies:</strong> 
+                        Implemented redundancy at the infrastructure level with Azure App Service and Azure Container Registry to ensure high availability.
+                    </li>
+                </ul>
+
+                <h3>Resilience through Backup and Recovery</h3>
+                <ul>
+                    <li><strong>PostgreSQL Configuration:</strong> 
+                        Configured automated backups and point-in-time recovery for PostgreSQL database to prevent data loss.
+                        Made use of PostgreSQL Flexible Server in Burstable configurations for cost-effective backup and recovery.
+                    </li>
+                    <li><strong>Soft Delete for Data Protection:</strong> 
+                        Implemented soft delete functionality in the application to protect against accidental data loss.
+                    </li>
+                </ul>
+
+                <h3>Monitoring and Alerting</h3>
+                <ul>
+                    <li><strong>Real-Time Observability:</strong> 
+                        Utilized Azure Monitor for real-time monitoring and alerting of application performance and resource utilization.
+                        <ul>
+                            <li>Application Insights with 90-day retention for application metrics.</li>
+                            <li>Log Analytics Workspace with 30-day retention for operational logs.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Metric-Based Alerting:</strong> 
+                        Implemented alerts for key performance indicators (KPIs), including:
+                        <ul>
+                            <li>HTTP response time thresholds.</li>
+                            <li>Latency Analysis.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Incident Notifications:</strong> 
+                        Integrated Azure Logic Apps with Slack for real-time incident notifications and alerts.
+                    </li>
+                </ul>
+
+                <h3>Fault Tolerance Mechanisms</h3>
+                <ul>
+                    <li><strong>Infrastructure Resilience:</strong> 
+                        Implemented Azure App Service and Azure Container Registry for fault tolerance and high availability.
+                    </li>
+                    <li><strong>Graceful Degradation:</strong> 
+                        Designed the application to gracefully degrade functionality during service disruptions to maintain user experience.
+                    </li>
+                </ul>
+
+                <hr>
+
+                <h1>12-Factor App Design</h1>
+
+            <h2>Overview</h2>
+            <p>
+                The 12-Factor App methodology outlines best practices for developing modern, scalable, and maintainable cloud-native applications. The IE BestBank MVP
+                application adheres to these principles, ensuring a robust and efficient architecture. By following these guidelines, we achieve a high level of operational
+                excellence, security, and reliability in our cloud-native design.
+            </p>
+
+            <h2>12-Factor Principles Applied</h2>
+
+            <h3>1. Codebase</h3>
+            <p>
+                Maintain a single codebase tracked in revision control, with multiple deployments.
+            </p>
+            <ul>
+                <li><strong>Implementation:</strong></li>
+                <ul>
+                    <li>Source code is stored in a single GitHub organization made of 3 GitHub Repositories(Frontend, Backend, and Infra), enabling version control and collaboration.</li>
+                    <li>CI/CD pipelines deploy the same codebase to multiple environments (Development, UAT, Production).</li>
+                    <li>Infrastructure as Code (IaC) templates are version-controlled alongside the application codebase.
+                </ul>
+            </ul>
+
+            <h3>2. Dependencies</h3>
+            <p>
+                Explicitly declare and isolate dependencies.
+            </p>
+            <ul>
+                <li><strong>Implementation:</strong></li>
+                <ul>
+                    <li>Frontend and backend dependencies are explicitly declared in package.json and requirements.txt files, respectively.</li>
+                    <li>Dependencies are containerized using Docker, ensuring consistent runtime environments across deployments.</li>
+                    <li>Dependency versions are pinned to prevent unexpected changes and ensure reproducibility.
+                </ul>
+            </ul>
+
+            <h3>3. Configuration</h3>
+            <p>
+                Store configuration in the environment.
+            </p>
+            <ul>
+                <li><strong>Implementation:</strong></li>
+                <ul>
+                    <li>Environment-specific configuration settings are stored in Azure Key Vault.</li>
+                    <li>Configuration settings are injected into the application at runtime using Bicep Parameter Files, allowing for easy environment-specific customization.</li>
+                    <li>Secrets and sensitive information are securely managed and accessed through Key Vault integration.
+                </ul>
+            </ul>
+
+            <h3>4. Backing Services</h3>
+            <p>
+                Treat backing services as attached resources.
+            </p>
+            <ul>
+                <li><strong>Implementation:</strong></li>
+                <ul>
+                    <li>Backing services (e.g., databases, message queues) are treated as external resources
+                        and accessed via connection strings stored in Azure Key Vault.</li>
+                    <li>Services are provisioned and managed using IaC templates, ensuring consistent and repro
+                        ducible environments.
+                    </li>
+                </ul>
+            </ul>
+
+            <h3>5. Build, Release, Run</h3>
+            <p>
+                Strictly separate build and run stages of deployment.
+            </p>
+            <ul>
+                <li><strong>Implementation:</strong></li>
+                <ul>
+                    <li>Build and release stages are separated using CI Pipelines, ensuring that the build process
+                        is consistent across environments.
+                    </li>
+                    <li>Container images are built and stored in Azure Container Registry, decoupling the build process
+                        from the runtime environment.
+                    </li>
+                    <li>Release and deployment stages are automated using CI Pipelines, ensuring consistent and reproducible
+                        deployments across environments.
+                    </li>
+
+                </ul>
+            </ul>
+
+            <h3>6. Processes</h3>
+            <p>
+                Execute the application as one or more stateless processes.
+            </p>
+            <ul>
+                <li><strong>Implementation:</strong></li>
+                <ul>
+                    <li>Frontend and backend services are designed as stateless processes, enabling horizontal scaling and fault tolerance.</li>
+                    <li>Containerized applications are deployed as stateless microservices, allowing for independent scaling and deployment.
+                </ul>
+            </ul>
+
+            <h3>7. Port Binding</h3>
+            <p>
+                Use container ports to expose services.
+            </p>
+            <ul>
+                <li><strong>Implementation:</strong></li>
+                <ul>
+                    <li>Frontend and backend services are exposed through container ports, enabling communication with external services.</li>
+                    <li>Containerized applications are deployed to Azure App Service, which manages port binding and routing automatically.</li>
+                </ul>
+            </ul>
+
+            <h3>8. Concurrency</h3>
+            <p>
+                Use concurrency to improve responsiveness and throughput.
+            </p>
+            <ul>
+                <li><strong>Implementation:</strong></li>
+                <ul>
+                    <li>Frontend and backend services are designed to handle concurrent requests, improving responsiveness and throughput
+                        in high-traffic scenarios.</li>
+                    <li>Containerized applications are deployed to Azure App Service, which automatically manages concurrency and scaling
+                        based on demand.</li>
+
+                </ul>
+            </ul>
+
+            <h3>9. Disposability</h3>
+            <p>
+                Maximize robustness with fast startup and graceful shutdown.   
+            </p>
+            <ul>
+                <li><strong>Implementation:</strong></li>
+                <ul>
+                    <li>Frontend and backend services are designed to start up quickly and shut down cleanly,
+                        minimizing downtime and improving overall system reliability.</li>
+                    <li>Containerized applications are deployed to Azure App Service, which manages startup and shutdown processes
+                        automatically.</li>
+                </ul>
+            </ul>
+
+            <h3>10. Dev/Prod Parity</h3>
+            <p>
+                Keep development, staging, and production environments as similar as possible.
+            </p>
+            <ul>
+                <li><strong>Implementation:</strong></li>
+                <ul>
+                    <li>Development, testing, and production environments are provisioned using the same IaC templates,
+                        ensuring consistency and parity across environments.</li>
+                    <li>CI/CD pipelines deploy the same codebase to all environments, minimizing configuration drift and ensuring
+                        consistent behavior.</li>
+                </ul>
+            </ul>
+
+            <h3>11. Logs</h3>
+            <p>
+                Treat logs as event streams.
+            </p>
+            <ul>
+                <li><strong>Implementation:</strong></li>
+                <ul>
+                    <li>Application logs are treated as event streams and stored in Azure Log Analytics for real-time monitoring and analysis.</li>
+                    <li>Log data is collected, aggregated, and analyzed using Azure Application Insights, providing actionable insights and performance metrics.</li>
+                </ul>
+            </ul>
+
+            <h3>12. Admin Processes</h3>
+            <p>
+                Run admin/management tasks as one-off processes.
+            </p>
+            <ul>
+                <li><strong>Implementation:</strong></li>
+                <ul>
+                    <li>Admin tasks, such as database migrations and backups, are run as one-off processes
+                        using Azure DevOps pipelines or Azure CLI scripts.</li>
+                    <li>Scripts are executed
+                        in isolated environments to prevent interference with production services.</li>
+                </ul>
+            </ul>
+
+            <h2>Summary</h2>
+            <p>
+                By following the 12-Factor App methodology, the IE BestBank MVP application achieves a high level of operational excellence, security, and reliability.
+                The application is designed to be scalable, maintainable, and cloud-native, ensuring a seamless user experience and efficient development workflow.
+            </p>
+
+            </div>
             <div class="tab-content" id="content3">
-                <h3>Subsection 3 Title (Edit Here)</h3>
-                <p>Placeholder content for Subsection 3.</p>
+                <h1>Release Strategy</h1>
+                <p>
+                    The release strategy for the IE BestBank MVP application is designed to ensure efficient and reliable deployments across multiple environments.
+                    By following a structured approach to release management, we can deliver new features and updates with minimal risk and downtime.
+                </p>
+
+                <h2>Environment-Specific Design</h2>
+                <p>
+                    The application is designed to run in multiple environments, including development, testing, staging, and production. Each environment serves a specific purpose
+                    and is configured to meet the needs of its users. The following sections outline the key components and deployment triggers for each environment.
+                </p>
+
+                <h3>Development Environment</h3>
+                <ul>
+                    <li><strong>Purpose:</strong> Provides a sandbox environment for developers to test new features and changes.</li>
+                    <li><strong>Configuration:</strong> Uses a lightweight infrastructure setup to facilitate rapid development and testing.</li>
+                    <li><strong>Deployment Trigger:</strong> Commits to feature branches trigger deployments to the Development environment.</li>
+                    <li><strong>Setup:</strong>
+                        <ul>
+                            <li>Integrated with CI/CD pipelines for automated testing and deployment.</li>
+                            <li>Containerized application components are stored in Azure Container Registry for easy deployment.</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <h3>UAT Environment</h3>
+                <ul>
+                    <li><strong>Purpose:</strong> Acts as a staging environment for user acceptance testing and stakeholder reviews.</li>
+                    <li><strong>Configuration:</strong> Mirrors the Production environment to validate application functionality and performance.</li>
+                    <li><strong>Deployment Trigger:</strong> Pull Requests (PRs) to the main branch trigger deployments to the UAT environment.</li>
+                    <li><strong>Setup:</strong>
+                        <ul>
+                            <li>Deployments proceed only after successful testing in the Development environment.</li>
+                            <li>Uses Azure Key Vault for secure secrets management and environment-specific configurations.</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <h3>Production Environment</h3>
+                <ul>
+                    <li><strong>Purpose:</strong> Hosts the live application for end-users and customers.</li>
+                    <li><strong>Configuration:</strong> Configured for high availability, scalability, and performance.</li>
+                    <li><strong>Deployment Trigger:</strong> Pushes to the main branch trigger deployments to the Production environment afetr successful deploying to UAT Environment.</li>
+                    <li><strong>Setup:</strong>
+                        <ul>
+                            <li>Deployments are automated and require successful testing in the UAT environment.</li>
+                            <li>Uses Azure Key Vault for secure secrets management and environment-specific configurations.</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <h2>Key Components</h2>
+
+                <h3>Source Control</h3>
+                <ul>
+                    <li><strong>Git:</strong> Used for version control and collaboration.</li>
+                    <li><strong>Branching Strategy:</strong> Feature branches for development, main branch for production-ready code.</li>
+
+                </ul>
+
+                <h3>Continuous Integration/Continuous Delivery (CI/CD)</h3>
+                <ul>
+                    <li><strong>CI/CD Pipeline:</strong> Automated testing and deployment using Azure Dev
+                    <li><strong>Environment-Specific Pipelines:</strong>
+                        <ul>
+                            <li>Development environment: automated testing and deployment, feature branches specific.</li>
+                            <li>UAT environment: gated workflows and manual approvals for deployment, pull requests specific.</li>
+                            <li>Production environment: automated deployment after successful UAT environment deployment, merges to main specific.</li>
+                        </ul>
+                    </li>
+
+                </ul>
+
+                <h3>Testing</h3>
+                <ul>
+                    <li><strong>Unit Testing:</strong> Automated testing for individual components and functions.</li>
+                    <li><strong>Integration Testing:</strong> Testing the interaction between components and services.</li>
+                    <li><strong>Functional Testing:</strong> End-to-end testing of application features and user scenarios.</li>
+                </ul>
+
+                <h3>Infrastructure as Code (IaC)</h3>
+                <ul>
+                    <li>Azure Bicep templates are used to define and deploy infrastructure resources.</li>
+                    <li>Infrastructure changes are version-controlled and deployed alongside application code.</li>
+                </ul>
+
+                <h3>Monitoring and Logging</h3>
+                <ul>
+                    <li><strong>Application Insights:</strong> Collects telemetry data for application performance and usage
+                    <li><strong>Azure Monitor:</strong> Provides centralized logging and monitoring for infrastructure resources.</li>
+                </ul>
+
+                <h2>Deployment Triggers Across Environments</h2>
+
+                <h3>Development</h3>
+                <ul>
+                    <li>Automated testing and deployment on push to feature branch.</li>
+                </ul>
+
+                <h3>UAT</h3>
+                <ul>
+                    <li>Automated testing and deployment on successful PR to main branch.</li>
+                    <li>Manual approvals for deployment to ensure stakeholder review and acceptance.</li>
+                </ul>
+
+                <h3>Production</h3>
+                <ul>
+                    <li>Automated deployment on successful deployment to UAT environment.</li>
+                    <li>Manual approvals for deployment to ensure readiness for end-users.</li>
+                </ul>
+
+                <h2>Benefits</h2>
+                <ul>
+                    <li>Consistent deployment practices across environments.</li>
+                    <li>Automated testing and validation for reliable releases.</li>
+                    <li>Reduced risk of errors and issues in production.</li>
+                    <li>Enhanced collaboration between development and operations teams.</li>
+                </ul>
+
+                <h2>Conclusion</h2>
+                <p>
+                    The release strategy for the IE BestBank MVP application ensures efficient and reliable deployments across multiple environments.
+                    By following a structured approach to release management, we can deliver new features and updates with minimal risk and downtime.
+                </p>
+
+                <h1>Sequence Diagrams</h1>
+                <p>
+                    The following sequence diagrams illustrate the deployment process for the IE BestBank MVP application.
+                </p>
+
+                <h2>1. User Account: Registration</h2>
+                <p><strong>Purpose:</strong> Outlines the steps a user takes to register an account.</p>
+                <h3>User Registration Sequence Diagram</h3>
+                <div class="img-container">
+                    <img src="../images/seq4.png" alt="Development Infrastructure">
+                </div>
+                <ul>
+                    <li>The user enters their details and submits the registration form.</li>
+                    <li>The frontend sends the registration data to the backend via an API call.</li>
+                    <li>The backend validates the data and creates a new user account in the database.</li>
+                    <li>A confirmation message is displayed to the user upon successful registration.</li>
+                </ul>
+
+                <h2>2. User Account: Login</h2>
+                <p><strong>Purpose:</strong> Describes the user login process.</p>
+                <h3>User Login Sequence Diagram</h3>
+                <div class="img-container">
+                    <img src="../images/seq3.png" alt="Development Infrastructure">
+                </div>
+                <ul>
+                    <li>The user enters their login credentials and submits the login form.</li>
+                    <li>The frontend sends the login data to the backend via an API call.</li>
+                    <li>The backend validates the credentials against the database and generates a session token.</li>
+                    <li>The user is redirected to the dashboard upon successful login.</li>
+                </ul>
+
+                <h2>3 and 4. User Account: Transaction</h2>
+                <p><strong>Purpose:</strong> Illustrates the user transaction process.</p>
+                <h3>User Transaction Sequence Diagrams</h3>
+                <div class="img-container">
+                    <img src="../images/seq2.png" alt="Development Infrastructure">
+                </div>
+                <div class="img-container">
+                    <img src="../images/seq1.png" alt="Development Infrastructure">
+                </div>
+
+                <ul>
+                    <li>The user initiates a transaction by selecting the desired action (e.g., deposit, transfer).</li>
+                    <li>The frontend sends the transaction request to the backend via an API call.</li>
+                    <li>The backend processes the transaction and updates the user's account balance in the database.</li>
+                    <li>A confirmation message is displayed to the user upon successful completion.</li>
+                </ul>
+
+                <h2>Summary</h2>
+                <p>
+                    The sequence diagrams demonstrate the user account registration, login, and transaction processes for the IE BestBank MVP application.
+                </p>
+
+                <h2>Data Flow</h2>
+                <p>
+                    The data flow for the user account processes involves the following components: frontend, backend, and database.
+                </p>
+                <h3>Data Flow Diagram</h3>
+                <div class="img-container">
+                    <img src="../images/DFD.png" alt="Development Infrastructure">
+                </div>
+
+                <h2>Entity Relationship Diagram</h2>
+                <p>
+                    The entity-relationship diagram illustrates the relationships between the user, account, and transaction entities in the database.
+                </p>
+                <h3>Entity-Relationship Diagram</h3>
+                <div class="img-container">
+                    <img src="../images/ER.png" alt="Development Infrastructure">
+                </div>
+            
+
             </div>
         </div>
     </div>
