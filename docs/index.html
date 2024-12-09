@@ -49,6 +49,24 @@
             border-top: 3px solid #0e0d0d;
             margin: 40px 0; /* Add space before/after the line as needed */
         }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+        }
+
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background: #f4f4f4;
+        }
     </style>
 </head>
 <body>
@@ -106,6 +124,63 @@
                 Contains the infrastructure code and resources for the IE Bank application, built with Bicep and IaC code.
             </li>
         </ul>
+
+        <hr>
+
+        <h1>Functional and Non-Functional Requirements</h1>
+        <p>
+            Below are the new functional and non-functional requirements for the IE BestBank application:
+        </p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Requirement ID</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Functional Requirements -->
+                <tr>
+                    <td>FR 1</td>
+                    <td>Functional</td>
+                    <td>The application must provide a default administrator account (username and password). The admin account must have access to the user management portal upon successful login.</td>
+                </tr>
+                <tr>
+                    <td>FR 2</td>
+                    <td>Functional</td>
+                    <td>Once logged into the bank users management portal, a bank administrator can list, create, update, and delete bank users and their passwords.</td>
+                </tr>
+                <tr>
+                    <td>FR 3</td>
+                    <td>Functional</td>
+                    <td>New bank users can register on IE Bank using a registration form that includes username, password, and password confirmation. Upon registration, a new account with a randomly generated account number is automatically provided.</td>
+                </tr>
+                <tr>
+                    <td>FR 4</td>
+                    <td>Functional</td>
+                    <td>Bank users can log in to the web application using their username and password. After logging in, they can view only their own bank accounts and transactions.</td>
+                </tr>
+                <tr>
+                    <td>FR 5</td>
+                    <td>Functional</td>
+                    <td>Bank users can transfer money to other existing accounts within the bank through the account management portal by entering the recipient’s account number and the transfer amount. The transfer amount cannot exceed the available balance in the user's account.</td>
+                </tr>
+                
+                <!-- Non-Functional Requirements -->
+                <tr>
+                    <td>NFR 1</td>
+                    <td>Non-Functional</td>
+                    <td>The web application must implement a basic user/admin authentication system requiring users to enter their username and password to log in. Advanced authentication methods such as biometric, token, or OAuth should not be used. User credentials must be securely encrypted (hashed) and stored in the database.</td>
+                </tr>
+                <tr>
+                    <td>NFR 2</td>
+                    <td>Non-Functional</td>
+                    <td>The web application should feature a simple frontend user interface, focusing less on aesthetic aspects like colors, fonts, or animations. It is not required to ensure frontend compatibility and responsiveness across different browsers and devices.</td>
+                </tr>
+            </tbody>
+        </table>
 
         <hr>
 
